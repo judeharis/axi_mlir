@@ -1,4 +1,5 @@
-.vscode/launch.json
-.vscode/settings.json
-.vscode/tasks.json
-sample_code/out/sample_prog
+sample_code/out/
+sample_code/out_make/
+.vscode/
+
+
