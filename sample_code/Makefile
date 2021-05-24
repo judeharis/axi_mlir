@@ -3,8 +3,8 @@
 CC = g++
 ACC = arm-linux-gnueabi-g++
 
-SYSTEMC_HOME= /usr/local/systemc-2.3.3
-CFLAGS=-I$(SYSTEMC_HOME)/include -L$(SYSTEMC_HOME)/lib-linux64 -Wl,-rpath=$(SYSTEMC_HOME)/lib-linux64 -lsystemc -lm
+SYSC_PATH= ${SYSTEMC_HOME}
+CFLAGS=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PATH)/lib-linux64 -lsystemc -lm
 
 INCLUDE=-I/includes
 TOGGLE=-DAXI_DMA
