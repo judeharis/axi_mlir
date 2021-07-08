@@ -59,10 +59,10 @@ struct dma{
 
     //-----------------BUFFER Functions-----------------
     // Copy data into the Input Buffer (length to write, offset to write to) returns 0 if successful
-    int dma_copy_to_inbuffer(unsigned int* src_address, int data_length, int offset);
+    int dma_copy_to_inbuffer(unsigned int* host_src_address, int data_length, int offset);
 
     // Copy data from the Output Buffer (length to read, offset to read from) returns 0 if successful
-    int dma_copy_from_outbuffer(unsigned int* dst_address, int data_length, int offset);
+    int dma_copy_from_outbuffer(unsigned int* host_dst_address, int data_length, int offset);
 
 //================================================================================================================
 
@@ -75,13 +75,13 @@ struct dma{
      * Starts transfers to the accelerator using dma associated with dma_id
      * Return 0 if successful, returns negative if error occurs
      */
-    int dma_set_transfer(int length, int offset);
+    int dma_start_send(int length, int offset);
 
     //Blocks thread until dma MMS2 transfer is complete
-    void dma_send();
+    void dma_wait_send();
 
     // Same as dma_send but thread does not block, returns if 0
-    int dma_send_nb();
+    int dma_check_send();
 
 
     //-----------------DMA S2MM Functions-----------------
@@ -91,13 +91,13 @@ struct dma{
      * Starts storing data recieved through dma associated with dma_id
      * Return 0 if successful, returns negative if error occurs
      */
-    int dma_set_store(int length);
+    int dma_start_recv(int length, int offset);
 
     //Blocks thread until dma S2MM transfer is complete (TLAST signal is seen)
-    void dma_recv();
+    void dma_wait_recv();
 
     // Same as dma_recv but thread does not block, returns if 0
-    int dma_recv_nb();
+    int dma_check_recv();
 
 
     //Unexposed to MLIR
