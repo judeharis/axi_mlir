@@ -1,3 +1,5 @@
+//**********************Deprecated**********************
+
 #ifndef AXI_APIv0
 #define AXI_APIv0
 
@@ -7,8 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// API Model = One DMA is allocated with an input and an output buffer
 
+
+
+// API Model = One DMA is allocated with an input and an output buffer
 //TODO: Struct based representation of API model
 
 
@@ -37,7 +41,6 @@ struct dma{
         dma_virtual_address[offset>>2] = value;
     }
 
-    template <typename Integer>
     unsigned int dma_get(unsigned int* dma_virtual_address, int offset) {
         return dma_virtual_address[offset>>2];
     }

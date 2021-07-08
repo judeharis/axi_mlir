@@ -1,3 +1,5 @@
+//**********************Deprecated**********************
+
 #include "axi_apiv0.h"
 
 void dma::init(int id){

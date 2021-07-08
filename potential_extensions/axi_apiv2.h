@@ -1,23 +1,23 @@
-#ifndef AXI_APIv2
-#define AXI_APIv2
+#ifndef AXI_APIv1
+#define AXI_APIv1
 
-// API Model = Each DMA knows start to end memory addresses it can access, buffers created when required for given dma
+// API Model = Each DMA is allocated one input and one output buffer, calling the init functions initates all buffers
 
 //TODO: Struct based representation of API model
 
 //-----------------DMA Functions-----------------
 /** 
  * Memory maps dma_count amount of DMAs
- * dma_address, dma_start, dma_end should have dma_count amount of elements
+ * dma_address, dma_input_addrs, dma_input_lens, dma_output_addrs, dma_output_lens  should have dma_count amount of elements
  * dma_address contains array of base addresses for each dma
- * dma_start contains array of starting memory location which each dma can accesss
- * dma_end contains array of ending memory location which each dma can accesss
+ * dma_input_addrs contains starting memory locations for dma input buffers, dma_input_lens contains lengths of the buffers
+ * dma_output_addrs contains starting memory locations for dma output buffers, dma_output_lens contains lengths of the buffers
  * memory maps each dma's base address
- * runs starting controls signals and sets MMS2, S2MM address registers to start memory locations for each dma
+ * runs starting controls signals and sets MMS2, S2MM address registers to start memory locations of the input and output buffers
  */
-void dma_init(int dma_count, unsigned int* dma_address, unsigned int* dma_start, unsigned int* dma_end);
+void dma_init(int dma_count, unsigned int* dma_address, unsigned int* dma_input_addrs,  unsigned int* dma_input_lens,  unsigned int* dma_output_addrs,  unsigned int* dma_output_lens);
 
-// Memory unmaps DMA base addresses
+// Memory unmaps DMA base addresses and Input and output buffers
 void dma_free();
 
 //Get base address for dma represented by dma_id,
@@ -27,63 +27,53 @@ unsigned int* dma_get_regaddr(int id);
 
 
 //-----------------BUFFER Functions-----------------
-/** 
- * Memory maps dma_buffer for the dma represented by dma_id.
- * Size of buffer is specified by length in bytes.
- * Returns ID for the buffer.
- * If unable to allocate block of contiguous memory of the given length then return -1
- * Records space taken from the DMA_memory space.
- * Records which dma_id
- * Records MMap address of buffer
- */
-int dma_init_buffer(int dma_id,int length);
+// Get the MMap address of the input buffer of dma associated with dma_id
+unsigned int* dma_get_inbuffer(int dma_id);
 
-// Memory unmaps buffer associated with the buffer_id
-void dma_free_buffer(int buffer_id);
-
-// Get the MMap address of the buffer associated with the buffer_id
-unsigned int* dma_get_buffer(int buffer_id);
+// Get the MMap address of the output buffer of dma associated with dma_id
+unsigned int* dma_get_outbuffer(int dma_id);
 
 
 
 
 //-----------------DMA MMS2 Functions-----------------
 /** 
- * Gets base address of dma using dma_id
- * Gets base address of buffer using buffer_id
- * Checks if buffer size is >= length
- * Sets the dma MMS2 starting address to base address of buffer
- * Sets MMS2 transfer length to length
+ * Checks if input buffer size is >= length
+ * Sets DMA MMS2 transfer length to length
  * Starts transfers to the accelerator using dma associated with dma_id
  * Return 0 if successful, returns negative if error occurs
  */
-int dma_set_transfer(int dma_id,int buffer_id, int length);
+int dma_set_transfer(int dma_id, int length);
 
 //Blocks thread until dma MMS2 transfer is complete
-void dma_send(int dma_id,int buffer_id, int length);
+void dma_send(int dma_id,int buffer_ID, int length);
 
 // Same as dma_send but thread does not block, returns if 0
-int dma_send_nb(int dma_id,int buffer_id, int length);
+int dma_send_nb(int dma_id,int buffer_ID, int length);
 
 
 
 
 //-----------------DMA S2MM Functions-----------------
 /** 
- * Gets base address of dma using dma_id
- * Gets base address of buffer using buffer_id
  * Checks if buffer size is >= length
- * Sets the dma S2MM starting address to base address of buffer
  * Sets 2SMM store length
  * Starts storing data recieved through dma associated with dma_id
  * Return 0 if successful, returns negative if error occurs
  */
-int dma_set_store(int dma_id,int buffer_id, int length);
+int dma_set_store(int dma_id,int buffer_ID, int length);
 
 //Blocks thread until dma S2MM transfer is complete (TLAST signal is seen)
-void dma_recv(int dma_id,int buffer_id, int length);
+void dma_recv(int dma_id,int buffer_ID, int length);
 
 // Same as dma_recv but thread does not block, returns if 0
-int dma_recv_nb(int dma_id,int buffer_id, int length);
+int dma_recv_nb(int dma_id,int buffer_ID, int length);
 
 #endif
+
+
+    //Ignore
+    // input_buffer_address : unsigned int         # Adddress to the start of the MMapped Input buffer
+    // output_buffer_address : unsigned int        # Adddress to the start of the MMapped Output buffer
+    // input_buffer_size : unsigned int            # Size of Input buffer
+    // output_buffer_size : unsigned int           # Size of Output buffer
