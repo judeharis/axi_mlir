@@ -58,32 +58,32 @@ int dma::dma_copy_from_outbuffer(unsigned int* dst_address, int data_length, int
 
 
 
-int dma::dma_set_transfer(int length, int offset){
+int dma::dma_start_send(int length, int offset){
     //TODO
 }
 
 
-void dma::dma_send(){
+void dma::dma_wait_send(){
     //TODO
 }
 
 
-int dma::dma_send_nb(){
+int dma::dma_check_send(){
     //TODO
 }
 
 
-int dma::dma_set_store(int length){
+int dma::dma_start_recv(int length , int offset){
     //TODO
 }
 
 
-void dma::dma_recv(){
+void dma::dma_wait_recv(){
     //TODO
 }
 
 
-int dma::dma_recv_nb(){
+int dma::dma_check_recv(){
     //TODO
 }
 
