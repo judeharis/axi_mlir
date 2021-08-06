@@ -1,0 +1,596 @@
+diff --git a/mlir/include/mlir/ExecutionEngine/RunnerUtils.h b/mlir/include/mlir/ExecutionEngine/RunnerUtils.h
+index 9d612c14c..5f2611dc3 100644
+--- a/mlir/include/mlir/ExecutionEngine/RunnerUtils.h
++++ b/mlir/include/mlir/ExecutionEngine/RunnerUtils.h
+@@ -191,12 +191,14 @@ void MemRefDataPrinter<T>::printLast(std::ostream &os, T *base, int64_t dim,
+   os << "]";
+ }
+ 
+-template <typename T, int N> void printMemRefShape(StridedMemRefType<T, N> &M) {
++template <typename T, int N>
++void printMemRefShape(StridedMemRefType<T, N> &M) {
+   std::cout << "Memref ";
+   printMemRefMetaData(std::cout, DynamicMemRefType<T>(M));
+ }
+ 
+-template <typename T> void printMemRefShape(UnrankedMemRefType<T> &M) {
++template <typename T>
++void printMemRefShape(UnrankedMemRefType<T> &M) {
+   std::cout << "Unranked Memref ";
+   printMemRefMetaData(std::cout, DynamicMemRefType<T>(M));
+ }
+@@ -398,4 +400,194 @@ extern "C" MLIR_RUNNERUTILS_EXPORT int64_t verifyMemRefF64(int64_t rank,
+                                                            void *actualPtr,
+                                                            void *expectedPtr);
+ 
+-#endif // EXECUTIONENGINE_RUNNERUTILS_H_
++// =============================================================================
++// AXI_APIV0
++// =============================================================================
++
++// Nico comments
++//  I am having some problem mapping C pointers in MLIR.
++//  I think we should use i64 values for addresses and then assign it to the
++//  pointer value during implementation
++
++//  dma_address_i64 = 0x400l;
++//  dma_init (dma_address_i64) {
++//      dma_address = dma_address_i64;
++//      foo(*dma_address);
++//  }
++//  integers
++
++// Nico comments
++//  errors should not occur. The compiler should not generate code that may
++//  produce errors
++
++// //-----------------DMA Functions-----------------
++// /**
++//  * dma_address is base address of dma
++//  * dma_input_addr is starting memory location for the dma input buffer,
++//  * dma_input_len is length of the buffer dma_output_addr is starting memory
++//  * location for the dma output buffer, dma_output_len is length of the buffer
++//  * Memory maps dma's base address
++//  * Runs starting controls signals and sets MMS2, S2MM address registers to
++//  start
++//  * memory locations of the input and output buffers
++//  */
++
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_init(unsigned int *dma_address,
++//                                                  unsigned int
++//                                                  *dma_input_addr, unsigned
++//                                                  int *dma_input_len, unsigned
++//                                                  int *dma_output_addr,
++//                                                  unsigned int
++//                                                  *dma_output_len);
++
++// // Memory unmaps DMA base addresses and Input and output buffers
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_free();
++
++// // TODO, not sure if this will be used on the MLIR side
++// // Get base address for dma represented by dma_id,
++// // extern "C" MLIR_RUNNERUTILS_EXPORT int64_t _mlir_ciface_dma_get_regaddr();
++// extern "C" MLIR_RUNNERUTILS_EXPORT int64_t dma_get_regaddr();
++
++// //-----------------BUFFER Functions-----------------
++// // Get the MMap address of the input buffer of the dma
++// // extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int* dma_get_inbuffer();
++// extern "C" MLIR_RUNNERUTILS_EXPORT void *dma_get_inbuffer();
++
++// // Get the MMap address of the output buffer of the dma
++// // extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int* dma_get_outbuffer();
++// extern "C" MLIR_RUNNERUTILS_EXPORT void *dma_get_outbuffer();
++
++// //-----------------DMA MMS2 Functions-----------------
++// /**
++//  * Checks if input buffer size is >= length
++//  * Sets DMA MMS2 transfer length to length
++//  * Starts transfers to the accelerator using dma associated with dma_id
++//  * Return 0 if successful, returns negative if error occurs
++//  */
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_set_transfer(int dma_id,
++//                                                          int length);
++
++// // Blocks thread until dma MMS2 transfer is complete
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_send(int dma_id, int buffer_ID,
++//                                                  int length);
++
++// // Same as dma_send but thread does not block, returns if 0
++// extern "C" MLIR_RUNNERUTILS_EXPORT int dma_send_nb(int dma_id, int buffer_ID,
++//                                                    int length);
++
++// //-----------------DMA S2MM Functions-----------------
++// // TODO: Consider adding offset
++// /**
++//  * Checks if buffer size is >= length
++//  * Sets 2SMM store length
++//  * Starts storing data recieved through dma associated with dma_id
++//  * Return 0 if successful, returns negative if error occurs
++//  */
++// extern "C" MLIR_RUNNERUTILS_EXPORT int dma_set_store(int dma_id, int
++// buffer_ID,
++//                                                      int length);
++
++// // Blocks thread until dma S2MM transfer is complete (TLAST signal is seen)
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_recv(int dma_id, int buffer_ID,
++//                                                  int length);
++
++// // Same as dma_recv but thread does not block, returns if 0
++// extern "C" MLIR_RUNNERUTILS_EXPORT int dma_recv_nb(int dma_id, int buffer_ID,
++//                                                    int length);
++
++// =============================================================================
++// AXI_APIV1
++// =============================================================================
++
++//-----------------DMA Functions-----------------
++/**
++ * - dma_address is base address of dma
++ * - dma_input_addr is starting memory location for the dma input buffer,
++ * - dma_input_buffer_size is length of the buffer 
++ * - dma_output_addr is starting memory location for the dma output buffer, 
++ * - dma_output_buffer_size is length of the buffer
++ * 
++ * 
++ * Runs starting controls signals and sets MMS2, S2MM address registers to start
++ * memory locations of the input and output buffers
++ */
++
++extern "C" MLIR_RUNNERUTILS_EXPORT void
++dma_init(unsigned int dma_address, unsigned int dma_input_address,
++         unsigned int dma_input_buffer_size, unsigned int dma_output_address,
++         unsigned int dma_output_buffer_size);
++
++// Memory unmaps DMA control_register_address and Input and output buffers
++extern "C" MLIR_RUNNERUTILS_EXPORT void dma_free();
++
++//================================================================================================================
++
++//-----------------BUFFER Functions-----------------
++// Get the MMap address of the input buffer of the dma  *Needed to copy data to
++// Input_Buffer*
++extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int *dma_get_inbuffer();
++
++// Get the MMap address of the output buffer of the dma *Needed to copy data
++// from Output_Buffer*
++extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int *dma_get_outbuffer();
++
++//================================================================================================================
++
++//-----------------BUFFER Functions-----------------
++// Copy data into the Input Buffer (length to write, offset to write to) returns
++// 0 if successful
++extern "C" MLIR_RUNNERUTILS_EXPORT int
++dma_copy_to_inbuffer(unsigned int *host_src_address, int data_length,
++                     int offset);
++
++// Copy data from the Output Buffer (length to read, offset to read from)
++// returns 0 if successful
++extern "C" MLIR_RUNNERUTILS_EXPORT int
++dma_copy_from_outbuffer(unsigned int *host_dst_address, int data_length,
++                        int offset);
++
++//================================================================================================================
++
++//-----------------DMA MMS2 Functions-----------------
++/**
++ * Checks if input buffer size is >= length
++ * Sets DMA MMS2 transfer length to length
++ * Starts transfers to the accelerator using dma associated with dma_id
++ * Return 0 if successful, returns negative if error occurs
++ */
++extern "C" MLIR_RUNNERUTILS_EXPORT int dma_start_send(int length, int offset);
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_start_send(int length, int offset);
++// extern "C" MLIR_RUNNERUTILS_EXPORT void dma_start_send();
++
++// Same as dma_send but thread does not block, returns if 0
++extern "C" MLIR_RUNNERUTILS_EXPORT int dma_check_send();
++
++// Blocks thread until dma MMS2 transfer is complete
++extern "C" MLIR_RUNNERUTILS_EXPORT void dma_wait_send();
++
++
++
++//-----------------DMA S2MM Functions-----------------
++/**
++ * Checks if buffer size is >= length
++ * Sets 2SMM store length
++ * Starts storing data recieved through dma associated with dma_id
++ * Return 0 if successful, returns negative if error occurs
++ */
++extern "C" MLIR_RUNNERUTILS_EXPORT int dma_start_recv(int length, int offset);
++
++// Blocks thread until dma S2MM transfer is complete (TLAST signal is seen)
++extern "C" MLIR_RUNNERUTILS_EXPORT void dma_wait_recv();
++
++// Same as dma_recv but thread does not block, returns if 0
++extern "C" MLIR_RUNNERUTILS_EXPORT int dma_check_recv();
++
++// Unexposed to MLIR
++extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int
++dma_set(unsigned int *dma_virtual_address, int offset, unsigned int value);
++
++// Unexposed to MLIR
++extern "C" MLIR_RUNNERUTILS_EXPORT unsigned int
++dma_get(unsigned int *dma_virtual_address, int offset);
++
++#endif // EXECUTIONENGINE_RUNNERUTILS_H_
+\ No newline at end of file
+diff --git a/mlir/lib/ExecutionEngine/RunnerUtils.cpp b/mlir/lib/ExecutionEngine/RunnerUtils.cpp
+index 83ead7c57..9db297260 100644
+--- a/mlir/lib/ExecutionEngine/RunnerUtils.cpp
++++ b/mlir/lib/ExecutionEngine/RunnerUtils.cpp
+@@ -154,3 +154,154 @@ extern "C" int64_t verifyMemRefF64(int64_t rank, void *actualPtr,
+   UnrankedMemRefType<double> expectedDesc = {rank, expectedPtr};
+   return _mlir_ciface_verifyMemRefF64(&actualDesc, &expectedDesc);
+ }
++
++// =============================================================================
++// AXI_APIV0
++// =============================================================================
++
++// extern "C" void dma_init(unsigned int *dma_address,
++//                          unsigned int *dma_input_addr,
++//                          unsigned int *dma_input_len,
++//                          unsigned int *dma_output_addr,
++//                          unsigned int *dma_output_len) {
++//   std::cout << "Called: " << __func__ << std::endl;
++//   std::cout << "\t" << dma_address << std::endl;
++//   std::cout << "\t" << dma_input_addr << std::endl;
++//   std::cout << "\t" << dma_input_len << std::endl;
++//   std::cout << "\t" << dma_output_addr << std::endl;
++//   std::cout << "\t" << dma_output_len << std::endl;
++// }
++
++// extern "C" void dma_free() { std::cout << "Called: " << __func__ <<
++// std::endl; }
++
++// extern "C" int64_t
++// _mlir_ciface_dma_get_regaddr() {
++//   return dma_get_regaddr();
++// }
++// extern "C" int64_t dma_get_regaddr() {
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" void *dma_get_inbuffer() {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" void *dma_get_outbuffer() {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" void dma_set_transfer(int dma_id, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" void dma_send(int dma_id, int buffer_ID, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" int dma_send_nb(int dma_id, int buffer_ID, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" int dma_set_store(int dma_id, int buffer_ID, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" void dma_recv(int dma_id, int buffer_ID, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// extern "C" int dma_recv_nb(int dma_id, int buffer_ID, int length) {
++
++//   std::cout << "Called: " << __func__ << std::endl;
++// }
++
++// =============================================================================
++// AXI_APIV1
++// =============================================================================
++
++extern "C" void dma_init(unsigned int dma_address,
++                         unsigned int dma_input_address,
++                         unsigned int dma_input_buffer_size,
++                         unsigned int dma_output_address,
++                         unsigned int dma_output_buffer_size) {
++  std::cout << "Called: " << __func__ << std::endl;
++  std::cout << "\t" << dma_address << std::endl;
++  std::cout << "\t" << dma_input_address << std::endl;
++  std::cout << "\t" << dma_input_buffer_size << std::endl;
++  std::cout << "\t" << dma_output_address << std::endl;
++  std::cout << "\t" << dma_output_buffer_size << std::endl;
++}
++
++extern "C" void dma_free() { std::cout << "Called: " << __func__ << std::endl; }
++
++extern "C" unsigned int *dma_get_inbuffer() {
++
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" unsigned int *dma_get_outbuffer() {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" int dma_copy_to_inbuffer(unsigned int *host_src_address,
++                                    int data_length, int offset) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" int dma_copy_from_outbuffer(unsigned int *host_dst_address,
++                                       int data_length, int offset) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" int dma_start_send(int length, int offset) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++
++
++extern "C" int dma_check_send() {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" void dma_wait_send() {
++  std::cout << "Called: " << __func__ << std::endl;
++}
++
++extern "C" int dma_start_recv(int length, int offset) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" void dma_wait_recv() {
++  std::cout << "Called: " << __func__ << std::endl;
++}
++
++extern "C" int dma_check_recv() {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" unsigned int dma_set(unsigned int *dma_virtual_address, int offset,
++                                unsigned int value) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
++
++extern "C" unsigned int dma_get(unsigned int *dma_virtual_address, int offset) {
++  std::cout << "Called: " << __func__ << std::endl;
++  return 0;
++}
+\ No newline at end of file
+diff --git a/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v0.mlir b/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v0.mlir
+new file mode 100644
+index 000000000..d81bd6fe0
+--- /dev/null
++++ b/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v0.mlir
+@@ -0,0 +1,88 @@
++// mlir-opt -convert-linalg-to-loops -lower-affine -convert-scf-to-std -convert-vector-to-llvm -convert-std-to-llvm %s | mlir-cpu-runner -O3 -e main -entry-point-result=void -shared-libs=%mlir_runner_utils_dir/libmlir_runner_utils%shlibext,%mlir_runner_utils_dir/libmlir_c_runner_utils%shlibext | FileCheck %s
++
++!void_type = type memref<*xi8>
++
++func private @print_flops(f64)
++func private @rtclock() -> f64
++func private @dma_init(index, index, index, index, index) -> ()
++func private @dma_free() -> ()
++// func private @dma_get_inbuffer() -> (!void_type)
++func private @dma_get_regaddr() -> i64 attributes { llvm.emit_c_interface }
++
++
++func @main() {
++  //CHECK: FAIL
++  %A = memref.alloc() : memref<16x16xf32>
++  %B = memref.alloc() : memref<16x16xf32>
++  %C = memref.alloc() : memref<16x16xf32>
++
++  %cf1 = constant 1.00000e+00 : f32
++
++  linalg.fill(%A, %cf1) : memref<16x16xf32>, f32
++  linalg.fill(%B, %cf1) : memref<16x16xf32>, f32
++
++  %reps = constant 1 : index
++
++  %t_start = call @rtclock() : () -> f64
++  affine.for %arg0 = 0 to 5 {
++    linalg.fill(%C, %cf1) : memref<16x16xf32>, f32
++    call @sgemm_naive(%A, %B, %C) : (memref<16x16xf32>, memref<16x16xf32>, memref<16x16xf32>) -> ()
++  }
++  %t_end = call @rtclock() : () -> f64
++  %t = subf %t_end, %t_start : f64
++
++  %res = affine.load %C[0, 0]: memref<16x16xf32>
++  vector.print %res: f32
++
++  %c0 = constant 0 : index
++  %c1 = constant 1 : index
++  %c2 = constant 2 : index
++
++  %M = memref.dim %C, %c0 : memref<16x16xf32>
++  %N = memref.dim %C, %c1 : memref<16x16xf32>
++  %K = memref.dim %A, %c1 : memref<16x16xf32>
++
++  %f1 = muli %M, %N : index
++  %f2 = muli %f1, %K : index
++
++  // 2*M*N*K.
++  %f3 = muli %c2, %f2 : index
++  %num_flops = muli %reps, %f3 : index
++  %num_flops_i = index_cast %num_flops : index to i16
++  %num_flops_f = sitofp %num_flops_i : i16 to f64
++  %flops = divf %num_flops_f, %t : f64
++  call @print_flops(%flops) : (f64) -> ()
++
++  call @dma_init(%f1, %f2, %f1, %f2, %f1) : (index,index,index,index,index ) -> ()
++  call @dma_free() : () -> ()
++  // %in_buf_addr = call @dma_get_inbuffer() : () -> (!void_type)
++  %dma_addr = call @dma_get_regaddr() : () -> i64 // Not sure how to use this yet
++
++  return
++}
++// CHECK: 17
++
++func @sgemm_naive(%arg0: memref<16x16xf32>, %arg1: memref<16x16xf32>, %arg2: memref<16x16xf32>) {
++  %c0 = constant 0 : index
++  affine.for %arg3 = 0 to 16 {
++    affine.for %arg4 = 0 to 16 {
++      %m = memref.alloc() : memref<1xf32>
++      %v = affine.load %arg2[%arg3, %arg4] : memref<16x16xf32>
++      affine.store %v, %m[%c0] : memref<1xf32>
++      affine.for %arg5 = 0 to 16 {
++        %3 = affine.load %arg0[%arg3, %arg5] : memref<16x16xf32>
++        %4 = affine.load %arg1[%arg5, %arg4] : memref<16x16xf32>
++        %5 = affine.load %m[0] : memref<1xf32>
++        %6 = mulf %3, %4 : f32
++        %7 = addf %6, %5 : f32
++        affine.store %7, %m[0] : memref<1xf32>
++      }
++      %s = affine.load %m[%c0] : memref<1xf32>
++      affine.store %s, %arg2[%arg3, %arg4] : memref<16x16xf32>
++      memref.dealloc %m : memref<1xf32>
++    }
++  }
++  return
++}
++
++
+diff --git a/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v1.mlir b/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v1.mlir
+new file mode 100644
+index 000000000..29f273257
+--- /dev/null
++++ b/mlir/test/mlir-cpu-runner/axi_sgemm_naive_codegen_v1.mlir
+@@ -0,0 +1,118 @@
++// RUN: mlir-opt -convert-linalg-to-loops -lower-affine -convert-scf-to-std -convert-vector-to-llvm -convert-std-to-llvm %s | mlir-cpu-runner -O0 -e generalize_matmul_buffer -entry-point-result=void -shared-libs=%mlir_runner_utils_dir/libmlir_runner_utils%shlibext,%mlir_runner_utils_dir/libmlir_c_runner_utils%shlibext | FileCheck %s
++
++// To run this example
++// mlir-opt target.mlir \
++//   -convert-linalg-to-loops -lower-affine \
++//   -convert-scf-to-std -convert-vector-to-llvm \
++//   -convert-std-to-llvm | mlir-cpu-runner -O3 \
++//   -e generalize_matmul_buffer \
++//   -entry-point-result=void \
++//   -shared-libs=/home/agostini/Development/llvm-project/build/lib/libmlir_runner_utils.so,/home/agostini/Development/llvm-project/build/lib/libmlir_c_runner_utils.so
++
++
++// AXI4MLIR types
++!void_type = type memref<*xi8>
++
++// Other MLIR functions
++func private @print_flops(f64)
++func private @rtclock() -> f64
++
++
++#map0 = affine_map<(d0) -> (2, -d0 + 16)>
++#map1 = affine_map<(d0) -> (2, -d0 + 8)>
++#map2 = affine_map<(d0, d1)[s0] -> (d0 * 8 + s0 + d1)>
++#map3 = affine_map<(d0) -> (2, -d0 + 32)>
++#map4 = affine_map<(d0, d1)[s0] -> (d0 * 32 + s0 + d1)>
++
++// AXI4MLIR functions
++func private @dma_init(index, index, index, index, index) -> ()
++func private @dma_free() -> ()
++// func private @dma_get_regaddr() -> i64 attributes { llvm.emit_c_interface }
++func private @dma_get_inbuffer() -> (!void_type)
++func private @dma_get_outbuffer() -> (!void_type)
++
++func private @dma_start_send(i64, i64) -> (i64)
++// func private @dma_start_send(i64, i64) -> ()
++// func private @dma_start_send() -> ()
++func private @dma_wait_send() -> ()
++
++func private @dma_start_recv(i64, i64) -> (i64)
++func private @dma_wait_recv() -> ()
++
++func @generalize_matmul_buffer(%arg0: memref<16x8xf32>, %arg1: memref<8x32xf32>, %arg2: memref<16x32xf32>) {
++  %c2 = constant 2 : index
++  %c0 = constant 0 : index
++  %c8 = constant 8 : index
++  %c16 = constant 16 : index
++  %c32 = constant 32 : index
++
++  // Prepare tile sizes
++  %ts_a1 = constant 2 : i64
++  %ts_a2 = constant 2 : i64
++  %ts_b1 = constant 2 : i64
++  %ts_b2 = constant 2 : i64
++  %ts_c1 = constant 2 : i64
++  %ts_c2 = constant 2 : i64
++
++  // Initializes the DMA
++  %idx = constant 0 : index
++  call @dma_init(%idx, %idx, %idx, %idx, %idx) : (index,index,index,index,index ) -> ()
++
++  scf.for %arg3 = %c0 to %c16 step %c2 {
++    scf.for %arg4 = %c0 to %c32 step %c2 {
++      
++      
++      scf.for %arg5 = %c0 to %c8 step %c2 {
++        %0 = affine.min #map0(%arg3)
++        %1 = affine.min #map1(%arg5)
++        %2 = memref.subview %arg0[%arg3, %arg5] [%0, %1] [1, 1] : memref<16x8xf32> to memref<?x?xf32, #map2>
++        %3 = affine.min #map1(%arg5)
++        %4 = affine.min #map3(%arg4)
++        %5 = memref.subview %arg1[%arg5, %arg4] [%3, %4] [1, 1] : memref<8x32xf32> to memref<?x?xf32, #map4>
++        %6 = affine.min #map0(%arg3)
++        %7 = affine.min #map3(%arg4)
++        %8 = memref.subview %arg2[%arg3, %arg4] [%6, %7] [1, 1] : memref<16x32xf32> to memref<?x?xf32, #map4>
++        
++        // Call that will be replaced
++        // linalg.matmul ins(%2, %5 : memref<?x?xf32, #map2>, memref<?x?xf32, #map4>) outs(%8 : memref<?x?xf32, #map4>)
++
++        // Sizes of in and out buffers
++        %inA_lenght = muli %ts_a1, %ts_a2 : i64
++        %inB_lenght = muli %ts_b1, %ts_b2 : i64
++        %in_lenght = addi %inA_lenght, %inB_lenght : i64
++        %out_lenght = muli %ts_c1, %ts_c2 : i64
++
++        %in_offset = constant 0 : i64  // offset on the input buffer
++        %out_offset = constant 0 : i64 // offset on the output buffer
++
++        // Get the addresses used for the transfers
++        %dma_id = constant 0 : index
++
++        // %in_buf_addr = call @dma_get_inbuffer() : () -> (!void_type)
++
++        // // %out_buf_addr = call @dma_get_outbuffer() : () -> (!void_type)
++
++        // // Copy data to be transfered and set the transfer size
++        // // memref.copy() // Copy A tile to input address in_buf_addr
++        // // memref.copy() // Copy B tile to input address+offset in_buf_addr+A_lenght
++        %status1 = call @dma_start_send (%in_lenght, %in_offset) : (i64, i64) -> (i64)
++
++        // // // Send the buffers, and start the accelerator
++        // call @dma_wait_send () : () -> ()
++        // // // call #accelator_start
++        
++        // // // Prepare copy back and receive buffers 
++        // %status2 =call @dma_start_recv (%out_lenght, %out_offset) : (i64, i64) -> (i64)
++        // call @dma_wait_recv () : () -> ()
++        // // // memref.copy() // Copy C tile from output address out_buf_addr
++
++
++
++      }
++    }
++  }
++  call @dma_free() : () -> ()
++  return
++}
++
++
