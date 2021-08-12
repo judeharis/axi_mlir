@@ -29,7 +29,7 @@ $ git submodule init
 $ git submodule update
 ```
 
-This should clone the `axi4mlir` branch.
+This should clone the `axi4mlir` branch of `llvm-project`.
 
 A helper script is provided to build the llvm-project
 
@@ -45,5 +45,5 @@ $ ./build_tools/build_llvm_dev.sh \
 Add mlir binaries to path:
 
 ```
-export PATH=$PATH:$(pwd)/llvm-project/build/bin
+export PATH=$PATH:$(pwd)/builds/llvm-project/build/bin
 ```
