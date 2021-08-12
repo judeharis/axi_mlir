@@ -24,8 +24,6 @@ dma -> {
 }
 */
 
-
-
 struct dma{
 #define MM2S_CONTROL_REGISTER 0x00
 #define MM2S_STATUS_REGISTER 0x04
@@ -37,7 +35,7 @@ struct dma{
 #define S2MM_LENGTH 0x58
 #define PAGE_SIZE getpagesize()
 
-#ifdef VERBOSE
+#ifdef VERBOSE_AXI
 #define LOG(x) std::cout << x << << std::endl
 #else
 #define LOG(x)
@@ -48,10 +46,7 @@ struct dma{
     unsigned int* dma_output_address;
     unsigned int dma_input_buffer_size;  
     unsigned int dma_output_buffer_size;
-
     unsigned int* acc_address;
-
-
 
 
     void dma_init(unsigned int dma_address, unsigned int dma_input_address,  unsigned int dma_input_buffer_size,  unsigned int dma_output_address,  unsigned int dma_output_buffer_size);
