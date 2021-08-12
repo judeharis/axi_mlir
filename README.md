@@ -28,6 +28,14 @@ $ git submodule init
 $ git submodule update
 ```
 
+Then apply the llvm-project patch, enabling the runtime of axi4mlir:
+
+```shell
+cd llvm-project 
+git branch -c axi4mlir
+git apply ../llvm-project-patches/axi4mlir-mock-v1-rev00.patch
+```
+
 A helper script is provided to build the llvm-project
 
 ```shell
@@ -43,4 +51,11 @@ Add mlir binaries to path:
 
 ```
 export PATH=$PATH:$(pwd)/llvm-project/build/bin
+```
+
+### Generating new llvm-project patches
+
+```shell
+# Make changes to llvm-project in a separate branch
+git diff main > ../llvm-project-patches/axi4mlir-<patch_name>-rev<rev_number>.patch
 ```
