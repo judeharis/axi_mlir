@@ -5,7 +5,7 @@
 
 # MLIR Dependencies:
 
-Download the most recent verision of cmake installer and ninja binary and add to path:
+Download the most recent version of cmake installer and ninja binary and add to path:
 
 ```
 https://askubuntu.com/questions/829310/how-to-upgrade-cmake-in-ubuntu#comment1262462_829311
@@ -15,7 +15,7 @@ https://github.com/ninja-build/ninja/releases
 
 Install clang-10 clang++-10 and lld-10.
 
-Execute the folowing commands where you want to have a copy of the LLVM project:
+Execute the following commands where you want to have a copy of the LLVM project:
 
 ## Instructions
 
