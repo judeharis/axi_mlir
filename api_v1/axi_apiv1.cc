@@ -46,16 +46,19 @@ int dma::dma_start_send(int length, int offset){
     assert(("trying to send data outside the input buffer",offset+length <=dma_input_buffer_size));
     dma_set(dma_address, MM2S_START_ADDRESS, (unsigned int) dma_input_address+offset);
     dma_set(dma_address, MM2S_LENGTH, length);
-    std::cout << "Transfer Started" << std::endl;
+    LOG("Transfer Started");
 }
 
 void dma::dma_wait_send(){
     dma_mm2s_sync();
+    LOG("Data Transfer - Done");
 }
 
 int dma::dma_check_send(){
     unsigned int mm2s_status = dma_get(dma_address, MM2S_STATUS_REGISTER);
     bool done = !((!(mm2s_status & 1<<12)) || (!(mm2s_status & 1<<1)));
+    if(done)LOG("Data Transfer - Done");
+    else LOG("Data Transfer - Not Done");
     return done?0:-1;
 }
 
@@ -63,15 +66,19 @@ int dma::dma_start_recv(int length , int offset){
     assert(("trying receive data outside the output buffer",offset+length <=dma_output_buffer_size));
     dma_set(dma_address, S2MM_DESTINATION_ADDRESS, (unsigned int) dma_output_address+offset);
     dma_set(dma_address, S2MM_LENGTH,length);
+    LOG("Started Receiving");
 }
 
 void dma::dma_wait_recv(){
     dma_s2mm_sync();
+    LOG("Data Receive - Done");
 }
 
 int dma::dma_check_recv(){
     unsigned int s2mm_status = dma_get(dma_address, S2MM_STATUS_REGISTER);
     bool done = !((!(s2mm_status & 1<<12)) || (!(s2mm_status & 1<<1)));
+    if(done) LOG("Data Receive - Done");
+    else LOG("Data Receive - Not Done");
     return done?0:-1;
 }
 

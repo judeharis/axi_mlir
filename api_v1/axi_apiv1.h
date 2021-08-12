@@ -31,13 +31,17 @@ struct dma{
 #define MM2S_STATUS_REGISTER 0x04
 #define MM2S_START_ADDRESS 0x18
 #define MM2S_LENGTH 0x28
-
 #define S2MM_CONTROL_REGISTER 0x30
 #define S2MM_STATUS_REGISTER 0x34
 #define S2MM_DESTINATION_ADDRESS 0x48
 #define S2MM_LENGTH 0x58
-
 #define PAGE_SIZE getpagesize()
+
+#ifdef VERBOSE
+#define LOG(x) std::cout << x << << std::endl
+#else
+#define LOG(x)
+#endif
 
     unsigned int* dma_address;
     unsigned int* dma_input_address;
