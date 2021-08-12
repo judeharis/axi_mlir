@@ -44,7 +44,7 @@ int dma::dma_copy_from_outbuffer(unsigned int* dst_address, int data_length, int
 
 int dma::dma_start_send(int length, int offset){
     assert(("trying to send data outside the input buffer",offset+length <=dma_input_buffer_size));
-    dma_set(dma_address, MM2S_START_ADDRESS, (unsigned int) dma_input_address+offset);
+    dma_set(dma_address, MM2S_START_ADDRESS, (unsigned long) dma_input_address+offset);
     dma_set(dma_address, MM2S_LENGTH, length);
     LOG("Transfer Started");
 }
@@ -64,7 +64,7 @@ int dma::dma_check_send(){
 
 int dma::dma_start_recv(int length , int offset){
     assert(("trying receive data outside the output buffer",offset+length <=dma_output_buffer_size));
-    dma_set(dma_address, S2MM_DESTINATION_ADDRESS, (unsigned int) dma_output_address+offset);
+    dma_set(dma_address, S2MM_DESTINATION_ADDRESS, (unsigned long) dma_output_address+offset);
     dma_set(dma_address, S2MM_LENGTH,length);
     LOG("Started Receiving");
 }
@@ -89,8 +89,8 @@ void dma::initDMAControls(){
     dma_set(dma_address, MM2S_CONTROL_REGISTER, 4);
     dma_set(dma_address, S2MM_CONTROL_REGISTER, 0);
     dma_set(dma_address, MM2S_CONTROL_REGISTER, 0);
-    dma_set(dma_address, S2MM_DESTINATION_ADDRESS, (unsigned int) dma_output_address); // Write destination address
-    dma_set(dma_address, MM2S_START_ADDRESS, (unsigned int) dma_input_address); // Write source address
+    dma_set(dma_address, S2MM_DESTINATION_ADDRESS, (unsigned long) dma_output_address); // Write destination address
+    dma_set(dma_address, MM2S_START_ADDRESS, (unsigned long) dma_input_address); // Write source address
     dma_set(dma_address, S2MM_CONTROL_REGISTER, 0xf001);
     dma_set(dma_address, MM2S_CONTROL_REGISTER, 0xf001);
 }
@@ -142,5 +142,4 @@ void dma::dump_acc_signals(int state) {
     file<< "====================================================" << std::endl;
     for(int i=0;i<16;i++)file<< acc_address[i] << ",";
     file<< "====================================================" << std::endl;
-
 }
