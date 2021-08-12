@@ -1,9 +1,9 @@
-# axi_mlir
+# axi4mlir
 
 * Library for AXI based data transfers to be used with AXI IR
 
 
-# MLIR Installation:
+# MLIR Dependencies:
 
 Download the most recent verision of cmake installer and ninja binary and add to path:
 
@@ -17,32 +17,30 @@ Install clang-10 clang++-10 and lld-10.
 
 Execute the folowing commands where you want to have a copy of the LLVM project:
 
-```
-git clone https://github.com/llvm/llvm-project.git --depth=1
-cd llvm-project
-mkdir build
-cd build
+## Instructions
 
-cmake -G Ninja ../llvm \
-    -DLLVM_ENABLE_PROJECTS=mlir \
-    -DLLVM_BUILD_EXAMPLES=ON \
-    -DLLVM_TARGETS_TO_BUILD="X86" \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DLLVM_ENABLE_ASSERTIONS=ON \
-    -DCMAKE_C_COMPILER=clang-10 \
-    -DCMAKE_CXX_COMPILER=clang++-10 \
-    -DLLVM_INSTALL_UTILS=ON
+To setup the project, use:
 
+```shell
+$ git clone https://github.com/judeharis/axi_mlir.git axi4mlir
+$ cd axi4mlir
+$ git submodule init
+$ git submodule update
 ```
 
-Compile:
+A helper script is provided to build the llvm-project
 
-```
-ninja mlir-opt mlir-translate mlir-cpu-runner check-mlir FileCheck
+```shell
+$ mkdir -p builds/llvm-project/build builds/llvm-project/install
+
+$ ./build_tools/build_llvm_dev.sh \
+    llvm-project \
+    builds/llvm-project/build \
+    builds/llvm-project/install
 ```
 
 Add mlir binaries to path:
 
 ```
-export PATH=$PATH:$(pwd)/bin
+export PATH=$PATH:$(pwd)/llvm-project/build/bin
 ```
