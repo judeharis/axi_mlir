@@ -53,10 +53,15 @@ export PATH=$PATH:$(pwd)/builds/llvm-project/build/bin
 It is possible to compile the AXI API as a library to use in another project.
 
 ```shell
-# In LLVM's BUILD folder run
+# In the LLVM_BUILD folder run
 ninja mlir_axi_runner_utils 
 ```
 This will generate 2 files:
 
 * `<build_folde>/lib/libaxi_api_v1.so` - to link with any C project
 * `<build_folde>/lib/libmlir_axi_runner_utils.so` - to be used by mlir-cpu-runner
+
+## MLIR Example
+
+An example of using the API from a MLIR file can be found
+[here](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/mlir-cpu-runner/axi_v1.mlir).
