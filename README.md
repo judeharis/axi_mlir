@@ -47,3 +47,16 @@ Add mlir binaries to path:
 ```
 export PATH=$PATH:$(pwd)/builds/llvm-project/build/bin
 ```
+
+## Standalone AXI API execution
+
+It is possible to compile the AXI API as a library to use in another project.
+
+```shell
+# In LLVM's BUILD folder run
+ninja mlir_axi_runner_utils 
+```
+This will generate 2 files:
+
+* `<build_folde>/lib/libaxi_api_v1.so` - to link with any C project
+* `<build_folde>/lib/libmlir_axi_runner_utils.so` - to be used by mlir-cpu-runner
