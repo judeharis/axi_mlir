@@ -58,8 +58,8 @@ ninja mlir_axi_runner_utils
 ```
 This will generate 2 files:
 
-* `<build_folde>/lib/libaxi_api_v1.so` - to link with any C project
-* `<build_folde>/lib/libmlir_axi_runner_utils.so` - to be used by mlir-cpu-runner
+* `<build_folder>/lib/libaxi_api_v1.so` - to link with any C project
+* `<build_folder>/lib/libmlir_axi_runner_utils.so` - to be used by mlir-cpu-runner
 
 ## MLIR Example
 
