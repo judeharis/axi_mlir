@@ -2,4 +2,6 @@ sample_code/out/
 sample_code/out_make/
 .vscode/
 builds/
+api_tester/out/
 
+axi4mlir.code-workspace
