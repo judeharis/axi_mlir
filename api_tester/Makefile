@@ -10,17 +10,16 @@ CFLAGS=-I$(SYSC_PATH)/include -fPIC -DSYSC
 
 CFLAGS2=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PATH)/lib-linux64 -lsystemc -fPIC 
 
-INCLUDE=-I/mnt/c/Workspaces/axi4mlir4/axi4mlir/llvm-project/mlir/include
+INCLUDE=-I../llvm-project/mlir/include
 TOGGLE=-DVERBOSE_AXI
 
 OBJDIR=out
 MKDIR = mkdir -p
 
-APICC=/mnt/c/Workspaces/axi4mlir4/axi4mlir/llvm-project/mlir/lib/ExecutionEngine/axi
+APICC=../llvm-project/mlir/lib/ExecutionEngine/axi
 
 
 all : $(OBJDIR) api_v1 api_v1_lib api_sp
-
 
 $(OBJDIR):
 	$(MKDIR) $(OBJDIR)
