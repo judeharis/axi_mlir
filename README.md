@@ -16,6 +16,13 @@ https://github.com/ninja-build/ninja/releases
 
 Install clang-10 clang++-10 and lld-10.
 
+Download and install latest version of SystemC and export its path:
+
+```
+# Follow instructions at the end of the page to use this path
+export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3
+```
+
 Execute the following commands where you want to have a copy of the LLVM project:
 
 ## Instructions
@@ -65,3 +72,29 @@ This will generate 2 files:
 
 An example of using the API from a MLIR file can be found
 [here](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/mlir-cpu-runner/axi_v1.mlir).
+
+
+## Installing SystemC
+
+```shell
+# Prepare important folders
+mkdir -p ~/Downloads/systemc/
+sudo mkdir -p /opt/systemc/systemc-2.3.3
+
+# Download
+pushd ~/Downloads/systemc
+wget https://accellera.org/images/downloads/standards/systemc/systemc-2.3.3.tar.gz
+tar -xvf systemc-2.3.3.tar.gz 
+
+# Compile and install
+mkdir ~/Downloads/systemc/systemc-2.3.3/build
+pushd ~/Downloads/systemc/systemc-2.3.3/build
+../configure --prefix=/opt/systemc/systemc-2.3.3/
+make -j10
+sudo make install
+
+# Set the relevant environment variables
+export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3
+popd
+popd
+```
