@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <cstdlib>
 
+int sc_main(int argc, char *argv[]){return 0;}
+
 using namespace std;
 int main(int argc, char *argv[]){
 #define cols 4
@@ -41,11 +43,12 @@ int main(int argc, char *argv[]){
     dma1.dma_init(0,0,1000,0,1000);
     dma1.dma_copy_to_inbuffer(reinterpret_cast<unsigned int*>(inputs),rows*depth,0);
     dma1.dma_copy_to_inbuffer(reinterpret_cast<unsigned int*>(weightsT),depth*cols,rows*depth);
-    dma1.dma_start_send(dma1.current_input_offset,0);
-    dma1.dma_start_recv(rows*cols +1 ,0);
+    dma1.dma_start_send(rows*depth+depth*cols,0);
+    dma1.dma_start_recv(rows*cols,0);
     dma1.dma_wait_send();
     dma1.dma_wait_recv();
     dma1.dma_copy_from_outbuffer(reinterpret_cast<unsigned int*>(accelerated_outputs),cols*rows,0);
+    dma1.dma_free();
 #else
     dma1.dma_init(0x40400000,0x16000000,65536,0x16400000,65536);
     dma1.dma_copy_to_inbuffer(reinterpret_cast<unsigned int*>(inputs),rows*depth,dma1.current_input_offset);

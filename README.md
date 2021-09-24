@@ -98,3 +98,40 @@ export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3
 popd
 popd
 ```
+
+## Running SystemC
+
+After compiling llvm and installing SystemC, a systemc library can be compiled
+with:
+
+```shell
+cd $PROJ_ROOT/builds/llvm-project/build
+ninja mlir_syscaxi_runner_utils
+```
+
+A 4 by 4 matmul example can be executed with mlir jitter, triggering a systemC
+simulation with:
+```
+$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -convert-memref-to-llvm -convert-std-to-llvm \
+        $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
+    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+        -O0 -e main -entry-point-result=void \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+```
+
+The same mlir code is automatically executed with `ninja check-mlir`, but the
+llvm tests only check for the existence of the dma mock library
+(`libmlir_mockaxi_runner_utils.so`) without systemc simulation:
+```shell
+$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -convert-memref-to-llvm -convert-std-to-llvm \
+        $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
+    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+        -O0 -e main -entry-point-result=void \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_mockaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+```
