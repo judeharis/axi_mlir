@@ -6,7 +6,7 @@ ACC = arm-linux-gnueabihf-g++
 
 SYSC_PATH= ${SYSTEMC_HOME}
 SYSC_INCLUDE=-I$(SYSC_PATH)/include
-SYSC_CFLAGS= -fPIC -DSYSC
+SYSC_CFLAGS= -fPIC
 SYSC_LINK=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PATH)/lib-linux64 -lsystemc
 
 
