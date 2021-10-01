@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iostream>
 
-int sc_main(int argc, char *argv[]) { return 0; }
 
 using namespace std;
 int main(int argc, char *argv[]) {
