@@ -47,11 +47,6 @@ int main(int argc, char *argv[]) {
   // C++ MM implementation
   simpleMM(N, M, K, A, B, C);
 
-  // pad_matrix(N, M, tile_N, tile_M, A, padded_C);
-
-  // print_matrix(pM, pK, padded_BT, "padded_BT");
-  // print_matrix(pN, pM, padded_C, "padded_C");
-
   // Init DMA + ACC
   struct dma dma1;
 #ifndef REAL
@@ -59,10 +54,6 @@ int main(int argc, char *argv[]) {
 #else
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
 #endif
-
-  // int *padA = reinterpret_cast<int *>(&padded_A[0]);
-  // int *padB = reinterpret_cast<int *>(&padded_BT[0]);
-  // int *padC = reinterpret_cast<int *>(&padded_C[0]);
 
   // Start Tiling
   for (int n = 0; n < pN; n += tile_N) {
