@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iostream>
 
-
 using namespace std;
 int main(int argc, char *argv[]) {
 #define cols 4
@@ -35,7 +34,7 @@ int main(int argc, char *argv[]) {
   cout << "Weight Matix" << endl;
   print_matrix(depth, cols, weights);
 
-  simpleGEMM(rows, cols, depth, inputs, weights, outputs);
+  simpleMM(rows, cols, depth, inputs, weights, outputs);
   cout << "Correct Results" << endl;
   print_matrix(rows, cols, outputs);
 
@@ -63,7 +62,7 @@ int main(int argc, char *argv[]) {
   dma1.dma_copy_to_inbuffer(reinterpret_cast<unsigned int *>(weightsT),
                             depth * cols, dma1.current_input_offset);
   dma1.dma_start_send(dma1.current_input_offset, 0);
-  dma1.dma_start_recv(rows * cols + 1, 0);
+  dma1.dma_start_recv(rows * cols, 0);
   dma1.dma_wait_send();
   dma1.dma_wait_recv();
   dma1.dma_copy_from_outbuffer(

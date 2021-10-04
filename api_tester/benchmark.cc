@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
   cout << "Weight Matix" << endl;
   print_matrix(depth, cols, weights);
 
-  simpleGEMM(rows, cols, depth, inputs, weights, outputs);
+  simpleMM(rows, cols, depth, inputs, weights, outputs);
   cout << "Correct Results" << endl;
   print_matrix(rows, cols, outputs);
 
