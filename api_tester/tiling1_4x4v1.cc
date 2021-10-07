@@ -7,9 +7,9 @@
 
 using namespace std;
 int main(int argc, char *argv[]) {
-#define N 4
+#define N 32
 #define M 4
-#define K 4
+#define K 64
 
 #define tile_N 4
 #define tile_M 4

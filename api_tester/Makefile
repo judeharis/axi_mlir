@@ -39,11 +39,11 @@ pynq: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
 pynq_v: $(PYNQ_OBJDIR) pynq_api_v1_V pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
-sysc: $(SYSC_OBJDIR) sysc_api_libs sysc_unit_test sysc_tilings
+sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_unit_test
 
-sysc_api_libs: sysc_api_v14x4v1 sysc_api_v1_lib4x4v1 sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2
+sysc_api_4x4v1: sysc_api_v1_4x4v1 sysc_api_v1_lib_4x4v1 sysc_tiling1_4x4v1
 
-sysc_tilings: sysc_tiling1_4x4v1 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2
+sysc_api_4x4v2: sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2
 
 $(OBJDIR):
 	$(MKDIR) $(OBJDIR)
@@ -83,23 +83,23 @@ pynq_benchmark: $(PYNQ_OBJDIR)
 #-----------------------
 
 #----------------------- SYSC 
-sysc_api_v14x4v1: $(SYSC_OBJDIR)
+sysc_api_v1_4x4v1: $(SYSC_OBJDIR)
 	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE)
 
-sysc_api_v1_lib4x4v1: $(SYSC_OBJDIR)
+sysc_api_v1_lib_4x4v1: $(SYSC_OBJDIR)
 	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc4x4v1.so $(SYSC_OBJDIR)/api_v1_sysc.o
-
-sysc_api_v1_4x4v2: $(SYSC_OBJDIR)
-	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V2
-
-sysc_api_v1_lib_4x4v2: $(SYSC_OBJDIR)
-	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc_4x4v2.so $(SYSC_OBJDIR)/api_v1_sysc.o
 
 sysc_unit_test: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/main main.cc -lapi_v1_sysc4x4v1 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE)
 
 sysc_tiling1_4x4v1: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v1 tiling1_4x4v1.cc -lapi_v1_sysc4x4v1 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+sysc_api_v1_4x4v2: $(SYSC_OBJDIR)
+	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V2
+
+sysc_api_v1_lib_4x4v2: $(SYSC_OBJDIR)
+	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc_4x4v2.so $(SYSC_OBJDIR)/api_v1_sysc.o
 
 sysc_tiling1_4x4v2: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v2 tiling1_4x4v2.cc -lapi_v1_sysc_4x4v2 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
