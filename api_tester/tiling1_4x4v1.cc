@@ -8,12 +8,17 @@
 using namespace std;
 int main(int argc, char *argv[]) {
 #define N 4
-#define M 3
-#define K 8
+#define M 4
+#define K 4
 
 #define tile_N 4
 #define tile_M 4
 #define tile_K 4
+
+  LOG("=========================");
+  LOG("ACC: MM_4x4v1");
+  LOG("Tiling Strat: 1");
+  LOG("=========================");
 
   // Determine dimensions for padding to correct tile_size
   int pN = roundup(N, tile_N);
@@ -61,9 +66,9 @@ int main(int argc, char *argv[]) {
       for (int k = 0; k < pK; k += tile_K) {
 
         // Output stationary
-        int in_base = n * pK + k;
-        int we_base = m * pK + k;
-        int out_base = n * pM + m;
+        int A_base = n * pK + k;
+        int B_base = m * pK + k;
+        int C_base = n * pM + m;
 
         // Gets pointer to DMA_IN_BUFFER
         unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
@@ -75,14 +80,14 @@ int main(int argc, char *argv[]) {
         for (int tn = 0; tn < tile_N; tn++)
           for (int tk = 0; tk < tile_K; tk++)
             dma_inbuffer[data_len + tile_K * tn + tk] =
-                padded_A[pK * tn + tk + in_base];
+                padded_A[pK * tn + tk + A_base];
         data_len += tile_N * tile_K;
 
-        // Copies B into DMA_IN_BUFFER; Increments data_len by length of A
+        // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
         for (int tm = 0; tm < tile_M; tm++)
           for (int tk = 0; tk < tile_K; tk++)
             dma_inbuffer[data_len + tile_K * tm + tk] =
-                padded_BT[pK * tm + tk + we_base];
+                padded_BT[pK * tm + tk + B_base];
         data_len += tile_M * tile_K;
 
         // Sends data_len of data
@@ -103,8 +108,7 @@ int main(int argc, char *argv[]) {
         // Copies result from DMA_OUT_BUFFER to padded output buffer
         for (int tn = 0; tn < tile_N; tn++) {
           for (int tm = 0; tm < tile_M; tm++) {
-            padded_C[pM * tn + tm + out_base] +=
-                dma_outbuffer[tile_M * tn + tm];
+            padded_C[pM * tn + tm + C_base] += dma_outbuffer[tile_M * tn + tm];
           }
         }
       }
@@ -116,11 +120,11 @@ int main(int argc, char *argv[]) {
   std::vector<int> accelerated_C(N * M);
   unpad_matrix(N, M, tile_N, tile_M, padded_C, accelerated_C);
 
-  cout << "=========================" << endl;
-  cout << "=========================" << endl;
-  cout << "=========================" << endl;
-  cout << "=========================" << endl;
-  print_matrix(N, M, C, "Correct Results");
-  print_matrix(N, M, accelerated_C, "Accelerated Results");
+  // cout << "=========================" << endl;
+  // cout << "=========================" << endl;
+  // cout << "=========================" << endl;
+  // cout << "=========================" << endl;
+  // print_matrix(N, M, C, "Correct Results");
+  // print_matrix(N, M, accelerated_C, "Accelerated Results");
   compare_matrix(N, M, C, accelerated_C);
 }

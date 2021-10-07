@@ -25,11 +25,11 @@ int main(int argc, char *argv[]) {
   int weights[depth * cols];
   int weightsT[depth * cols];
   int outputs[cols * rows];
-  int accelerated_outputs[(cols * rows + 1) * 10000];
+  int acc_outputs[(cols * rows + 1) * 10000];
 
   for (int i = 0; i < cols * rows; i++) {
     outputs[i] = 0;
-    accelerated_outputs[i] = 0;
+    acc_outputs[i] = 0;
   }
 
   for (int i = 0; i < rows * depth; i++)
@@ -40,14 +40,18 @@ int main(int argc, char *argv[]) {
     for (int j = 0; j < cols; ++j)
       weightsT[i * cols + j] = weights[j * depth + i];
 
-  cout << "Input Matix" << endl;
-  print_matrix(rows, depth, inputs);
-  cout << "Weight Matix" << endl;
-  print_matrix(depth, cols, weights);
+  vector<int> A(inputs, inputs + sizeof(inputs) / sizeof(inputs[0]));
+  vector<int> B(weights, weights + sizeof(weights) / sizeof(weights[0]));
+  vector<int> C(outputs, outputs + sizeof(outputs) / sizeof(outputs[0]));
 
-  simpleMM(rows, cols, depth, inputs, weights, outputs);
+  cout << "Input Matix" << endl;
+  print_matrix(rows, depth, A);
+  cout << "Weight Matix" << endl;
+  print_matrix(depth, cols, B);
+
+  simpleMM(rows, cols, depth, A, B, C);
   cout << "Correct Results" << endl;
-  print_matrix(rows, cols, outputs);
+  print_matrix(rows, cols, C);
 
   struct dma dma1;
   std::chrono::duration<double, std::milli> duration;
@@ -64,21 +68,23 @@ int main(int argc, char *argv[]) {
     dma1.dma_wait_send();
     dma1.dma_wait_recv();
     dma1.dma_copy_from_outbuffer(
-        reinterpret_cast<unsigned int *>(accelerated_outputs + i * 16),
-        cols * rows, i * 16);
+        reinterpret_cast<unsigned int *>(acc_outputs + i * 16), cols * rows,
+        i * 16);
   }
   prf_end(1, duration);
   double fduration =
       std::chrono::duration<double, std::milli>(duration).count();
   cout << "Duration : " << fduration << " ms" << endl;
 
-  std::ofstream outfile;
-  outfile.open("out.txt");
-  outfile << "";
-  outfile.close();
-  for (int i = 0; i < 10; i++)
-    save_matrix("out.txt", rows, cols, accelerated_outputs + i * 16);
+  vector<int> acc_C(acc_outputs,
+                    acc_outputs + sizeof(acc_outputs) / sizeof(acc_outputs[0]));
 
+  // std::ofstream outfile;
+  // outfile.open("out.txt");
+  // outfile << "";
+  // outfile.close();
+  // for (int i = 0; i < 10; i++)
+  //   save_matrix("out.txt", rows, cols, acc_C + i * 16);
   cout << "Accelerated Results" << endl;
-  print_matrix(rows, cols, accelerated_outputs);
+  print_matrix(rows, cols, acc_C);
 }
