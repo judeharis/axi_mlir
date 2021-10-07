@@ -1,8 +1,8 @@
-// Example tiling code which uses MM_4x4v2 accelerator.
-// Example takes advantage of B stationary capability of the accelerator to
-// reduce the number of times B data is sent to the accelerator.
+// Example tiling code which uses MM_4x4v3 accelerator.
+// Example takes advantage of output stationary capability (output accumulation)
+// of the accelerator to reduce the number of times output data is sent back.
 
-#include "mlir/ExecutionEngine/axi/api_v1.h" // Requires #define ACC_V2 to use the correct accelerator --- "-DACC_V2"
+#include "mlir/ExecutionEngine/axi/api_v1.h" // Requires #define ACC_V2 to use the correct accelerator --- "-DACC_V3"
 #include "mm_helper.h"
 #include <cstdlib>
 #include <iomanip>
@@ -16,8 +16,8 @@ using namespace std;
 int main(int argc, char *argv[]) {
 
   LOG("=========================");
-  LOG("ACC: MM_4x4v2");
-  LOG("Tiling Strat: 1");
+  LOG("ACC: MM_4x4v3");
+  LOG("Tiling Strat: 2");
   LOG("=========================");
 
   // Determine dimensions for padding to correct tile_size
@@ -62,13 +62,12 @@ int main(int argc, char *argv[]) {
 #endif
 
   // Start Tiling
-  for (int k = 0; k < pK; k += tile_K) {
+  for (int n = 0; n < pN; n += tile_N) {
     for (int m = 0; m < pM; m += tile_M) {
-      for (int n = 0; n < pN; n += tile_N) {
-        // B stationary
+      for (int k = 0; k < pK; k += tile_K) {
+        // C stationary
         int A_base = n * pK + k;
         int B_base = m * pK + k;
-        int C_base = n * pM + m;
 
         // Gets pointer to DMA_IN_BUFFER
         unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
@@ -78,6 +77,8 @@ int main(int argc, char *argv[]) {
 
         // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
         uint32_t h = 7;
+        if (k + tile_K >= pK)
+          h = 15;
         dma_inbuffer[0] = h;
         data_len++;
 
@@ -100,29 +101,32 @@ int main(int argc, char *argv[]) {
 
         // Waits for data to transfer to finish
         dma1.dma_wait_send();
+      }
 
-        // Indicates to DMA, how much space is available and where it is
-        dma1.dma_start_recv(tile_N * tile_M, 0);
+      // Only stores each C tile once
+      int C_base = n * pM + m;
 
-        // Waits for data to be recieved (including TLAST signal)
-        dma1.dma_wait_recv();
+      // Indicates to DMA, how much space is available and where it is
+      dma1.dma_start_recv(tile_N * tile_M, 0);
 
-        // Gets pointer to DMA_OUT_BUFFER
-        unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+      // Waits for data to be recieved (including TLAST signal)
+      dma1.dma_wait_recv();
 
-        // Copies result from DMA_OUT_BUFFER to padded output buffer
-        for (int tn = 0; tn < tile_N; tn++) {
-          for (int tm = 0; tm < tile_M; tm++) {
-            padded_C[pM * tn + tm + C_base] += dma_outbuffer[tile_M * tn + tm];
-          }
+      // Gets pointer to DMA_OUT_BUFFER
+      unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+
+      // Copies result from DMA_OUT_BUFFER to padded output buffer
+      for (int tn = 0; tn < tile_N; tn++) {
+        for (int tm = 0; tm < tile_M; tm++) {
+          padded_C[pM * tn + tm + C_base] += dma_outbuffer[tile_M * tn + tm];
         }
       }
     }
   }
   dma1.dma_free();
   LOG("=========================");
-  LOG("ACC: MM_4x4v2");
-  LOG("Tiling Strat: 1");
+  LOG("ACC: MM_4x4v3");
+  LOG("Tiling Strat: 2");
   LOG("=========================");
 
   // Copies padded_C back to C

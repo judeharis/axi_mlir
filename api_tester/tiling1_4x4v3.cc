@@ -1,8 +1,7 @@
-// Example tiling code which uses MM_4x4v2 accelerator.
-// Example takes advantage of B stationary capability of the accelerator to
-// reduce the number of times B data is sent to the accelerator.
+// Example tiling code which uses MM_4x4v3 accelerator.
+// Example does not take advantage of tiling to reduce data transfers.
 
-#include "mlir/ExecutionEngine/axi/api_v1.h" // Requires #define ACC_V2 to use the correct accelerator --- "-DACC_V2"
+#include "mlir/ExecutionEngine/axi/api_v1.h" // Requires #define ACC_V2 to use the correct accelerator --- "-DACC_V3"
 #include "mm_helper.h"
 #include <cstdlib>
 #include <iomanip>
@@ -16,7 +15,7 @@ using namespace std;
 int main(int argc, char *argv[]) {
 
   LOG("=========================");
-  LOG("ACC: MM_4x4v2");
+  LOG("ACC: MM_4x4v3");
   LOG("Tiling Strat: 1");
   LOG("=========================");
 
@@ -62,10 +61,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   // Start Tiling
-  for (int k = 0; k < pK; k += tile_K) {
+  for (int n = 0; n < pN; n += tile_N) {
     for (int m = 0; m < pM; m += tile_M) {
-      for (int n = 0; n < pN; n += tile_N) {
-        // B stationary
+      for (int k = 0; k < pK; k += tile_K) {
+        // C stationary
         int A_base = n * pK + k;
         int B_base = m * pK + k;
         int C_base = n * pM + m;
@@ -77,7 +76,7 @@ int main(int argc, char *argv[]) {
         int data_len = 0;
 
         // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
-        uint32_t h = 7;
+        uint32_t h = 15;
         dma_inbuffer[0] = h;
         data_len++;
 
@@ -121,7 +120,7 @@ int main(int argc, char *argv[]) {
   }
   dma1.dma_free();
   LOG("=========================");
-  LOG("ACC: MM_4x4v2");
+  LOG("ACC: MM_4x4v3");
   LOG("Tiling Strat: 1");
   LOG("=========================");
 

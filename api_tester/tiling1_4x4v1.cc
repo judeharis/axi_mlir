@@ -5,15 +5,11 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-int main(int argc, char *argv[]) {
-#define N 32
-#define M 4
-#define K 64
-
 #define tile_N 4
 #define tile_M 4
 #define tile_K 4
+using namespace std;
+int main(int argc, char *argv[]) {
 
   LOG("=========================");
   LOG("ACC: MM_4x4v1");
@@ -61,11 +57,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   // Start Tiling
-  for (int n = 0; n < pN; n += tile_N) {
+  for (int k = 0; k < pK; k += tile_K) {
     for (int m = 0; m < pM; m += tile_M) {
-      for (int k = 0; k < pK; k += tile_K) {
-
-        // Output stationary
+      for (int n = 0; n < pN; n += tile_N) {
+        // C stationary
         int A_base = n * pK + k;
         int B_base = m * pK + k;
         int C_base = n * pM + m;
@@ -115,6 +110,10 @@ int main(int argc, char *argv[]) {
     }
   }
   dma1.dma_free();
+  LOG("=========================");
+  LOG("ACC: MM_4x4v1");
+  LOG("Tiling Strat: 1");
+  LOG("=========================");
 
   // Copies padded_C back to C
   std::vector<int> accelerated_C(N * M);

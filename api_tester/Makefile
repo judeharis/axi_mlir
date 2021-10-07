@@ -39,11 +39,13 @@ pynq: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
 pynq_v: $(PYNQ_OBJDIR) pynq_api_v1_V pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
-sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_unit_test
+sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_api_4x4v3 sysc_unit_test
 
 sysc_api_4x4v1: sysc_api_v1_4x4v1 sysc_api_v1_lib_4x4v1 sysc_tiling1_4x4v1
 
-sysc_api_4x4v2: sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2
+sysc_api_4x4v2: sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2 sysc_tiling3_4x4v2
+
+sysc_api_4x4v3: sysc_api_v1_4x4v3 sysc_api_v1_lib_4x4v3 sysc_tiling1_4x4v3 sysc_tiling2_4x4v3
 
 $(OBJDIR):
 	$(MKDIR) $(OBJDIR)
@@ -106,6 +108,22 @@ sysc_tiling1_4x4v2: $(SYSC_OBJDIR)
 
 sysc_tiling2_4x4v2: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling2_4x4v2 tiling2_4x4v2.cc -lapi_v1_sysc_4x4v2 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+sysc_tiling3_4x4v2: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling3_4x4v2 tiling3_4x4v2.cc -lapi_v1_sysc_4x4v2 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+
+sysc_api_v1_4x4v3: $(SYSC_OBJDIR)
+	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V3
+
+sysc_api_v1_lib_4x4v3: $(SYSC_OBJDIR)
+	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc_4x4v3.so $(SYSC_OBJDIR)/api_v1_sysc.o
+
+sysc_tiling1_4x4v3: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v3 tiling1_4x4v3.cc -lapi_v1_sysc_4x4v3 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+sysc_tiling2_4x4v3: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling2_4x4v3 tiling2_4x4v3.cc -lapi_v1_sysc_4x4v3 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 
 
 #-----------------------
