@@ -5,5 +5,6 @@ builds/
 api_tester/out/
 api_tester/pynq_out/
 api_tester/sysc_out/
+api_tester/sys_out/
 
 axi4mlir.code-workspace
