@@ -3,8 +3,8 @@
 
 // Defining Dims here to change , easier to change all at once
 #define N 32
-#define M 4
-#define K 64
+#define M 64
+#define K 4096
 
 #include <vector>
 #include <iostream>
