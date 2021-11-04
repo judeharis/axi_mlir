@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
         // Indicates to DMA, how much space is available and where it is
         dma1.dma_start_recv(tile_N * tile_M, 0);
 
-        // Waits for data to be recieved (including TLAST signal)
+        // Waits for data to be received (including TLAST signal)
         dma1.dma_wait_recv();
 
         // Gets pointer to DMA_OUT_BUFFER
