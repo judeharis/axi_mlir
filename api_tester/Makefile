@@ -126,6 +126,22 @@ sysc_tiling2_4x4v3: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling2_4x4v3 tiling2_4x4v3.cc -lapi_v1_sysc_4x4v3 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 
 
+
+sysc_api_v1_4x4v4: $(SYSC_OBJDIR)
+	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V4
+
+sysc_api_v1_lib_4x4v4: $(SYSC_OBJDIR)
+	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc_4x4v4.so $(SYSC_OBJDIR)/api_v1_sysc.o
+
+sysc_tiling1_4x4v4: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v4 tiling1_4x4v4.cc -lapi_v1_sysc_4x4v4 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+sysc_tiling2_4x4v4: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling2_4x4v4 tiling2_4x4v4.cc -lapi_v1_sysc_4x4v4 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+sysc_tiling3_4x4v4: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling3_4x4v4 tiling3_4x4v4.cc -lapi_v1_sysc_4x4v4 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
 #-----------------------
 
 clean: clean_real clean_pynq clean_sysc

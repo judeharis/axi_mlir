@@ -132,10 +132,11 @@ int main(int argc, char *argv[]) {
     }
   }
   dma1.dma_free();
-  LOG("=========================");
-  LOG("ACC: MM_4x4v2");
-  LOG("Tiling Strat: 2");
-  LOG("=========================");
+  PLOG("=========================");
+  PLOG("ACC: MM_4x4v2");
+  PLOG("Tiling Strat: 2");
+  PLOG("N: " << N << " M: " << M << " K: " << K);
+  PLOG("=========================");
 
   // Copies padded_C back to C
   std::vector<int> accelerated_C(N * M);
