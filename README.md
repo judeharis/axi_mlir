@@ -114,7 +114,7 @@ simulation with:
 ```
 $PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
-        -convert-memref-to-llvm -convert-std-to-llvm \
+        -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
@@ -128,7 +128,7 @@ llvm tests only check for the existence of the dma mock library
 ```shell
 $PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
-        -convert-memref-to-llvm -convert-std-to-llvm \
+        -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
