@@ -115,7 +115,7 @@ simulation with:
 $PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
-        $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
@@ -129,9 +129,23 @@ llvm tests only check for the existence of the dma mock library
 $PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
-        $PROJ_ROOT/llvm-project/mlir/test/mlir-cpu-runner/axi_v1_data_copy.mlir | \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_mockaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+```
+
+
+A `C(16x32) = A(16x8) x B(8x32)` accelerator v1 example can be executed with
+the mlir jitter, triggering a systemC simulation with:
+```
+$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/matmul_accelerator_v1_naive.mlir | \
+    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+        -O0 -e main -entry-point-result=void \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
 ```
