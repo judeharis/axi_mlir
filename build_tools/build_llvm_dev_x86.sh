@@ -44,10 +44,6 @@ mkdir -p "$install_dir-arm"
 echo "Beginning build (commands will echo)"
 set -x
 
-
-  # -DLLVM_TABLEGEN=$install_dir$suffix/bin/llvm-tblgen \
-  # -DMLIR_TABLEGEN=$install_dir$suffix/bin/mlir-tblgen \
-  # -DLLVM_ENABLE_PROJECTS="clang;mlir;llvm"   \
 cmake -GNinja \
   "-H$LLVM_SRC_DIR/llvm" \
   "-B$build_dir$suffix" \
@@ -67,10 +63,6 @@ cmake -GNinja \
   -DLLVM_ENABLE_ASSERTIONS=On \
   -DLLVM_BUILD_EXAMPLES=OFF
 
- # TODO check what these options do :
- # -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_ENABLE_OCAMLDOC=OFF -DLLVM_ENABLE_BINDINGS=OFF 
-
-# cmake --build "$build_dir$suffix" --target clang --target install
 cmake --build "$build_dir$suffix" --target clang opt mlir-opt mlir-translate mlir-cpu-runner FileCheck --target install
 
 set +x
