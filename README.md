@@ -186,6 +186,9 @@ Steps:
 ./build_tools/build_bootstrap_tblgen.sh llvm-project builds/llvm-project/build builds/llvm-project/install
 
 # 3. Compile clang, llvm, mlir for x86 with the required targets
+# This will take a while
+./build_tools/build_llvm_dev_x86.sh llvm-project builds/llvm-project/build builds/llvm-project/install
+
 # 4. Cross-compile mlir-runner libraries for ARM 
 # 5. Compile and link desired application for arm, run with qemu
 ```
