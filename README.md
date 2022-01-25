@@ -207,3 +207,17 @@ cp llvm-project/mlir/test/Integration/Dialect/Linalg/CPU/test-conv-1d-nwc-wcf-ca
 # Running with qemu
 qemu-arm -L /usr/arm-linux-gnueabihf ./app
 ```
+
+## Recompiling inside the container
+
+Once these steps execute, build folders will be availabe in:
+
+```
+├── builds/build-runner-arm    # (ARM) targets: mlir_runner_utils mlir_axi_runner_utils mlir_runner_utils
+├── builds/build-tblgen-x86    # (x86) targets: mlir-tblgen clang-tblgen llvm-tblgen
+└── builds/build-x86           # (x86) targets: mlir-opt mlir-translate mlir_runner_utils mlir_axi_runner_utils
+```
+
+Thus, to recompile one can just 
+`cd <buildfolder> && ninja <target>`
+`cd builds/build-x86 && ninja mlir_axi_runner_utils`

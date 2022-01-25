@@ -5,9 +5,10 @@ FROM ubuntu:18.04 as builder
 RUN apt update && apt install -y curl wget tree less git vim tmux htop parallel unzip
 
 # Compilers
-RUN apt update && apt install -y clang-10 lld-10 && \
+RUN apt update && apt install -y clang-10 lld-10 clang-format-10 && \
   ln -s /usr/bin/clang-10 /usr/bin/clang && \
-  ln -s /usr/bin/clang++-10 /usr/bin/clang++ 
+  ln -s /usr/bin/clang++-10 /usr/bin/clang++  && \
+  ln -s //usr/bin/clang-format-10 /usr/bin/clang-format
 
 # Installs required libraries for cross-compilation
 #  gcc-4.7-arm-linux-gnueabihf
@@ -21,9 +22,6 @@ RUN apt update && apt install -y crossbuild-essential-armhf libz-dev
 RUN apt update && apt install -y crossbuild-essential-arm64
 RUN apt update && apt install -y qemu-user
 
-# Tensorflow latest-devel image comes with clang-format pre-installed 
-# RUN apt install clang-format-10 && \
-#     ln -s /usr/bin/clang-format-10 /usr/bin/clang-format
 
 WORKDIR /tmp
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.18.2/cmake-3.18.2-Linux-x86_64.sh && \
@@ -34,6 +32,16 @@ RUN wget https://github.com/ninja-build/ninja/releases/download/v1.10.1/ninja-li
     unzip ninja-linux.zip && \
     mv ninja /usr/local/bin/ninja && \
     ln -s /usr/local/bin/ninja /usr/sbin/ninja
+
+# SystemC
+RUN mkdir -p /tmp/systemc /opt/systemc/systemc-2.3.3 /tmp/systemc/systemc-2.3.3/build
+WORKDIR /tmp/systemc
+RUN wget https://accellera.org/images/downloads/standards/systemc/systemc-2.3.3.tar.gz && \
+    tar -xvf systemc-2.3.3.tar.gz
+WORKDIR /tmp/systemc/systemc-2.3.3/build
+RUN ../configure --prefix=/opt/systemc/systemc-2.3.3/ && \
+    make -j$(nproc) && \
+    make install
 
 # Requirements for VSCODE plugins
 WORKDIR /usr/local/bin
@@ -58,7 +66,10 @@ RUN git clone https://github.com/agostini01/dotfiles.git && \
 RUN echo "PS1='\[\033[01;31m\][\[\033[01;30m\]\u@\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '" >> .bashrc
 
 RUN echo "export CXX=/usr/bin/clang++" >> ~/.bashrc && \
-    echo "export CC=/usr/bin/clang" >> ~/.bashrc
+    echo "export CC=/usr/bin/clang" >> ~/.bashrc && \
+    echo "export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3" >> ~/.bashrc
+
+ENV SYSTEMC_HOME=/opt/systemc/systemc-2.3.3
 ENV CXX=/usr/bin/clang++ 
 ENV CC=/usr/bin/clang 
 
@@ -90,9 +101,10 @@ RUN git clone https://github.com/agostini01/dotfiles.git && \
 
 RUN echo "PS1='\[\033[01;31m\][\[\033[01;30m\]\u@\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '" >> .bashrc
 
-# Select clang compiler
-RUN echo "export CXX=/usr/bin/clang++-10" >> ~/.bashrc && \
-    echo "export CC=/usr/bin/clang-10" >> ~/.bashrc
+# Select clang compiler and set SystemC home
+RUN echo "export CXX=/usr/bin/clang++" >> ~/.bashrc && \
+    echo "export CC=/usr/bin/clang" >> ~/.bashrc && \
+    echo "export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3" >> ~/.bashrc
 
 # Print welcome message
 WORKDIR /home/developer
