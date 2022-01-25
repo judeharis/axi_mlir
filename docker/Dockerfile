@@ -17,7 +17,9 @@ RUN apt update && apt install -y clang-10 lld-10 && \
 #  libsfgcc1-armhf-cross
 #  libstdc++6-armhf-cross
 #  libstdc++6-4.7-dev-armhf-cross 
-RUN apt update && apt install -y crossbuild-essential-armhf
+RUN apt update && apt install -y crossbuild-essential-armhf libz-dev
+RUN apt update && apt install -y crossbuild-essential-arm64
+RUN apt update && apt install -y qemu-user
 
 # Tensorflow latest-devel image comes with clang-format pre-installed 
 # RUN apt install clang-format-10 && \

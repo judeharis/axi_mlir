@@ -149,3 +149,43 @@ $PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
 ```
+# Using docker
+
+To create a standalone image with all build dependencies installed follow execute:
+
+```
+./build-docker.sh
+```
+
+To enter the development container
+
+```
+./start-docker.sh
+```
+
+
+## Building and testing MLIR inputs in armv7-a devices
+
+Steps:
+
+1. Enter development container
+    - With qemu-user, crossbuild-essential-armhf, libz-dev installed
+2. Compile bootstrap mlir-tblgen binaries 
+    - required when cross compiling for arm
+3. Compile clang, llvm, mlir for x86 with the required targets
+4. Cross-compile mlir-runner libraries for ARM 
+    - this requires arm libs and llvm-project/cmake targetting cross-compilation. needs mlir-tblgen from step 2)
+5. Compile and link desired application for arm, run with qemu
+    -  Using compiler from step 3, libraries from step 4, and pointing qemu to look for the right libraries
+
+```bash
+# 1. Enter development container
+./start-docker.sh # Further steps are executed inside docker container with automatic pwd mounted
+
+# 2. Compile bootstrap mlir-tblgen binaries
+./build_tools/build_bootstrap_tblgen.sh llvm-project builds/llvm-project/build builds/llvm-project/install
+
+# 3. Compile clang, llvm, mlir for x86 with the required targets
+# 4. Cross-compile mlir-runner libraries for ARM 
+# 5. Compile and link desired application for arm, run with qemu
+```
