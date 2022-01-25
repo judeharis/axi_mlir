@@ -174,7 +174,8 @@ Steps:
     - required when cross compiling for arm
 3. Compile clang, llvm, mlir for x86 with the required targets
 4. Cross-compile mlir-runner libraries for ARM 
-    - this requires arm libs and llvm-project/cmake targetting cross-compilation. needs mlir-tblgen from step 2)
+    - this requires arm libs and llvm-project/cmake targeting cross-compilation
+    - needs mlir-tblgen from step 2
 5. Compile and link desired application for arm, run with qemu
     -  Using compiler from step 3, libraries from step 4, and pointing qemu to look for the right libraries
 
@@ -186,9 +187,11 @@ Steps:
 ./build_tools/build_bootstrap_tblgen.sh llvm-project builds/llvm-project/build builds/llvm-project/install
 
 # 3. Compile clang, llvm, mlir for x86 with the required targets
-# This will take a while
+# This will take a while (20min using 16c/32t)
 ./build_tools/build_llvm_dev_x86.sh llvm-project builds/llvm-project/build builds/llvm-project/install
 
 # 4. Cross-compile mlir-runner libraries for ARM 
+./build_tools/build_runner_arm.sh llvm-project builds/llvm-project/build builds/llvm-project/install
+
 # 5. Compile and link desired application for arm, run with qemu
 ```
