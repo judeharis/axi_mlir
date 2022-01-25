@@ -1,4 +1,4 @@
-LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-cross
+LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-x86
 # Compilers
 LLVMOPT=$(LLVM_X86_TOOLCHIAN)/bin/opt
 
@@ -31,12 +31,6 @@ $(APP): $(APP).o
 # Generate object binaries
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< 
-
-# Rule to make directories
-# .PHONY: directories
-# directories: ${OBJDIR}
-# ${OBJDIR}:
-# 	${MKDIR_P} ${OBJDIR}
 
 .PHONY: run-arm
 run-arm: $(APP)

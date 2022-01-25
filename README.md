@@ -194,4 +194,16 @@ Steps:
 ./build_tools/build_runner_arm.sh llvm-project builds/llvm-project/build builds/llvm-project/install
 
 # 5. Compile and link desired application for arm, run with qemu
+cd cross-comp/hello-world-mlir
+make
+make run-arm
+
+# Or for individual steps on AOT compiling app.mlir into an arm binary
+cp llvm-project/mlir/test/Integration/Dialect/Linalg/CPU/test-conv-1d-nwc-wcf-call.mlir app.mlir
+/working_dir/builds/llvm-project/build-x86/bin/mlir-opt -convert-linalg-to-loops -convert-scf-to-std -convert-linalg-to-llvm -lower-affine -convert-scf-to-std --convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts -o app-llvm.mlir app.mlir
+/working_dir/builds/llvm-project/build-x86/bin/mlir-translate -mlir-to-llvmir -o app.ll app-llvm.mlir
+/working_dir/builds/llvm-project/build-x86/bin/clang --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard -c -o app.o app.ll
+/working_dir/builds/llvm-project/build-x86/bin/clang -o app app.o --target=arm-linux-gnueabihf -Wl,-rpath=/working_dir/builds/llvm-project/build-runner-arm/lib -L/working_dir/builds/llvm-project/build-runner-arm/lib -lmlir_runner_utils
+# Running with qemu
+qemu-arm -L /usr/arm-linux-gnueabihf ./app
 ```

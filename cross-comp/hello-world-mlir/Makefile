@@ -1,4 +1,4 @@
-LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-cross
+LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-x86
 
 # Compilers
 CC=$(LLVM_X86_TOOLCHIAN)/bin/clang
@@ -11,22 +11,27 @@ MLIRTRAN=$(LLVM_X86_TOOLCHIAN)/bin/mlir-translate
 MLIRLIB=/working_dir/builds/llvm-project/build-runner-arm/lib
 MLIRRUNNERLIBS=$(MLIRLIB)/libmlir_runner_utils.so
 RUNNER_FLAGS=-L$(MLIRLIB) -lmlir_runner_utils
-ARM_SROOT=/usr/arm-linux-gnueabihf
-# ARM_FLAGS=--target=arm-linux-gnueabihf --sysroot=/usr/arm-linux-gnueabihf -B /usr/lib/arm-linux-gnueabihf -L /usr/lib/arm-linux-gnueabihf -I /usr/arm-linux-gnueabihf/include
-ARM_FLAGS=--target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard
-# X86_FLAGS=--target=x86_64-pc-linux-gnu
 
-LDFLAGS= -Wl,-rpath=$(MLIRLIB) $(RUNNER_FLAGS)
+# Target System Root for libraries
+ARM_SROOT=/usr/arm-linux-gnueabihf
+AARCH64_SROOT=/usr/aarch64-linux-gnu
+
+# Target triple
+ARM_TARGET_TRIPLE=arm-linux-gnueabihf
+# X86_TARGET_TRIPLE=x86_64-linux-gnu
+# AARCH64_TARGET_TRIPLE=aarch64-linux-gnu
+TARGET_TRIPLE=$(ARM_TARGET_TRIPLE)
+
+ARM_FLAGS=--target=$(ARM_TARGET_TRIPLE) -march=armv7-a -marm -mfloat-abi=hard
+# AARCH64_FLAGS=--target=$(AARCH64_TARGET_TRIPLE) -march=armv8-a -marm
+# X86_FLAGS=--target=$(X86_TARGET_TRIPLE)
+
+LDFLAGS=--target=$(TARGET_TRIPLE) -Wl,-rpath=$(MLIRLIB) $(RUNNER_FLAGS)
 CFLAGS=$(ARM_FLAGS)
 DEPS = 
 
+# APP=simple
 APP=app
-
-# Commands
-
-# all: simple main
-# 	file simple
-# 	file main
 
 all: app
 	file app
@@ -51,16 +56,16 @@ $(APP): $(APP).o
 %.o: %.ll
 	$(CC) $(CFLAGS) -c -o $@ $< 
 
-# Rule to make directories
-# .PHONY: directories
-# directories: ${OBJDIR}
-# ${OBJDIR}:
-# 	${MKDIR_P} ${OBJDIR}
-
+# qemu run targets
 .PHONY: run-arm
 run-arm: app
 	qemu-arm -L $(ARM_SROOT) ./app
 
+.PHONY: run-aarch64
+run-aarch64: app
+	qemu-aarch64 -L $(AARCH64_SROOT) ./app
+
+# debug info targets
 .PHONY: targets
 targets:
 	$(CC) -print-targets
@@ -70,6 +75,7 @@ targets:
 defaults:
 	$(CC) -v -x c -E - </dev/null
 
+# clean targets
 .PHONY: clean
 clean:
 	rm -f *.o *.s *.ll a.out *-llvm.mlir $(APP)
