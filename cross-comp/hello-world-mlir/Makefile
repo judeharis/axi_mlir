@@ -1,26 +1,26 @@
-CC=/working_dir/builds/llvm-project/build-cross/bin/clang
-# CC=arm-linux-gnueabihf-gcc-7
-LD=arm-linux-gnueabihf-gcc-7
-LLVMOPT=/working_dir/builds/llvm-project/build-cross/bin/opt
-MLIROPT=/working_dir/builds/llvm-project/build-cross/bin/mlir-opt
-MLIRTRAN=/working_dir/builds/llvm-project/build-cross/bin/mlir-translate
+LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-cross
+
+# Compilers
+CC=$(LLVM_X86_TOOLCHIAN)/bin/clang
+LLVMOPT=$(LLVM_X86_TOOLCHIAN)/bin/opt
+MLIROPT=$(LLVM_X86_TOOLCHIAN)/bin/mlir-opt
+MLIRTRAN=$(LLVM_X86_TOOLCHIAN)/bin/mlir-translate
+# LD=arm-linux-gnueabihf-gcc-7
+
+# Paths and flags
 MLIRLIB=/working_dir/builds/llvm-project/build-runner-arm/lib
-
-# builds/llvm-project/build-x86/bin/clang --target=arm --sysroot=/usr/arm-linux-gnueabihf -B /usr/lib/arm-linux-gnueabihf -L /usr/lib/arm-linux-gnueabihf -I /usr/arm-linux-gnueabihf/include -v -x c -E < /dev/null
-
 MLIRRUNNERLIBS=$(MLIRLIB)/libmlir_runner_utils.so
 RUNNER_FLAGS=-L$(MLIRLIB) -lmlir_runner_utils
 ARM_SROOT=/usr/arm-linux-gnueabihf
-# ARM_FLAGS=--target=arm-linux-gnueabihf --sysroot=$(ARM_SROOT) --gcc-toolchain=/usr/lib/gcc-cross/arm-linux-gnueabihf/7.5.0  -I$(ARM_SROOT)/include/ -L$(ARM_SROOT)/lib -L/lib/gcc/x86_64-linux-gnu/7/
-# ARM_FLAGS=--target=arm-linux-gnueabihf --static
 # ARM_FLAGS=--target=arm-linux-gnueabihf --sysroot=/usr/arm-linux-gnueabihf -B /usr/lib/arm-linux-gnueabihf -L /usr/lib/arm-linux-gnueabihf -I /usr/arm-linux-gnueabihf/include
 ARM_FLAGS=--target=arm-linux-gnueabihf
 # X86_FLAGS=--target=x86_64-pc-linux-gnu
 
-# LDFLAGS=$(ARM_FLAGS) -static $(MLIRRUNNERLIBS)
 LDFLAGS= -Wl,-rpath=$(MLIRLIB) $(RUNNER_FLAGS)
 CFLAGS=$(ARM_FLAGS)
 DEPS = 
+
+APP=app
 
 # Commands
 
@@ -28,14 +28,12 @@ DEPS =
 # 	file simple
 # 	file main
 
-all: main
-	file main
+all: app
+	file app
 
-simple: simple.o
-	$(CC) $(CFLAGS) -o $@ $^
-
-main: main.o
-	$(CC) -o $@ $^ $(LDFLAGS) 
+# Order of LDFLAGS matter
+$(APP): $(APP).o
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 # Generate xxxx-llvm.mlir files in llvm dialect
 %-llvm.mlir: %.mlir
@@ -60,8 +58,8 @@ main: main.o
 # 	${MKDIR_P} ${OBJDIR}
 
 .PHONY: run-arm
-run-arm: simple
-	qemu-arm ./simple
+run-arm: app
+	qemu-arm -L $(ARM_SROOT) ./app
 
 .PHONY: targets
 targets:
@@ -74,4 +72,4 @@ defaults:
 
 .PHONY: clean
 clean:
-	rm -f *.o *.s *.ll simple main a.out *-llvm.mlir
+	rm -f *.o *.s *.ll a.out *-llvm.mlir $(APP)

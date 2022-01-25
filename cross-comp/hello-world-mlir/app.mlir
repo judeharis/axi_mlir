@@ -18,7 +18,7 @@ func @conv_1d(%arg0: memref<?xf32>, %arg1: memref<?xf32>, %arg2: memref<?xf32>) 
   return
 }
 
-func @main() {
+func @main() -> i32 {
   %c3 = arith.constant 3 : index
   %c6 = arith.constant 6 : index
   %c8 = arith.constant 8 : index
@@ -29,16 +29,24 @@ func @main() {
   %filter1D = call @alloc_1d_filled_f32(%c3, %val) : (index, f32) -> (memref<?xf32>)
   %in1D = call @alloc_1d_filled_f32(%c8, %val) : (index, f32) -> (memref<?xf32>)
   %out1D = call @alloc_1d_filled_f32(%c6, %zero) : (index, f32) -> (memref<?xf32>)
-
   memref.store %f10, %in1D[%c3] : memref<?xf32>
-  call @conv_1d(%in1D, %filter1D, %out1D) : (memref<?xf32>, memref<?xf32>, memref<?xf32>) -> ()
+  
+  %in1D_ = memref.cast %in1D : memref<?xf32> to memref<*xf32>
+  %filter1D_ = memref.cast %filter1D : memref<?xf32> to memref<*xf32>
   %out1D_ = memref.cast %out1D : memref<?xf32> to memref<*xf32>
+  
+  call @print_memref_f32(%in1D_): (memref<*xf32>) -> ()
+  call @print_memref_f32(%filter1D_): (memref<*xf32>) -> ()
+
+  call @conv_1d(%in1D, %filter1D, %out1D) : (memref<?xf32>, memref<?xf32>, memref<?xf32>) -> ()
   call @print_memref_f32(%out1D_): (memref<*xf32>) -> ()
 
   memref.dealloc %filter1D : memref<?xf32>
   memref.dealloc %in1D : memref<?xf32>
   memref.dealloc %out1D : memref<?xf32>
-  return
+
+  %rv = arith.constant 0 : i32
+  return %rv : i32
 }
 
 // CHECK:       Unranked Memref {{.*}}
