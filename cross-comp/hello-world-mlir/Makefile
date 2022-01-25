@@ -13,7 +13,7 @@ MLIRRUNNERLIBS=$(MLIRLIB)/libmlir_runner_utils.so
 RUNNER_FLAGS=-L$(MLIRLIB) -lmlir_runner_utils
 ARM_SROOT=/usr/arm-linux-gnueabihf
 # ARM_FLAGS=--target=arm-linux-gnueabihf --sysroot=/usr/arm-linux-gnueabihf -B /usr/lib/arm-linux-gnueabihf -L /usr/lib/arm-linux-gnueabihf -I /usr/arm-linux-gnueabihf/include
-ARM_FLAGS=--target=arm-linux-gnueabihf
+ARM_FLAGS=--target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard
 # X86_FLAGS=--target=x86_64-pc-linux-gnu
 
 LDFLAGS= -Wl,-rpath=$(MLIRLIB) $(RUNNER_FLAGS)
