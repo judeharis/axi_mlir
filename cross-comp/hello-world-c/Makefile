@@ -1,20 +1,24 @@
-CC=/working_dir/builds/llvm-project/build-cross/bin/clang
-MLIR=/working_dir/builds/llvm-project/build-cross/bin/clang
-# ARM_SROOT=/usr/arm-linux-gnueabihf
-# ARM_FLAGS=--target=arm-linux-gnueabihf --sysroot=$(ARM_SROOT) --gcc-toolchain=/usr/lib/gcc-cross/arm-linux-gnueabihf/7.5.0  -I$(ARM_SROOT)/include/ -L$(ARM_SROOT)/lib -L/lib/gcc/x86_64-linux-gnu/7/
-ARM_FLAGS=--target=arm-linux-gnueabihf --static
+LLVM_X86_TOOLCHIAN=/working_dir/builds/llvm-project/build-cross
+# Compilers
+LLVMOPT=$(LLVM_X86_TOOLCHIAN)/bin/opt
+
+# Paths and libraries
+ARM_SROOT=/usr/arm-linux-gnueabihf
+ARM_FLAGS=--target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard
 X86_FLAGS=--target=x86_64-pc-linux-gnu
 
 CFLAGS=-I. $(ARM_FLAGS)
 DEPS = 
 
+APP=hello
+
 # Commands
 
-all: hello
-	file hello
+all: $(APP)
+	file $(APP)
 
-hello: hello.o
-	$(CC) $(CFLAGS) -o $@ $^
+$(APP): $(APP).o
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 # Generate ll files
 %.ll: %.c
@@ -35,8 +39,8 @@ hello: hello.o
 # 	${MKDIR_P} ${OBJDIR}
 
 .PHONY: run-arm
-run-arm: hello
-	qemu-arm ./hello
+run-arm: $(APP)
+	qemu-arm -L $(ARM_SROOT) ./$(APP)
 
 .PHONY: targets
 targets:
@@ -49,4 +53,4 @@ defaults:
 
 .PHONY: clean
 clean:
-	rm -f *.o *.s *.ll hello a.out
+	rm -f *.o *.s *.ll $(APP) a.out
