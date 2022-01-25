@@ -80,7 +80,8 @@ cmake -GNinja \
   -DCMAKE_C_COMPILER=arm-linux-gnueabihf-gcc-7 \
   -DCMAKE_CXX_COMPILER=arm-linux-gnueabihf-g++-7 \
   -DCMAKE_CXX_FLAGS='-fcompare-debug-second' \
-  -DCMAKE_CROSSCOMPILING=True \
+  -DCMAKE_CROSSCOMPILING:BOOL=ON \
+  -DAXI_CROSSCOMPILING:BOOL=ON \
   -DLLVM_DEFAULT_TARGET_TRIPLE=arm-linux-gnueabihf \
   -DLLVM_TARGET_ARCH=ARM \
   -DLLVM_TARGETS_TO_BUILD=ARM  \
