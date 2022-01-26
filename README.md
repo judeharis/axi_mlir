@@ -41,18 +41,18 @@ This should clone the `axi4mlir` branch of `llvm-project`.
 A helper script is provided to build the llvm-project
 
 ```shell
-$ mkdir -p builds/llvm-project/build builds/llvm-project/install
-
-$ ./build_tools/build_llvm_dev.sh \
+./build_tools/build_llvm_dev_x86.sh \
     llvm-project \
     builds/llvm-project/build \
     builds/llvm-project/install
+
+# Which generate build files in builds/llvm-project/build-x86
 ```
 
 Add mlir binaries to path:
 
 ```
-export PATH=$PATH:$(pwd)/builds/llvm-project/build/bin
+export PATH=$PATH:$(pwd)/builds/llvm-project/build-x86/bin
 ```
 
 ## Standalone AXI API execution
@@ -105,49 +105,49 @@ After compiling llvm and installing SystemC, a systemc library can be compiled
 with:
 
 ```shell
-cd $PROJ_ROOT/builds/llvm-project/build
+cd $PROJ_ROOT/builds/llvm-project/build-x86
 ninja mlir_syscaxi_runner_utils
 ```
 
 A 4 by 4 matmul example can be executed with mlir jitter, triggering a systemC
 simulation with:
 ```
-$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
-    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+    $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_syscaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_runner_utils.so 
 ```
 
 The same mlir code is automatically executed with `ninja check-mlir`, but the
 llvm tests only check for the existence of the dma mock library
 (`libmlir_mockaxi_runner_utils.so`) without systemc simulation:
 ```shell
-$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
-    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+    $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_mockaxi_runner_utils.so \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_mockaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_runner_utils.so 
 ```
 
 
 A `C(16x32) = A(16x8) x B(8x32)` accelerator v1 example can be executed with
 the mlir jitter, triggering a systemC simulation with:
 ```
-$PROJ_ROOT/builds/llvm-project/build/bin/mlir-opt \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
         -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/matmul_accelerator_v1_naive.mlir | \
-    $PROJ_ROOT/builds/llvm-project/build/bin/mlir-cpu-runner \
+    $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_syscaxi_runner_utils.so \
-        -shared-libs=$PROJ_ROOT/builds/llvm-project/build/lib/libmlir_runner_utils.so 
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_syscaxi_runner_utils.so \
+        -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_runner_utils.so 
 ```
 # Using docker
 
