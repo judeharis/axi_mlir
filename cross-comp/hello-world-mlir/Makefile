@@ -73,7 +73,7 @@ targets:
 
 .PHONY: defaults
 defaults:
-	$(CC) -v -x c -E - </dev/null
+	$(CC) -v -x c -E --target=$(TARGET_TRIPLE) - </dev/null
 
 # clean targets
 .PHONY: clean
