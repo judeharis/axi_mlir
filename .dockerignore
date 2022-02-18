@@ -1,0 +1,7 @@
+**.git
+
+#Ignores everything
+**
+
+# Allows specific files/folders
+# !build_tools

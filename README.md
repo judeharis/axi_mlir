@@ -71,7 +71,7 @@ This will generate 2 files:
 ## MLIR Example
 
 An example of using the API from a MLIR file can be found
-[here](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/mlir-cpu-runner/axi_v1.mlir).
+[here](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir).
 
 
 ## Installing SystemC
@@ -99,6 +99,14 @@ popd
 popd
 ```
 
+## AXI4MLIR library
+
+[Current Function Prototypes](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/ExecutionEngine/axi/api_v1.h)
+
+[Example](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir)
+
+[Available Options (end of the file)](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/Conversion/Passes.td)
+
 ## Running SystemC
 
 After compiling llvm and installing SystemC, a systemc library can be compiled
@@ -113,9 +121,9 @@ A 4 by 4 matmul example can be executed with mlir jitter, triggering a systemC
 simulation with:
 ```
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -convert-linalg-to-loops -convert-scf-to-cf   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
-        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-axi-v1-data-copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_syscaxi_runner_utils.so \
@@ -127,9 +135,9 @@ llvm tests only check for the existence of the dma mock library
 (`libmlir_mockaxi_runner_utils.so`) without systemc simulation:
 ```shell
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -convert-linalg-to-loops -convert-scf-to-cf   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
-        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/axi_v1_data_copy.mlir | \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-axi-v1-data-copy.mlir | \
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_mockaxi_runner_utils.so \
@@ -141,9 +149,10 @@ A `C(16x32) = A(16x8) x B(8x32)` accelerator v1 example can be executed with
 the mlir jitter, triggering a systemC simulation with:
 ```
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -convert-linalg-to-loops -convert-scf-to-std   -convert-vector-to-llvm \
+        -test-linalg-to-axi4mlir="flow-cpu-accumulation" \
+        -convert-linalg-to-loops -convert-scf-to-cf   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
-        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/matmul_accelerator_v1_naive.mlir | \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir | \
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-cpu-runner \
         -O0 -e main -entry-point-result=void \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_syscaxi_runner_utils.so \
