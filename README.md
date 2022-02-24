@@ -158,6 +158,38 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_syscaxi_runner_utils.so \
         -shared-libs=$PROJ_ROOT/builds/llvm-project/build-x86/lib/libmlir_runner_utils.so 
 ```
+
+## Running on an ARM-32 bit device
+
+```
+export PROJ_ROOT=/working_dir
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
+        -test-linalg-to-axi4mlir="flow-cpu-accumulation" \
+        -convert-linalg-to-loops -convert-scf-to-cf   \
+        -arith-expand \
+        -memref-expand \
+        -convert-vector-to-llvm \
+        -convert-memref-to-llvm \
+        -convert-arith-to-llvm \
+        -convert-std-to-llvm \
+        -reconcile-unrealized-casts \
+        $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir | \
+    $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir -o app.ll
+
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -g \
+    --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
+    -c -o app.o app.ll
+
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -g -o app app.o \
+    --target=arm-linux-gnueabihf \
+    -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+    -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+    -lmlir_runner_utils -lmlir_axi_runner_utils
+
+# Running with qemu
+qemu-arm -L /usr/arm-linux-gnueabihf ./app
+```
+
 # Using docker
 
 To create a standalone image with all build dependencies installed follow execute:
@@ -208,11 +240,11 @@ make
 make run-arm
 
 # Or for individual steps on AOT compiling app.mlir into an arm binary
-cp llvm-project/mlir/test/Integration/Dialect/Linalg/CPU/test-conv-1d-nwc-wcf-call.mlir app.mlir
-/working_dir/builds/llvm-project/build-x86/bin/mlir-opt -convert-linalg-to-loops -convert-scf-to-std -convert-linalg-to-llvm -lower-affine -convert-scf-to-std --convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts -o app-llvm.mlir app.mlir
-/working_dir/builds/llvm-project/build-x86/bin/mlir-translate -mlir-to-llvmir -o app.ll app-llvm.mlir
-/working_dir/builds/llvm-project/build-x86/bin/clang --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard -c -o app.o app.ll
-/working_dir/builds/llvm-project/build-x86/bin/clang -o app app.o --target=arm-linux-gnueabihf -Wl,-rpath=/working_dir/builds/llvm-project/build-runner-arm/lib -L/working_dir/builds/llvm-project/build-runner-arm/lib -lmlir_runner_utils
+cp $PROJ_ROOT/llvm-project/mlir/test/Integration/Dialect/Linalg/CPU/test-conv-1d-nwc-wcf-call.mlir app.mlir
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt -convert-linalg-to-loops -convert-scf-to-cf -convert-linalg-to-llvm -lower-affine -convert-scf-to-cf --convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts -o app-llvm.mlir app.mlir
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate -mlir-to-llvmir -o app.ll app-llvm.mlir
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard -c -o app.o app.ll
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -o app app.o --target=arm-linux-gnueabihf -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib -lmlir_runner_utils 
 # Running with qemu
 qemu-arm -L /usr/arm-linux-gnueabihf ./app
 ```
@@ -225,6 +257,14 @@ Once these steps execute, build folders will be availabe in:
 ├── builds/build-runner-arm    # (ARM) targets: mlir_runner_utils mlir_axi_runner_utils mlir_runner_utils
 ├── builds/build-tblgen-x86    # (x86) targets: mlir-tblgen clang-tblgen llvm-tblgen
 └── builds/build-x86           # (x86) targets: mlir-opt mlir-translate mlir_runner_utils mlir_axi_runner_utils
+
+export PROJ_ROOT=/working_dir
+cmake --build $PROJ_ROOT/builds/llvm-project/build-runner-arm \
+    --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
+
+cmake --build $PROJ_ROOT/builds/llvm-project/build-x86 \
+    --target mlir_c_runner_utils mlir_runner_utils \
+    mlir_axi_runner_utils mlir_mockaxi_runner_utils mlir_syscaxi_runner_utils
 ```
 
 Thus, to recompile one can just 

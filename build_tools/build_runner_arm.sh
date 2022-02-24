@@ -92,6 +92,6 @@ cmake -GNinja \
   -DLLVM_ENABLE_ASSERTIONS=ON \
   -DLLVM_BUILD_EXAMPLES=OFF
 
-cmake --build "$build_dir$suffix" --target mlir_c_runner_utils mlir_runner_utils
+cmake --build "$build_dir$suffix" --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
 
 set +x
