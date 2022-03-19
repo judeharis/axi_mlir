@@ -63,6 +63,8 @@ cmake -GNinja \
   -DLLVM_ENABLE_ASSERTIONS=On \
   -DLLVM_BUILD_EXAMPLES=OFF
 
-cmake --build "$build_dir$suffix" --target clang opt mlir-opt mlir-translate mlir-cpu-runner mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils FileCheck --target install
+cmake --build "$build_dir$suffix" --target clang opt mlir-opt mlir-translate mlir-cpu-runner \
+  mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils \
+  mlir-lsp-server  FileCheck --target install
 
 set +x
