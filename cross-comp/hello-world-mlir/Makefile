@@ -42,7 +42,7 @@ $(APP): $(APP).o
 
 # Generate xxxx-llvm.mlir files in llvm dialect
 %-llvm.mlir: %.mlir
-	$(MLIROPT) -convert-linalg-to-loops -convert-scf-to-std -convert-linalg-to-llvm -lower-affine -convert-scf-to-std --convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts -o $@ $< 
+	$(MLIROPT) -convert-linalg-to-loops -convert-scf-to-cf -convert-linalg-to-llvm -lower-affine -convert-scf-to-cf --convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts -o $@ $< 
 
 # Generate ll files
 %.ll: %-llvm.mlir
