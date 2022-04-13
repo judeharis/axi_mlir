@@ -17,8 +17,8 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
         -arith-expand \
         -memref-expand \
         -convert-vector-to-llvm \
-        -convert-memref-to-llvm=index-bitwidth=$BITW \
-        -convert-arith-to-llvm=index-bitwidth=$BITW \
+        -convert-memref-to-llvm="index-bitwidth=$BITW" \
+        -convert-arith-to-llvm="index-bitwidth=$BITW" \
         -convert-std-to-llvm="index-bitwidth=$BITW" \
         -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir \
