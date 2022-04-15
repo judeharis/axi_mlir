@@ -31,6 +31,7 @@ suffix=-runner-arm
 clang_tablegen=$build_dir-tblgen-x86/bin/clang-tblgen
 llvm_tablegen=$build_dir-tblgen-x86/bin/llvm-tblgen
 mlir_tablegen=$build_dir-tblgen-x86/bin/mlir-tblgen
+linalg_ogs=$build_dir-x86/bin/mlir-linalg-ods-yaml-gen
 
 if ! [ -f "$LLVM_SRC_DIR/llvm/CMakeLists.txt" ]; then
   echo "Expected the path to LLVM to be set correctly (got '$LLVM_SRC_DIR'): can't find CMakeLists.txt"
@@ -68,12 +69,15 @@ set -x
 # Options required if compiling clang or llvm
   # -DCLANG_TABLEGEN=$clang_tablegen \
   # -DLLVM_TABLEGEN=$llvm_tablegen \
+  # -DMLIR_LINALG_ODS_YAML_GEN=$linalg_ogs \
 
 cmake -GNinja \
   "-H$LLVM_SRC_DIR/llvm" \
   "-B$build_dir$suffix" \
   -DCMAKE_INSTALL_PREFIX=$install_dir$suffix  \
   -DMLIR_TABLEGEN=$mlir_tablegen \
+  -DLLVM_TABLEGEN=$llvm_tablegen \
+  -DMLIR_LINALG_ODS_YAML_GEN=$linalg_ogs \
   -DLLVM_INSTALL_UTILS=OFF  \
   -DLLVM_ENABLE_LLD=OFF   \
   -DLLVM_ENABLE_PROJECTS="mlir" \
@@ -92,6 +96,6 @@ cmake -GNinja \
   -DLLVM_ENABLE_ASSERTIONS=ON \
   -DLLVM_BUILD_EXAMPLES=OFF
 
-cmake --build "$build_dir$suffix" --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
+cmake --build "$build_dir$suffix" --target mlir-opt mlir-translate mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
 
 set +x
