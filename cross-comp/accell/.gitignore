@@ -4,3 +4,5 @@ app.ll
 app.o
 intermediate.mlir
 llvm.mlir
+output/
+sources-np/
