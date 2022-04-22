@@ -29,8 +29,14 @@ BITW=64
 
 # Declare an array of string with type
 declare -a StringArray=(
+    "run-matmul_i32-cpu_only-mini-m20_n28_k32"
+    "run-matmul_i32-cpu_only-small-m60_n72_k80"
     "run-matmul_i32-v1accel-tile_acc-mini-m20_n28_k32"
     "run-matmul_i32-v1accel-tile_l2-mini-m20_n28_k32"
+    "run-matmul_i32-v1accel-tile_acc-small-m60_n72_k80"
+    "run-matmul_i32-v1accel-tile_l2-small-m60_n72_k80"
+    
+    # "run-matmul_i32-v1accel-tile_l2-med-m60_n72_k80"
 )
  
 # Iterate the string array using for loop
