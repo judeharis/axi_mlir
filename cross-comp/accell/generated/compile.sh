@@ -21,21 +21,24 @@ declare -a StringArray=(
 # Iterate the string array using for loop
 for INPUT in ${StringArray[@]}; do
 
+# Adding the emit-c-wrappers options affect every function declared inside the mlir file
+#-convert-std-to-llvm="index-bitwidth=$BITW emit-c-wrappers" \
+
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32" \
-        -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
-        -convert-scf-to-cf  \
-        -arith-expand \
-        -memref-expand \
-        -convert-vector-to-llvm \
-        -convert-memref-to-llvm="index-bitwidth=$BITW" \
-        -convert-arith-to-llvm="index-bitwidth=$BITW" \
-        -convert-std-to-llvm="index-bitwidth=$BITW" \
-        -reconcile-unrealized-casts \
-        $INPUT.mlir \
-        -o $OUTDIR/llvm.mlir 
-        # \
-        # -print-ir-before-all 2>&1 | cat > intermediate.mlir
+    -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32" \
+    -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
+    -convert-scf-to-cf  \
+    -arith-expand \
+    -memref-expand \
+    -convert-vector-to-llvm \
+    -convert-memref-to-llvm="index-bitwidth=$BITW" \
+    -convert-arith-to-llvm="index-bitwidth=$BITW" \
+    -convert-std-to-llvm="index-bitwidth=$BITW" \
+    -reconcile-unrealized-casts \
+    $INPUT.mlir \
+    -o $OUTDIR/llvm.mlir 
+    # \
+    # -print-ir-before-all 2>&1 | cat > intermediate.mlir
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir $OUTDIR/llvm.mlir -o $OUTDIR/libmlirmatmuls.ll
 
