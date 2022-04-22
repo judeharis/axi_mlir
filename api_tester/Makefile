@@ -11,7 +11,7 @@ SYSC_LINK=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PA
 
 
 CFLAGS = -fPIC -DREAL
-
+# CFLAGS = -fPIC -DREAL -DCPU_MM
 
 
 INCLUDE=-I../llvm-project/mlir/include
@@ -37,15 +37,30 @@ mock: $(OBJDIR) mock_api_v1 mock_api_v1_lib mock_unit_test
 
 pynq: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
+pynq_exp: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_accv1 pynq_accv2 pynq_accv3 pynq_accv4 pynq_accv5
+
+pynq_accv1 : pynq_tiling1_4x4v1
+
+pynq_accv2 : pynq_tiling1_4x4v2 pynq_tiling2_4x4v2 pynq_tiling3_4x4v2
+
+pynq_accv3 : pynq_tiling1_4x4v3 pynq_tiling2_4x4v3
+
+pynq_accv4 : pynq_tiling1_4x4v4 pynq_tiling2_4x4v4 pynq_tiling3_4x4v4
+
+pynq_accv5 : pynq_tiling1_4x4v5 
+
+
 pynq_v: $(PYNQ_OBJDIR) pynq_api_v1_V pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
-sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_api_4x4v3 sysc_unit_test
+sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_api_4x4v3 sysc_api_4x4v5 sysc_unit_test
 
 sysc_api_4x4v1: sysc_api_v1_4x4v1 sysc_api_v1_lib_4x4v1 sysc_tiling1_4x4v1
 
 sysc_api_4x4v2: sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2 sysc_tiling3_4x4v2
 
 sysc_api_4x4v3: sysc_api_v1_4x4v3 sysc_api_v1_lib_4x4v3 sysc_tiling1_4x4v3 sysc_tiling2_4x4v3
+
+sysc_api_4x4v5: sysc_api_v1_4x4v5 sysc_api_v1_lib_4x4v5 sysc_tiling1_4x4v5
 
 $(OBJDIR):
 	$(MKDIR) $(OBJDIR)
@@ -82,7 +97,60 @@ pynq_unit_test: $(PYNQ_OBJDIR)
 pynq_benchmark: $(PYNQ_OBJDIR)
 	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/test_pynq_real_bench benchmark.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
 
+# ----------------v1----------------
+
+pynq_tiling1_4x4v1: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v1 tiling1_4x4v1.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+# ----------------v2----------------
+
+pynq_tiling1_4x4v2: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v2 tiling1_4x4v2.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+pynq_tiling2_4x4v2: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling2_4x4v2 tiling2_4x4v2.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+pynq_tiling3_4x4v2: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling3_4x4v2 tiling3_4x4v2.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
+# ----------------v3----------------
+
+pynq_tiling1_4x4v3: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v3 tiling1_4x4v3.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+pynq_tiling2_4x4v3: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling2_4x4v3 tiling2_4x4v3.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
+# ----------------v4----------------
+
+
+pynq_tiling1_4x4v4: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v4 tiling1_4x4v4.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
+# pynq_tiling1_4x4v4: $(PYNQ_OBJDIR)
+# 	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v4 tiling1_4x4v4.cc $(APICC)/api_v1.cpp $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
+pynq_tiling2_4x4v4: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling2_4x4v4 tiling2_4x4v4.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+pynq_tiling3_4x4v4: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling3_4x4v4 tiling3_4x4v4.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
+
 #-----------------------
+
+# ----------------v5----------------
+
+pynq_tiling1_4x4v5: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v5 tiling1_4x4v5.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+#-----------------------
+
 
 #----------------------- SYSC 
 sysc_api_v1_4x4v1: $(SYSC_OBJDIR)
@@ -96,6 +164,8 @@ sysc_unit_test: $(SYSC_OBJDIR)
 
 sysc_tiling1_4x4v1: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v1 tiling1_4x4v1.cc -lapi_v1_sysc4x4v1 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
+
+#-----------------------
 
 sysc_api_v1_4x4v2: $(SYSC_OBJDIR)
 	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V2
@@ -112,6 +182,7 @@ sysc_tiling2_4x4v2: $(SYSC_OBJDIR)
 sysc_tiling3_4x4v2: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling3_4x4v2 tiling3_4x4v2.cc -lapi_v1_sysc_4x4v2 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 
+#-----------------------
 
 sysc_api_v1_4x4v3: $(SYSC_OBJDIR)
 	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V3
@@ -125,7 +196,7 @@ sysc_tiling1_4x4v3: $(SYSC_OBJDIR)
 sysc_tiling2_4x4v3: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling2_4x4v3 tiling2_4x4v3.cc -lapi_v1_sysc_4x4v3 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 
-
+#-----------------------
 
 sysc_api_v1_4x4v4: $(SYSC_OBJDIR)
 	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V4
@@ -142,6 +213,17 @@ sysc_tiling2_4x4v4: $(SYSC_OBJDIR)
 sysc_tiling3_4x4v4: $(SYSC_OBJDIR)
 	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling3_4x4v4 tiling3_4x4v4.cc -lapi_v1_sysc_4x4v4 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 
+#-----------------------
+
+
+sysc_api_v1_4x4v5: $(SYSC_OBJDIR)
+	$(CC) -c -o $(SYSC_OBJDIR)/api_v1_sysc.o $(APICC)/api_v1_sysc.cpp $(INCLUDE)  $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(VERBOSE) -DACC_V5
+
+sysc_api_v1_lib_4x4v5: $(SYSC_OBJDIR)
+	$(CC) -shared -o $(SYSC_OBJDIR)/libapi_v1_sysc_4x4v5.so $(SYSC_OBJDIR)/api_v1_sysc.o
+
+sysc_tiling1_4x4v5: $(SYSC_OBJDIR)
+	$(CC) -L$(SYSC_OBJDIR)/ -Wall -o $(SYSC_OBJDIR)/tiling1_4x4v5 tiling1_4x4v5.cc -lapi_v1_sysc_4x4v5 $(SYSC_LINK) $(SYSC_INCLUDE) $(SYSC_CFLAGS) $(INCLUDE) $(VERBOSE)
 #-----------------------
 
 clean: clean_real clean_pynq clean_sysc
