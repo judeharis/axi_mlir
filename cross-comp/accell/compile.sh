@@ -29,8 +29,8 @@ BITW=64
 
 # Declare an array of string with type
 declare -a StringArray=(
-    "run-matmul-v1accel-tile_acc-small-m60_n72_k80"
-    "run-matmul-v1accel-tile_l2-small-m60_n72_k80"
+    "run-matmul_i32-v1accel-tile_acc-mini-m20_n28_k32"
+    "run-matmul_i32-v1accel-tile_l2-mini-m20_n28_k32"
 )
  
 # Iterate the string array using for loop
@@ -54,11 +54,12 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir $OUTDIR/llvm.mlir -o $OUTDIR/app.ll
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -g \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang \
     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
+    -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
     -c -o $OUTDIR/app.o $OUTDIR/app.ll
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -g -o $OUTDIR/$INPUT-app $OUTDIR/app.o \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -o $OUTDIR/$INPUT-app $OUTDIR/app.o \
     --target=arm-linux-gnueabihf \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
