@@ -45,8 +45,10 @@ int main(int argc, char *argv[]) {
   pad_matrix(N, K, tile_N, tile_K, A, padded_A);
   padT_matrix(K, M, tile_K, tile_M, B, padded_BT);
 
+#if CPU_MM
   // C++ MM implementation
   simpleMM(N, M, K, A, B, C);
+#endif
 
   // Init DMA + ACC
   struct dma dma1;
@@ -132,11 +134,11 @@ int main(int argc, char *argv[]) {
     }
   }
   dma1.dma_free();
-  PLOG("=========================");
-  PLOG("ACC: MM_4x4v2");
-  PLOG("Tiling Strat: 2");
-  PLOG("N: " << N << " M: " << M << " K: " << K);
-  PLOG("=========================");
+  // PLOG("=========================");
+  // PLOG("ACC: MM_4x4v2");
+  // PLOG("Tiling Strat: 2");
+  // PLOG("N: " << N << " M: " << M << " K: " << K);
+  // PLOG("=========================");
 
   // Copies padded_C back to C
   std::vector<int> accelerated_C(N * M);
@@ -148,5 +150,7 @@ int main(int argc, char *argv[]) {
   // cout << "=========================" << endl;
   // print_matrix(N, M, C, "Correct Results");
   // print_matrix(N, M, accelerated_C, "Accelerated Results");
+#if CPU_MM
   compare_matrix(N, M, C, accelerated_C);
+#endif
 }
