@@ -63,8 +63,10 @@ typedef struct
   intptr_t size[2];
   intptr_t stride[2];
 } memref_2d_descriptor;
-long long _mlir_ciface_add_memref(memref_2d_descriptor *arg0,
-                                  memref_2d_descriptor *arg1);
+long long _mlir_ciface_matmul_m4_n4_k4_L1_call(
+    memref_2d_descriptor *arg0,
+    memref_2d_descriptor *arg1,
+    memref_2d_descriptor *arg2);
 
 #define M 4
 #define N 4
