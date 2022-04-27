@@ -1,9 +1,19 @@
 // Compile the MLIR file to LLVM:
 // RUN: mlir-opt %t/input.mlir \
-// RUN:  -lower-affine  -convert-scf-to-cf  -convert-memref-to-llvm \
-// RUN:  -convert-std-to-llvm -reconcile-unrealized-casts \
+// RUN:  -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32" \
+// RUN:  -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
+// RUN:  -convert-scf-to-cf  \
+// RUN:  -arith-expand \
+// RUN:  -memref-expand \
+// RUN:  -convert-vector-to-llvm \
+// RUN:  -convert-memref-to-llvm="index-bitwidth=$BITW" \
+// RUN:  -convert-arith-to-llvm="index-bitwidth=$BITW" \
+// RUN:  -convert-std-to-llvm="index-bitwidth=$BITW" \
+// RUN:  -reconcile-unrealized-casts \
 // RUN: | mlir-translate --mlir-to-llvmir -o %t.ll
 
+
+// These instructions are not 100% correct. Please use compile.sh file.
 // Generate an object file for the MLIR code
 // RUN: llc %t.ll -o %t.o -filetype=obj
 
@@ -36,15 +46,15 @@
 //
 void matmul_m8_n8_k8_L1_call(
     int *allocated_ptr0, int *aligned_ptr0,
-    intptr_t offset0, intptr_t size0_d0, intptr_t size0_d1,
-    intptr_t stride0_d0, intptr_t stride0_d1,
+    int64_t offset0, int64_t size0_d0, int64_t size0_d1,
+    int64_t stride0_d0, int64_t stride0_d1,
     // Second Memref (%arg1)
     int *allocated_ptr1, int *aligned_ptr1,
-    intptr_t offset1, intptr_t size1_d0, intptr_t size1_d1,
-    intptr_t stride1_d0, intptr_t stride1_d1,
+    int64_t offset1, int64_t size1_d0, int64_t size1_d1,
+    int64_t stride1_d0, int64_t stride1_d1,
     int *allocated_ptr2, int *aligned_ptr2,
-    intptr_t offset2, intptr_t size2_d0, intptr_t size2_d1,
-    intptr_t stride2_d0, intptr_t stride2_d1);
+    int64_t offset2, int64_t size2_d0, int64_t size2_d1,
+    int64_t stride2_d0, int64_t stride2_d1);
 
 // The llvm.emit_c_interface will also trigger emission of another wrapper:
 // llvm.func @_mlir_ciface_matmul_m8_n8_k8_L1_call(
@@ -59,14 +69,29 @@ typedef struct
 {
   int *allocated;
   int *aligned;
-  intptr_t offset;
-  intptr_t size[2];
-  intptr_t stride[2];
+  int64_t offset;
+  int64_t size[2];
+  int64_t stride[2];
 } memref_2d_descriptor;
+
+// Unranked MemRef
+typedef struct
+{
+  int64_t rank;
+  void *descriptor;
+} UnrankedMemRefType;
+
+void _mlir_ciface_print_memref_i32(UnrankedMemRefType *arg0);
+
+void print_memref_i32(int64_t rank, void *ptr);
+
 void _mlir_ciface_matmul_m8_n8_k8_L1_call(
     memref_2d_descriptor *arg0,
     memref_2d_descriptor *arg1,
     memref_2d_descriptor *arg2);
+
+// Rank
+#define R 2
 
 #define M 8
 #define N 8
@@ -75,8 +100,10 @@ int arg0[M][K];
 int arg1[K][N];
 int arg2[M][N];
 
-void dump() {
-  for (int i = 0; i < N; i++) {
+void dump()
+{
+  for (int i = 0; i < N; i++)
+  {
     printf("[");
     for (int j = 0; j < M; j++)
       printf("%d,\t", (int)arg0[i][j]);
@@ -100,11 +127,36 @@ int main()
     {
       arg0[i][j] = count++;
       arg1[i][j] = count++;
-      arg2[i][j] = count++;
+      arg2[i][j] = 0;
     }
   }
   printf("Before:\n");
   dump();
+
+  // Call into MLIR.
+  memref_2d_descriptor arg0_descriptor = {
+      (int *)arg0, (int *)arg0, 0, M, K, K, 0};
+  memref_2d_descriptor arg1_descriptor = {
+      (int *)arg1, (int *)arg1, 0, K, N, N, 0};
+  memref_2d_descriptor arg2_descriptor = {
+      (int *)arg2, (int *)arg2, 0, M, N, N, 0};
+
+  printf("Printing with print_memref_i32(rank, descriptor):\n");
+  print_memref_i32(R, &arg0_descriptor);
+  print_memref_i32(R, &arg1_descriptor);
+  print_memref_i32(R, &arg2_descriptor);
+
+  UnrankedMemRefType arg0_unranked_descriptor = {
+      R, &arg0_descriptor};
+  UnrankedMemRefType arg1_unranked_descriptor = {
+      R, &arg1_descriptor};
+  UnrankedMemRefType arg2_unranked_descriptor = {
+      R, &arg2_descriptor};
+
+  printf("Printing with _mlir_ciface_print_memref_i32(rank, unrk_descriptor):\n");
+  _mlir_ciface_print_memref_i32(&arg0_unranked_descriptor);
+  _mlir_ciface_print_memref_i32(&arg1_unranked_descriptor);
+  _mlir_ciface_print_memref_i32(&arg2_unranked_descriptor);
 
   // Call into MLIR.
   printf("Call into MLIR\n");
@@ -128,22 +180,16 @@ int main()
     {
       arg0[i][j] = count++;
       arg1[i][j] = count++;
-      arg2[i][j] = count++;
+      arg2[i][j] = 0;
     }
   }
-
-  // Call into MLIR.
-  memref_2d_descriptor arg0_descriptor = {
-      (int *)arg0, (int *)arg0, 0, M, K, K, 0};
-  memref_2d_descriptor arg1_descriptor = {
-      (int *)arg1, (int *)arg1, 0, K, N, N, 0};
-  memref_2d_descriptor arg2_descriptor = {
-      (int *)arg2, (int *)arg2, 0, M, N, N, 0};
 
   printf("Call into MLIR with ciface\n");
   _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
 
   printf("Result: C[0,0]=%d\n", arg2[0][0]);
+  
+  _mlir_ciface_print_memref_i32(&arg2_unranked_descriptor);
 
   printf("After2:\n");
   dump();
