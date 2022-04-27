@@ -57,6 +57,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -shared -o $OUTDIR/libmlirmat
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -o $OUTDIR/matmuldriver-app \
     $OUTDIR/libmlirmatmuls.o matmul_driver.c \
+    -Isrcs \
     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
     -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \

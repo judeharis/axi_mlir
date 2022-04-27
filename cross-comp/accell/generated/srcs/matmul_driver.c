@@ -26,6 +26,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include <mlir_utils.h>
+
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
 //
@@ -44,17 +46,17 @@
 //      %offset2: i64, %size2_d0: i64, %size2_d1: i64, %stride2_d0: i64,
 //      %stride2_d1: i64,
 //
-void matmul_m8_n8_k8_L1_call(
-    int *allocated_ptr0, int *aligned_ptr0,
-    int64_t offset0, int64_t size0_d0, int64_t size0_d1,
-    int64_t stride0_d0, int64_t stride0_d1,
-    // Second Memref (%arg1)
-    int *allocated_ptr1, int *aligned_ptr1,
-    int64_t offset1, int64_t size1_d0, int64_t size1_d1,
-    int64_t stride1_d0, int64_t stride1_d1,
-    int *allocated_ptr2, int *aligned_ptr2,
-    int64_t offset2, int64_t size2_d0, int64_t size2_d1,
-    int64_t stride2_d0, int64_t stride2_d1);
+// void matmul_m8_n8_k8_L1_call(
+//     int *allocated_ptr0, int *aligned_ptr0,
+//     int64_t offset0, int64_t size0_d0, int64_t size0_d1,
+//     int64_t stride0_d0, int64_t stride0_d1,
+//     // Second Memref (%arg1)
+//     int *allocated_ptr1, int *aligned_ptr1,
+//     int64_t offset1, int64_t size1_d0, int64_t size1_d1,
+//     int64_t stride1_d0, int64_t stride1_d1,
+//     int *allocated_ptr2, int *aligned_ptr2,
+//     int64_t offset2, int64_t size2_d0, int64_t size2_d1,
+//     int64_t stride2_d0, int64_t stride2_d1);
 
 // The llvm.emit_c_interface will also trigger emission of another wrapper:
 // llvm.func @_mlir_ciface_matmul_m8_n8_k8_L1_call(
@@ -65,30 +67,8 @@ void matmul_m8_n8_k8_L1_call(
 //   %arg2: !llvm.ptr<struct<(ptr<i32>, ptr<i32>, i64,
 //                            array<2 x i64>, array<2 x i64>)>>)
 // -> void
-typedef struct
-{
-  int *allocated;
-  int *aligned;
-  int64_t offset;
-  int64_t size[2];
-  int64_t stride[2];
-} memref_2d_descriptor;
 
-// Unranked MemRef
-typedef struct
-{
-  int64_t rank;
-  void *descriptor;
-} UnrankedMemRefType;
 
-void _mlir_ciface_print_memref_i32(UnrankedMemRefType *arg0);
-
-void print_memref_i32(int64_t rank, void *ptr);
-
-void _mlir_ciface_matmul_m8_n8_k8_L1_call(
-    memref_2d_descriptor *arg0,
-    memref_2d_descriptor *arg1,
-    memref_2d_descriptor *arg2);
 
 // Rank
 #define R 2

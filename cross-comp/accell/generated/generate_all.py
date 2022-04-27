@@ -5,7 +5,7 @@ import generator
 
 def main(raw_args=None):
     parser = argparse.ArgumentParser(description='Generate a concatenation of calls',
-                                     epilog='Usage: ./generate_all.py 4 2 9 -t CPU MEM L2 L1 > mlir_matmuls.mlir')
+                                     epilog='Usage: ./generate_all.py 4 2 9 -t CPU MEM L2 L1 > srcs/mlir_matmuls.mlir')
     parser.add_argument('start', type=int, help='Start (or Lower Bound)')
     parser.add_argument(
         'ratio', type=int, help='Ratio (or Interval between Lower and Upper bound)')
@@ -17,7 +17,8 @@ def main(raw_args=None):
     parser.set_defaults(arithmetic=False)
     parser.add_argument('-t', '--tags', dest='tags', action='append', nargs='+',
                         required=True, help='<Required> set of flags (separated by spaces)')
-    # parser.add_argument('--template', dest='template', type=str, default='template.mlir', help='File name of the tamplate')
+    parser.add_argument('--template', dest='template', type=str,
+                        default='srcs/template_mlir_matmuls.mlir', help='File name of the tamplate')
 
     args = parser.parse_args(raw_args)
     # print (args)
@@ -30,7 +31,7 @@ def main(raw_args=None):
     for tag in args.tags[0]:
         for dim in dim_range:
             # print('{} {} {} {}'.format(dim,dim,dim, tag).split())
-            generator.main('{} {} {} {}'.format(dim, dim, dim, tag).split())
+            generator.main('{} {} {} {} --template {}'.format(dim, dim, dim, tag, args.template).split())
 
 
 if __name__ == "__main__":
