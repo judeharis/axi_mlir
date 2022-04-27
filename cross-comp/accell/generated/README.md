@@ -2,13 +2,13 @@
 
 ## To regenerate the source MLIR file
 
-This step is not necessary if the files  `mlir_matmuls.mlir` `mlir_matmuls.h` are already has all needed implementations (permutaions of matmul calls).
+This step is not necessary if the files  `mlir_matmuls.mlir` `mlir_matmuls.h.inc` are already has all needed implementations (permutaions of matmul calls).
 
 Inside this folder call:
 
 ```bash
 ./generate_all.py 4 2 9 -t CPU MEM L2 L1 --template srcs/template_mlir_matmuls.mlir > srcs/mlir_matmuls.mlir
-./generate_all.py 4 2 9 -t CPU MEM L2 L1 --template srcs/template_mlir_matmuls.h > srcs/mlir_matmuls.h
+./generate_all.py 4 2 9 -t CPU MEM L2 L1 --template srcs/template_mlir_matmuls.h > srcs/mlir_matmuls.h.inc
 ```
 To generate/regenerate or regenerate the mlir matmuls file.
 

@@ -35,7 +35,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
     -convert-arith-to-llvm="index-bitwidth=$BITW" \
     -convert-std-to-llvm="index-bitwidth=$BITW" \
     -reconcile-unrealized-casts \
-    $INPUT.mlir \
+    srcs/$INPUT.mlir \
     -o $OUTDIR/llvm.mlir 
     # \
     # -print-ir-before-all 2>&1 | cat > intermediate.mlir
@@ -56,7 +56,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -shared -o $OUTDIR/libmlirmat
     -lmlir_runner_utils -lmlir_axi_runner_utils
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -o $OUTDIR/matmuldriver-app \
-    $OUTDIR/libmlirmatmuls.o matmul_driver.c \
+    $OUTDIR/libmlirmatmuls.o srcs/matmul_driver.c \
     -Isrcs \
     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
     -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
