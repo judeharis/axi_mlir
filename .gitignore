@@ -8,3 +8,6 @@ api_tester/sysc_out/
 api_tester/sys_out/
 
 axi4mlir.code-workspace
+scripts/output/*
+scripts/retrieve_jude.sh
+scripts/send_jude.sh
