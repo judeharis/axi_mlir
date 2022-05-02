@@ -2,7 +2,7 @@
 
 ## To regenerate the source MLIR file
 
-This step is not necessary if the files  `mlir_matmuls.mlir` `mlir_matmuls.h.inc` are already has all needed implementations (permutaions of matmul calls).
+This step is not necessary if the files  `mlir_matmuls.mlir` `mlir_matmuls.h.inc` are already has all needed implementations (permutations of matmul calls).
 
 Inside this folder call:
 
