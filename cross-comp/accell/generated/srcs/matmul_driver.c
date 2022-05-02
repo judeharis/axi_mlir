@@ -1,7 +1,9 @@
 // Compile the MLIR file to LLVM:
 // RUN: mlir-opt %t/input.mlir \
-// RUN:  -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32" \
-// RUN:  -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
+// RUN:  -test-linalg-to-axi4mlir="flow-cpu-accumulation
+// tile-sizes=128,128,128,32,32,32" \
+// RUN:  -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting
+// --buffer-deallocation \
 // RUN:  -convert-scf-to-cf  \
 // RUN:  -arith-expand \
 // RUN:  -memref-expand \
@@ -11,7 +13,6 @@
 // RUN:  -convert-std-to-llvm="index-bitwidth=$BITW" \
 // RUN:  -reconcile-unrealized-casts \
 // RUN: | mlir-translate --mlir-to-llvmir -o %t.ll
-
 
 // These instructions are not 100% correct. Please use compile.sh file.
 // Generate an object file for the MLIR code
@@ -26,7 +27,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include <mlir_utils.h>
+#include "mlir_utils.h"
 
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
@@ -68,8 +69,6 @@
 //                            array<2 x i64>, array<2 x i64>)>>)
 // -> void
 
-
-
 // Rank
 #define R 2
 
@@ -80,10 +79,8 @@ int arg0[M][K];
 int arg1[K][N];
 int arg2[M][N];
 
-void dump()
-{
-  for (int i = 0; i < N; i++)
-  {
+void dump() {
+  for (int i = 0; i < N; i++) {
     printf("[");
     for (int j = 0; j < M; j++)
       printf("%d,\t", (int)arg0[i][j]);
@@ -97,14 +94,11 @@ void dump()
   }
 }
 
-int main()
-{
+int main() {
   int count = 0;
   // TODO Fix these bounds for different sizes
-  for (int i = 0; i < M; i++)
-  {
-    for (int j = 0; j < N; j++)
-    {
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
       arg0[i][j] = count++;
       arg1[i][j] = count++;
       arg2[i][j] = 0;
@@ -114,38 +108,34 @@ int main()
   dump();
 
   // Call into MLIR.
-  memref_2d_descriptor arg0_descriptor = {
-      (int *)arg0, (int *)arg0, 0, M, K, K, 0};
-  memref_2d_descriptor arg1_descriptor = {
-      (int *)arg1, (int *)arg1, 0, K, N, N, 0};
-  memref_2d_descriptor arg2_descriptor = {
-      (int *)arg2, (int *)arg2, 0, M, N, N, 0};
+  // clang-format off
+  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M, K, K, 1};
+  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K, N, N, 1};
+  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M, N, N, 1};
+  // clang-format on
 
   printf("Printing with print_memref_i32(rank, descriptor):\n");
   print_memref_i32(R, &arg0_descriptor);
   print_memref_i32(R, &arg1_descriptor);
   print_memref_i32(R, &arg2_descriptor);
 
-  UnrankedMemRefType arg0_unranked_descriptor = {
-      R, &arg0_descriptor};
-  UnrankedMemRefType arg1_unranked_descriptor = {
-      R, &arg1_descriptor};
-  UnrankedMemRefType arg2_unranked_descriptor = {
-      R, &arg2_descriptor};
+  UnrankedMemRefType arg0_unranked_descriptor = {R, &arg0_descriptor};
+  UnrankedMemRefType arg1_unranked_descriptor = {R, &arg1_descriptor};
+  UnrankedMemRefType arg2_unranked_descriptor = {R, &arg2_descriptor};
 
-  printf("Printing with _mlir_ciface_print_memref_i32(rank, unrk_descriptor):\n");
+  printf(
+      "Printing with _mlir_ciface_print_memref_i32(rank, unrk_descriptor):\n");
   _mlir_ciface_print_memref_i32(&arg0_unranked_descriptor);
   _mlir_ciface_print_memref_i32(&arg1_unranked_descriptor);
   _mlir_ciface_print_memref_i32(&arg2_unranked_descriptor);
 
   // Call into MLIR.
   printf("Call into MLIR\n");
-  matmul_m8_n8_k8_L1_call(
-      (int *)arg0, (int *)arg0, 0, M, K, K, 0,
-      //
-      (int *)arg1, (int *)arg1, 0, K, N, N, 0,
-      //
-      (int *)arg2, (int *)arg2, 0, M, N, N, 0);
+  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 1,
+                          //
+                          (int *)arg1, (int *)arg1, 0, K, N, N, 1,
+                          //
+                          (int *)arg2, (int *)arg2, 0, M, N, N, 1);
 
   printf("Result: C[0,0]=%d\n", arg2[0][0]);
 
@@ -154,10 +144,8 @@ int main()
 
   // Reset the input and re-apply the same function use the C API wrapper.
   count = 0;
-  for (int i = 0; i < N; i++)
-  {
-    for (int j = 0; j < M; j++)
-    {
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < M; j++) {
       arg0[i][j] = count++;
       arg1[i][j] = count++;
       arg2[i][j] = 0;
@@ -165,10 +153,11 @@ int main()
   }
 
   printf("Call into MLIR with ciface\n");
-  _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
+  _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor,
+                                       &arg2_descriptor);
 
   printf("Result: C[0,0]=%d\n", arg2[0][0]);
-  
+
   _mlir_ciface_print_memref_i32(&arg2_unranked_descriptor);
 
   printf("After2:\n");

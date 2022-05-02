@@ -30,12 +30,14 @@ void v1_ts1(int *A, int *B, int *C) {
 
         for (int tm = 0; tm < tile_M; tm++)
           for (int tk = 0; tk < tile_K; tk++)
-            dma_inbuffer[data_len + tile_K * tm + tk] = A[(m + tm)*K+(k + tk)];
+            dma_inbuffer[data_len + tile_K * tm + tk] =
+                A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
 
         for (int tn = 0; tn < tile_N; tn++)
           for (int tk = 0; tk < tile_K; tk++)
-            dma_inbuffer[data_len + tile_K * tn + tk] = B[(k + tk)*N+(n + tn)];
+            dma_inbuffer[data_len + tile_K * tn + tk] =
+                B[(k + tk) * N + (n + tn)];
         data_len += tile_N * tile_K;
 
         // Sends data_len of data
@@ -56,7 +58,7 @@ void v1_ts1(int *A, int *B, int *C) {
         // Copies result from DMA_OUT_BUFFER to padded output buffer
         for (int tn = 0; tn < tile_N; tn++) {
           for (int tm = 0; tm < tile_M; tm++) {
-            C[(m + tm)*N+(n + tn)] += dma_outbuffer[tile_M * tn + tm];
+            C[(m + tm) * N + (n + tn)] += dma_outbuffer[tile_M * tn + tm];
           }
         }
       }

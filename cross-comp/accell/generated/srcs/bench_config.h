@@ -10,7 +10,6 @@
 #define N 8
 #define K 8
 
-
 // Modify values of MNK based on the target call
 #define MLIRMATMULCALL matmul_m8_n8_k8_L1_call
 #define CIMLIRMATMULCALL _mlir_ciface_matmul_m8_n8_k8_L1_call

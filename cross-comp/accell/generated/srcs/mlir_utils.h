@@ -2,8 +2,7 @@
 #define MLIRUTILS_H
 
 // 2D Memref of type int
-typedef struct
-{
+typedef struct {
   int *allocated;
   int *aligned;
   int64_t offset;
@@ -12,12 +11,10 @@ typedef struct
 } memref_2d_descriptor;
 
 // Unranked MemRef
-typedef struct
-{
+typedef struct {
   int64_t rank;
   void *descriptor;
 } UnrankedMemRefType;
-
 
 // Print with C interface
 extern "C" void _mlir_ciface_print_memref_i32(UnrankedMemRefType *arg0);
