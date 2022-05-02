@@ -1,3 +1,6 @@
+#ifndef MM4x4v1_TS1_H
+#define MM4x4v1_TS1_H
+
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
 #include "bench_config.h"
@@ -61,3 +64,5 @@ void v1_ts1(int *A, int *B, int *C) {
   }
   dma1.dma_free();
 }
+
+#endif /* MM4x4v1_TS1_H */
