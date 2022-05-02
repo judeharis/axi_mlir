@@ -107,12 +107,9 @@ void dump() {
 
 int main() {
 
-  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M,
-                                          K,           K,           0};
-  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K,
-                                          N,           N,           0};
-  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M,
-                                          N,           N,           0};
+  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M, K, K, 1};
+  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K, N, N, 1};
+  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M, N, N, 1};
 
   // ==========================================================
   // C++ Version
@@ -142,11 +139,9 @@ int main() {
   }
 
   printf("Call into MLIR\n");
-  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 0,
-                          //
-                          (int *)arg1, (int *)arg1, 0, K, N, N, 0,
-                          //
-                          (int *)arg2, (int *)arg2, 0, M, N, N, 0);
+  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 1,
+                 (int *)arg1, (int *)arg1, 0, K, N, N, 1,
+                 (int *)arg2, (int *)arg2, 0, M, N, N, 1);
   printf("After MLIR without C interface:\n");
   dump();
   
