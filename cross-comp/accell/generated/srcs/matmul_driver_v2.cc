@@ -31,8 +31,8 @@
 #include <iostream>
 
 #include "mlir_utils.h"
+#include "bench_config.h"
 #include "mm4x4v1_ts1.h"
-
 
 
 // Define the API for the MLIR function, see
@@ -75,38 +75,63 @@
 //                            array<2 x i64>, array<2 x i64>)>>)
 // -> void
 
-// Rank
-#define R 2
-
-#define tile_M 4
-#define tile_N 4
-#define tile_K 4
-
-#define M 8
-#define N 8
-#define K 8
-int arg0[M][K];
-int arg1[K][N];
-int arg2[M][N];
-
-void dump() {
-  for (int i = 0; i < N; i++) {
+void dump(int * arg0, int * arg1, int * arg2) {
+  printf("--\narg0:\n");
+  for (int i = 0; i < M; i++) {
     printf("[");
-    for (int j = 0; j < M; j++)
-      printf("%d,\t", (int)arg0[i][j]);
-    printf("] [");
-    for (int j = 0; j < M; j++)
-      printf("%d,\t", (int)arg1[i][j]);
-    printf("] [");
-    for (int j = 0; j < M; j++)
-      printf("%d,\t", (int)arg2[i][j]);
+    for (int j = 0; j < K; j++)
+      printf("%d,\t", (int)arg0[i*K+j]);
     printf("]\n");
+  }
+  printf("--\narg1:\n");
+  for (int i = 0; i < K; i++) {
+    printf("[");
+    for (int j = 0; j < N; j++)
+      printf("%d,\t", (int)arg1[i*N+j]);
+    printf("]\n");
+  }
+  printf("--\narg2:\n");
+  for (int i = 0; i < M; i++) {
+    printf("[");
+    for (int j = 0; j < N; j++)
+      printf("%d,\t", (int)arg2[i*N+j]);
+    printf("]\n");
+  }
+}
+
+void reset(int * arg0, int * arg1, int * arg2) {
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < K; j++) {
+      arg0[i*K+j] = 1;
+    }
+  }
+  for (int i = 0; i < K; i++) {
+    for (int j = 0; j < N; j++) {
+      arg1[i*N+j] = 1;
+    }
+  }
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
+      arg2[i*N+j] = 0;
+    }
   }
 }
 
 
 int main() {
 
+  // This allocation is allowed if right dim is known at compile time.
+  // However, MLIR expects a flattened array, and this is allocating
+  // an `int **`, which has additional bytes every row of elements.
+  // auto arg0 = new int [M][K];
+  // auto arg1 = new int [K][N];
+  // auto arg2 = new int [M][N];
+  
+  auto arg0 = new int [M*K];
+  auto arg1 = new int [K*N];
+  auto arg2 = new int [M*N];
+
+  // Fields: base_ptr, aligned_ptr, offset, Dim0, Dim1, Stride0, Stride1
   memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M, K, K, 1};
   memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K, N, N, 1};
   memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M, N, N, 1};
@@ -114,36 +139,24 @@ int main() {
   // ==========================================================
   // C++ Version
   // Reset
-  for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-      arg0[i][j] = 1;
-      arg1[i][j] = 1;
-      arg2[i][j] = 0;
-    }
-  }
+  reset(arg0, arg1, arg2);
 
   printf("Call into C++\n");
   v1_ts1(arg0, arg1, arg2);
   printf("After C++:\n");
-  dump();
+  dump(arg0, arg1, arg2);
 
   // ==========================================================
   // MLIR without C interface
   // Reset
-  for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-      arg0[i][j] = 1;
-      arg1[i][j] = 1;
-      arg2[i][j] = 0;
-    }
-  }
+  reset(arg0, arg1, arg2);
 
   printf("Call into MLIR\n");
-  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 1,
+  MLIRMATMULCALL((int *)arg0, (int *)arg0, 0, M, K, K, 1,
                  (int *)arg1, (int *)arg1, 0, K, N, N, 1,
                  (int *)arg2, (int *)arg2, 0, M, N, N, 1);
   printf("After MLIR without C interface:\n");
-  dump();
+  dump(arg0, arg1, arg2);
   
   print_memref_i32(R, &arg0_descriptor);
   print_memref_i32(R, &arg1_descriptor);
@@ -152,30 +165,22 @@ int main() {
   // ==========================================================
   // MLIR with C interface
   // Reset
-  for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-      arg0[i][j] = 1;
-      arg1[i][j] = 1;
-      arg2[i][j] = 0;
-    }
-  }
+  reset(arg0, arg1, arg2);
 
   printf("Call into MLIR\n");
-  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 0,
-                          //
-                          (int *)arg1, (int *)arg1, 0, K, N, N, 0,
-                          //
-                          (int *)arg2, (int *)arg2, 0, M, N, N, 0);
-
-  _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
+  CIMLIRMATMULCALL(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
   
   printf("After MLIR with C interface:\n");
-  dump();
+  dump(arg0, arg1, arg2);
 
   // Other MLIR prints :
   print_memref_i32(R, &arg0_descriptor);
   print_memref_i32(R, &arg1_descriptor);
   print_memref_i32(R, &arg2_descriptor);
+
+  free(arg0);
+  free(arg1);
+  free(arg2);
 
   return 0;
 }

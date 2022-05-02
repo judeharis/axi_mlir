@@ -1,13 +1,8 @@
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
-#define tile_M 4
-#define tile_N 4
-#define tile_K 4
-#define M 8
-#define N 8
-#define K 8
+#include "bench_config.h"
 
-void v1_ts1(int A[M][K], int B[K][N], int C[M][N]) {
+void v1_ts1(int *A, int *B, int *C) {
   //   LOG("=========================");
   //   LOG("ACC: MM_4x4v1");
   //   LOG("Tiling Strat: 1");
@@ -32,12 +27,12 @@ void v1_ts1(int A[M][K], int B[K][N], int C[M][N]) {
 
         for (int tm = 0; tm < tile_M; tm++)
           for (int tk = 0; tk < tile_K; tk++)
-            dma_inbuffer[data_len + tile_K * tm + tk] = A[m + tm][k + tk];
+            dma_inbuffer[data_len + tile_K * tm + tk] = A[(m + tm)*K+(k + tk)];
         data_len += tile_M * tile_K;
 
         for (int tn = 0; tn < tile_N; tn++)
           for (int tk = 0; tk < tile_K; tk++)
-            dma_inbuffer[data_len + tile_K * tn + tk] = B[k + tk][n + tn];
+            dma_inbuffer[data_len + tile_K * tn + tk] = B[(k + tk)*N+(n + tn)];
         data_len += tile_N * tile_K;
 
         // Sends data_len of data
@@ -58,7 +53,7 @@ void v1_ts1(int A[M][K], int B[K][N], int C[M][N]) {
         // Copies result from DMA_OUT_BUFFER to padded output buffer
         for (int tn = 0; tn < tile_N; tn++) {
           for (int tm = 0; tm < tile_M; tm++) {
-            C[m + tm][n + tn] += dma_outbuffer[tile_M * tn + tm];
+            C[(m + tm)*N+(n + tn)] += dma_outbuffer[tile_M * tn + tm];
           }
         }
       }
