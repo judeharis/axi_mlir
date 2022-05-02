@@ -30,7 +30,7 @@
 #include <cstdint>
 #include <iostream>
 
-#include <mlir_utils.h>
+#include "mlir_utils.h"
 #include "mm4x4v1_ts1.h"
 
 
@@ -106,23 +106,16 @@ void dump() {
 
 
 int main() {
-  int count = 0;
-  // TODO Fix these bounds for different sizes
 
-  for (int i = 0; i < M; i++) {
-    for (int j = 0; j < N; j++) {
-      arg0[i][j] = 1;
-      arg1[i][j] = 1;
-      arg2[i][j] = 0;
-    }
-  }
+  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M,
+                                          K,           K,           0};
+  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K,
+                                          N,           N,           0};
+  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M,
+                                          N,           N,           0};
 
-  // C++ Code
-  printf("Call into C++\n");
-  v1_ts1(arg0, arg1, arg2);
-  printf("After C++:\n");
-  dump();
-
+  // ==========================================================
+  // C++ Version
   // Reset
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < N; j++) {
@@ -131,33 +124,63 @@ int main() {
       arg2[i][j] = 0;
     }
   }
-  // MLIR Code
-  // Call into MLIR.
-  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M,
-                                          K,           K,           0};
-  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K,
-                                          N,           N,           0};
-  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M,
-                                          N,           N,           0};
-  // printf("Printing with print_memref_i32(rank, descriptor):\n");
-  // print_memref_i32(R, &arg0_descriptor);
-  // print_memref_i32(R, &arg1_descriptor);
-  // print_memref_i32(R, &arg2_descriptor);
 
-  // Call into MLIR.
-  // TODO Enable clang++ compile for the following two calls
-  printf("Call into MLIR\n");
-  // matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 0,
-  //                         //
-  //                         (int *)arg1, (int *)arg1, 0, K, N, N, 0,
-  //                         //
-  //                         (int *)arg2, (int *)arg2, 0, M, N, N, 0);
-
-  // _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
-
-  // printf("Result: C[0,0]=%d\n", arg2[0][0]);
-  printf("After MLIR:\n");
+  printf("Call into C++\n");
+  v1_ts1(arg0, arg1, arg2);
+  printf("After C++:\n");
   dump();
+
+  // ==========================================================
+  // MLIR without C interface
+  // Reset
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
+      arg0[i][j] = 1;
+      arg1[i][j] = 1;
+      arg2[i][j] = 0;
+    }
+  }
+
+  printf("Call into MLIR\n");
+  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 0,
+                          //
+                          (int *)arg1, (int *)arg1, 0, K, N, N, 0,
+                          //
+                          (int *)arg2, (int *)arg2, 0, M, N, N, 0);
+  printf("After MLIR without C interface:\n");
+  dump();
+  
+  print_memref_i32(R, &arg0_descriptor);
+  print_memref_i32(R, &arg1_descriptor);
+  print_memref_i32(R, &arg2_descriptor);
+  
+  // ==========================================================
+  // MLIR with C interface
+  // Reset
+  for (int i = 0; i < M; i++) {
+    for (int j = 0; j < N; j++) {
+      arg0[i][j] = 1;
+      arg1[i][j] = 1;
+      arg2[i][j] = 0;
+    }
+  }
+
+  printf("Call into MLIR\n");
+  matmul_m8_n8_k8_L1_call((int *)arg0, (int *)arg0, 0, M, K, K, 0,
+                          //
+                          (int *)arg1, (int *)arg1, 0, K, N, N, 0,
+                          //
+                          (int *)arg2, (int *)arg2, 0, M, N, N, 0);
+
+  _mlir_ciface_matmul_m8_n8_k8_L1_call(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
+  
+  printf("After MLIR with C interface:\n");
+  dump();
+
+  // Other MLIR prints :
+  print_memref_i32(R, &arg0_descriptor);
+  print_memref_i32(R, &arg1_descriptor);
+  print_memref_i32(R, &arg2_descriptor);
 
   return 0;
 }
