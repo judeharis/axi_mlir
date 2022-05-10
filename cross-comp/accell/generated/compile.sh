@@ -93,7 +93,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libmlirm
 #     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib
 
 # Use this to include the standalone AXI lib for C++ drivers
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-128-app \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-64-app \
     srcs/matmul_driver_v2.cc \
     -Isrcs \
     -I$PROJ_ROOT/llvm-project/mlir/include \
