@@ -82,19 +82,19 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libmlirm
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -lmlir_runner_utils -lmlir_axi_runner_utils
 
-# Creates the standalone AXI libthe
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -c -o $OUTDIR/pynq_api_v1.o $APICC/api_v1.cpp \
-    --target=arm-linux-gnueabihf \
-    -fPIC -DREAL -I$PROJ_ROOT/llvm-project/mlir/include
+# Creates the standalone AXI lib
+# $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -c -o $OUTDIR/pynq_api_v1.o $APICC/api_v1.cpp \
+#     --target=arm-linux-gnueabihf \
+#     -fPIC -DREAL -I$PROJ_ROOT/llvm-project/mlir/include
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libpynq_api_v1.so $OUTDIR/pynq_api_v1.o \
-    --target=arm-linux-gnueabihf \
-    -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
-    -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib
+# $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libpynq_api_v1.so $OUTDIR/pynq_api_v1.o \
+#     --target=arm-linux-gnueabihf \
+#     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+#     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib
 
 # Use this to include the standalone AXI lib for C++ drivers
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-app \
-    $OUTDIR/libmlirmatmuls.o srcs/matmul_driver_v2.cc \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-128-app \
+    srcs/matmul_driver_v2.cc \
     -Isrcs \
     -I$PROJ_ROOT/llvm-project/mlir/include \
     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
@@ -102,9 +102,9 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-app
     -Wl,--copy-dt-needed-entries \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+    -lmlir_runner_utils -lmlir_c_runner_utils -lmlir_axi_runner_utils \
     -L$OUTDIR \
-    -lmlir_runner_utils -lmlir_axi_runner_utils
-    # -lmlir_runner_utils -lmlir_mockaxi_runner_utils -lpynq_api_v1
+    -lmlirmatmuls
 
 
 # $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-app \
