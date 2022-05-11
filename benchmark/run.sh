@@ -76,15 +76,20 @@ for INPUT in ${AppArray[@]}; do
   perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT-app
   #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
-  # Process the CSV file and concatenate into a final output
-  # TODO
+  # Process the CSV file
   mv $POUTDIR/perf-results-tmp.csv $POUTDIR/perf-results-$INPUT.csv
 
   # Delay to let the board "cool"
   sleep 0.1
 done
+  
+# Process alls CSV files and concatenate into a final output
+mkdir -p results
+TIMESTAMP_RAW=`date +%c`
+TIMESTAMP=${TIMESTAMP_RAW// /_}
+./prepare_results.py perf_output > results/results-${HOSTNAME}-${TIMESTAMP}.csv
 
-
+chown -R xilinx:xilinx *
 
 # Ignore this for now. Just an example on how to permute multiple options
 
