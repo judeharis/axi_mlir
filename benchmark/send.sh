@@ -2,6 +2,14 @@
 
 # Local to Remote: rsync [OPTION]... -e ssh [SRC]... [USER@]HOST:DEST
 
+if [ "$HOSTNAME" = WE40997 ]; then
+  board_user=xilinx
+  board_hostname=tul
+else
+  board_user=xilinx
+  board_hostname=192.168.0.17
+fi
+
 board_user=xilinx
 board_hostname=192.168.0.17
 
