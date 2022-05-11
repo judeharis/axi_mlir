@@ -5,9 +5,12 @@
 if [ "$HOSTNAME" = WE40997 ]; then
   board_user=xilinx
   board_hostname=tul
-else
+elif [ "$HOSTNAME" = jude-MS-7B79 ]; then
   board_user=xilinx
   board_hostname=192.168.0.17
+else
+  echo "Hostname not recognized. Exiting..."
+  exit 0
 fi
 
 board_user=xilinx
