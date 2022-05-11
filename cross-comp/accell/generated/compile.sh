@@ -26,7 +26,7 @@ for INPUT in ${StringArray[@]}; do
 #-convert-std-to-llvm="index-bitwidth=$BITW emit-c-wrappers" \
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-    -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32" \
+    -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32 accel-tile-size=16" \
     -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
     -convert-scf-to-cf  \
     -arith-expand \
@@ -104,7 +104,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-64-
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -lmlir_runner_utils -lmlir_c_runner_utils -lmlir_axi_runner_utils \
     -L$OUTDIR \
-    -lmlirmatmuls
+    -lmlirmatmuls -DRUNCPP
 
 
 # $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/matmuldriver-app \

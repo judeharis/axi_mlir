@@ -148,21 +148,18 @@ int main() {
   // clang-format on
 #else
   // ==========================================================
-  // MLIR with C interface
+  // MLIR without C interface
   // Reset
-  // Fields: base_ptr, aligned_ptr, offset, Dim0, Dim1, Stride0, Stride1
-  // clang-format off
-  memref_2d_descriptor arg0_descriptor = {(int *)arg0, (int *)arg0, 0, M, K, K, 1};
-  memref_2d_descriptor arg1_descriptor = {(int *)arg1, (int *)arg1, 0, K, N, N, 1};
-  memref_2d_descriptor arg2_descriptor = {(int *)arg2, (int *)arg2, 0, M, N, N, 1};
-  // clang-format on
   reset(arg0, arg1, arg2);
-  CIMLIRMATMULCALL(&arg0_descriptor, &arg1_descriptor, &arg2_descriptor);
+  // clang-format off
+  MLIRMATMULCALLCPU((int *)arg0, (int *)arg0, 0, M, K, K, 1,
+                 (int *)arg1, (int *)arg1, 0, K, N, N, 1,
+                 (int *)arg2, (int *)arg2, 0, M, N, N, 1);
+  // clang-format on
 #endif
 
   free(arg0);
   free(arg1);
   free(arg2);
-
   return 0;
 }
