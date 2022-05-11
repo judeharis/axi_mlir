@@ -21,11 +21,13 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,$PEVENTS_LLC,duration_time
 # TODO
 
 # A "-app" will be appented to create the final app name
-declare -a StringArray=(
-  matmuldriver
+
+./load_bitstream.py /home/xilinx/pynq/overlays/axi4mlir/hmm_acc_4x4v1.bit
+declare -a AppArray=(
+  driver-matmul-m64_n64_k64-MEM-acc4
 )
 
-for INPUT in ${StringArray[@]}; do
+for INPUT in ${AppArray[@]}; do
 
   perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT-app
   #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app

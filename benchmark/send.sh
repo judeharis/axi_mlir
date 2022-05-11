@@ -13,9 +13,6 @@ else
   exit 0
 fi
 
-board_user=xilinx
-board_hostname=192.168.0.17
-
 bins_dir=bins
 libs_dir=libs
 
