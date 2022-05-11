@@ -21,5 +21,6 @@ $ cd /home/xilinx/Development/axi4mlir/benchmark
 $ ./run.sh
 ```
 
-## TODO : Update to collect results into results folder 
-## TODO : Create script to run all the different accelerators
+The command above will generate several csv files inside the `perf_output/` folder and
+a concatenated file inside the `results/` folder with hostname and timestamp.
+The contents of the concatenated file can be copy, pasted and split by commands inside the google spreadsheet

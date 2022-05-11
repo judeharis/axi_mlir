@@ -17,7 +17,7 @@ def getDictFromFilename(filename):
   d['m'] = s[0]
   d['n'] = s[1]
   d['k'] = s[2]
-  d['dims']='{}-{}-{}'.format(s[0],s[1],s[2])
+  d['dims']='{}_{}_{}'.format(s[0],s[1],s[2])
 
   d['strategy']=r[2]
 
@@ -48,15 +48,15 @@ def main(raw_args=None):
       # checking if it is a file
       d = {}
       if os.path.isfile(f):
-        print(f)
+        # print(f)
         d = getDictFromFilename(f)
 
       with open(f) as file:
         for l in file.readlines():
           if (',' in l):
             # Format : 
-            # problem_size,dims,kernel,tool,accel_version,accel_size,strategy,threads,board,REST OF PERF OUT,filename
-            print('{},{},{},{},{},{},{},{},{},{}'.format(d['dims'],d['dims'],d['kernel'],d['tool'],d['accel_size'],1,1,d['hostname'],l.strip('\n'),filename))
+            # problem_size,dims,kernel,tool,accel_version,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT,filename
+            print('{},{},{},{},{},{},{},{},{},{},{}'.format(d['dims'],d['dims'],d['kernel'],d['tool'],d['accel_size'],1,1,1,d['hostname'],l.strip('\n'),filename))
 
 if __name__ == "__main__":
     main()
