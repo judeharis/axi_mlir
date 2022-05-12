@@ -7,7 +7,7 @@ def main(raw_args=None):
   parser = argparse.ArgumentParser(description='Wrapper to load valid bitstreams')
                                      
   parser.add_argument(dest='bitstream', type=str,
-    default='/home/xilinx/pynq/overlays/axi4mlir/hmm_acc_4x4v1.bit', 
+    default='/home/xilinx/pynq/overlays/axi4mlir_maps/mm4x4_v1_highv1_nostatus.bit', 
     help='Path to the bitstream file')
 
   args = parser.parse_args(raw_args)
