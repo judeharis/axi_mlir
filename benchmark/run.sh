@@ -29,8 +29,8 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,$PEVENTS_LLC,duration_time
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    # "8"
-    # "16"
+    "8"
+    "16"
 )
 
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
@@ -82,15 +82,17 @@ declare -a AppArray=(
 
 for INPUT in ${AppArray[@]}; do
 
-  echo "Running $INPUT-app"
-  perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT-app
-  #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
+  if test -f "$APPDIR/$INPUT-app"; then
+    echo "Running $INPUT-app"
+    perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT-app
+    #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
-  # Process the CSV file
-  mv $POUTDIR/perf-results-tmp.csv $POUTDIR/perf-results-$INPUT.csv
+    # Process the CSV file
+    mv $POUTDIR/perf-results-tmp.csv $POUTDIR/perf-results-$INPUT.csv
 
-  # Delay to let the board "cool"
-  sleep 0.1
+    # Delay to let the board "cool"
+    sleep 0.1
+  fi
 done
 
 done
