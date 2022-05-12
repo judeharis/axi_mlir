@@ -28,6 +28,8 @@ PROBLEM_DIM=64
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
+    "8"
+    "16"
 )
 
 declare -a KernelNameArray=(
@@ -106,6 +108,10 @@ for STRATEGY in ${StrategyArray[@]}; do
 for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
+
+if [ "$ACCEL_SIZE" -gt "$PROBLEM_DIM" ]; then
+  continue
+fi
 
 M=$PROBLEM_DIM
 N=$PROBLEM_DIM
