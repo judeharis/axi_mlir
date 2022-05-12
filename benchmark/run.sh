@@ -18,7 +18,7 @@ PEVENTS_HW=branch-instructions,branch-misses,cache-references,cache-misses,cpu-c
 PEVENTS_SW=context-switches,page-faults,task-clock
 PEVENTS_L1=L1-dcache-load-misses,L1-dcache-loads,L1-dcache-stores,L1-icache-load-misses
 PEVENTS_LLC=LLC-load-misses,LLC-loads,LLC-store-misses,LLC-stores
-PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,$PEVENTS_LLC,duration_time
+PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 
 # LOAD correct bitstream
 # TODO
