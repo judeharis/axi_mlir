@@ -1,0 +1,1027 @@
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,906135,,branch-instructions,2.74%,8445996,29.72,31.681,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,235156,,branch-misses,4.08%,14107457,49.64,24.92,of all branches,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,5880483,,cache-references,2.08%,24084629,84.75,205.597,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,58461,,cache-misses,1.62%,28419973,100.00,0.984,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,18372459,,cpu-cycles,0.19%,28419973,100.00,0.642,GHz,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,0,,context-switches,0.00%,28416444,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,140,,page-faults,0.27%,28416444,100.00,4.895,K/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,28.42,msec,task-clock,0.19%,28416444,100.00,0.954,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,58461,,L1-dcache-load-misses,1.62%,28419973,100.00,0.96,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,6073529,,L1-dcache-loads,0.04%,28419973,100.00,212.347,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,6629786,,L1-dcache-stores,2.95%,24309321,85.54,231.795,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,54115,,L1-icache-load-misses,26.94%,14312516,50.36,,,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,8,1,1,1,jude,29517747,ns,duration_time,0.35%,29517747,100.00,1.032,G/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,1791469,,branch-instructions,0.75%,39212366,66.29,30.314,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,236148,,branch-misses,2.34%,39181877,66.23,13.08,of all branches,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,13159210,,cache-references,1.18%,29308873,49.54,222.672,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,115638,,cache-misses,2.81%,32811097,55.47,0.869,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,38257567,,cpu-cycles,0.05%,42808174,72.36,0.647,GHz,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,2,,context-switches,10.00%,59132986,100.00,33.843,/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,177,,page-faults,0.11%,59132986,100.00,2.995,K/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,59.13,msec,task-clock,0.07%,59132986,100.00,0.980,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,95189,,L1-dcache-load-misses,1.74%,52676635,89.05,0.58,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,16544779,,L1-dcache-loads,0.02%,59156266,100.00,279.961,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,17089866,,L1-dcache-stores,1.56%,56270924,95.12,289.185,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,62640,,L1-icache-load-misses,12.05%,46319558,78.30,,,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,16,1,1,1,jude,60429239,ns,duration_time,0.07%,60429239,100.00,1.023,G/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc16.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,477845,,branch-instructions,5.23%,7230292,48.76,32.290,M/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,125317,,branch-misses,0.88%,14828999,100.00,26.84,of all branches,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,1813071,,cache-references,0.09%,14828999,100.00,122.515,M/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,48234,,cache-misses,1.99%,14828999,100.00,2.666,of all cache refs,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,9573414,,cpu-cycles,0.20%,14828999,100.00,0.647,GHz,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,1,,context-switches,24.49%,14811460,100.00,67.573,/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,111,,page-faults,0.34%,14811460,100.00,7.501,K/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,14.81,msec,task-clock,0.23%,14811460,100.00,0.929,CPUs utilized,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,48234,,L1-dcache-load-misses,1.99%,14828999,100.00,2.67,of all L1-dcache accesses,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,1813071,,L1-dcache-loads,0.09%,14828999,100.00,122.515,M/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,2046900,,L1-dcache-stores,1.81%,7598707,51.24,138.316,M/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_MEM,4,1,1,1,jude,16084999,ns,duration_time,0.39%,16084999,100.00,1.087,G/sec,perf-results-driver-matmul-m4_n4_k4-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,639143,,branch-instructions,1.74%,7081482,36.13,32.554,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,140961,,branch-misses,3.90%,17072322,87.10,21.54,of all branches,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,2627741,,cache-references,0.06%,19601402,100.00,133.842,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,51717,,cache-misses,4.89%,19601402,100.00,1.968,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,12657464,,cpu-cycles,0.27%,19601402,100.00,0.645,GHz,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,0,,context-switches,0.00%,19593273,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,123,,page-faults,0.16%,19593273,100.00,6.265,K/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,19.59,msec,task-clock,0.30%,19593273,100.00,0.946,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,51717,,L1-dcache-load-misses,4.89%,19601402,100.00,1.97,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,2627741,,L1-dcache-loads,0.06%,19601402,100.00,133.842,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,2929470,,L1-dcache-stores,1.19%,12519920,63.87,149.211,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,163564,,L1-icache-load-misses,24.07%,2529080,12.90,,,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,16,1,1,1,jude,20607382,ns,duration_time,0.31%,20607382,100.00,1.050,G/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,10786337,,branch-instructions,0.13%,282453355,77.48,29.530,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,630266,,branch-misses,1.32%,284578192,78.06,5.84,of all branches,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,116212854,,cache-references,0.02%,244604543,67.10,318.161,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,599772,,cache-misses,0.70%,244690211,67.12,0.516,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,236096020,,cpu-cycles,0.09%,284683014,78.09,0.646,GHz,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,1,,context-switches,48.99%,364544704,100.00,2.738,/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,450,,page-faults,0.05%,364544704,100.00,1.232,K/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,364.54,msec,task-clock,0.09%,364544704,100.00,0.994,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,596631,,L1-dcache-load-misses,0.68%,284686900,78.09,0.51,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,116979633,,L1-dcache-loads,0.04%,284566029,78.06,320.261,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,117704039,,L1-dcache-stores,0.41%,281922824,77.33,322.244,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,117606,,L1-icache-load-misses,13.66%,279833190,76.76,,,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,16,1,1,1,jude,365821829,ns,duration_time,0.09%,365821829,100.00,1.002,G/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc16.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,520370,,branch-instructions,5.72%,9511292,64.84,35.250,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,124169,,branch-misses,0.22%,14669698,100.00,26.89,of all branches,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,1803743,,cache-references,0.11%,14669698,100.00,122.185,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,46781,,cache-misses,0.71%,14669698,100.00,2.583,of all cache refs,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,9486915,,cpu-cycles,0.20%,14669698,100.00,0.643,GHz,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,0,,context-switches,0.00%,14670165,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,110,,page-faults,0.22%,14670165,100.00,7.451,K/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,14.67,msec,task-clock,0.26%,14670165,100.00,0.930,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,46781,,L1-dcache-load-misses,0.71%,14669698,100.00,2.58,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,1803743,,L1-dcache-loads,0.11%,14669698,100.00,122.185,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,1775144,,L1-dcache-stores,2.59%,5158406,35.16,120.248,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,4,1,1,1,jude,15716212,ns,duration_time,0.19%,15716212,100.00,1.065,G/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,647358,,branch-instructions,1.67%,4050440,19.66,31.402,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,173709,,branch-misses,3.95%,14047953,68.19,25.68,of all branches,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,3724918,,cache-references,0.05%,20602547,100.00,180.686,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,54583,,cache-misses,3.88%,20602547,100.00,1.467,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,13312651,,cpu-cycles,0.25%,20602547,100.00,0.646,GHz,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,0,,context-switches,0.00%,20599073,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,126,,page-faults,0.16%,20599073,100.00,6.112,K/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,20.60,msec,task-clock,0.25%,20599073,100.00,0.951,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,54583,,L1-dcache-load-misses,3.88%,20602547,100.00,1.47,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,3724918,,L1-dcache-loads,0.05%,20602547,100.00,180.686,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,4152769,,L1-dcache-stores,3.64%,16552107,80.34,201.440,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,56411,,L1-icache-load-misses,41.07%,6554594,31.81,,,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,16,1,1,1,jude,21608148,ns,duration_time,0.37%,21608148,100.00,1.048,G/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,677985,,branch-instructions,1.74%,8010947,38.73,32.953,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,141943,,branch-misses,5.15%,18001553,87.02,20.77,of all branches,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,3702152,,cache-references,0.08%,20686577,100.00,179.940,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,61752,,cache-misses,2.71%,20686577,100.00,1.666,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,13362220,,cpu-cycles,0.24%,20686577,100.00,0.649,GHz,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,0,,context-switches,0.00%,20677374,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,127,,page-faults,0.25%,20677374,100.00,6.173,K/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,20.68,msec,task-clock,0.24%,20677374,100.00,0.952,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,61752,,L1-dcache-load-misses,2.71%,20686577,100.00,1.67,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,3702152,,L1-dcache-loads,0.08%,20686577,100.00,179.940,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,4595095,,L1-dcache-stores,3.47%,12675630,61.27,223.341,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,128278,,L1-icache-load-misses,31.49%,2685024,12.98,,,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,16,1,1,1,jude,21770548,ns,duration_time,0.34%,21770548,100.00,1.058,G/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,669338,,branch-instructions,1.78%,4375292,20.62,31.456,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,175113,,branch-misses,3.06%,14369304,67.72,25.16,of all branches,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,3406933,,cache-references,0.08%,21219553,100.00,160.109,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,54794,,cache-misses,3.07%,21219553,100.00,1.607,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,13707635,,cpu-cycles,0.19%,21219553,100.00,0.644,GHz,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,0,,context-switches,0.00%,21211365,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,132,,page-faults,0.15%,21211365,100.00,6.203,K/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,21.21,msec,task-clock,0.19%,21211365,100.00,0.947,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,54794,,L1-dcache-load-misses,3.07%,21219553,100.00,1.61,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,3406933,,L1-dcache-loads,0.08%,21219553,100.00,160.109,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,3757037,,L1-dcache-stores,2.37%,16844261,79.38,176.562,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,67209,,L1-icache-load-misses,23.57%,6850249,32.28,,,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,4,1,1,1,jude,22303361,ns,duration_time,0.32%,22303361,100.00,1.048,G/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,523232,,branch-instructions,0.65%,4649483,27.90,31.375,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,135770,,branch-misses,0.70%,14645184,87.89,25.44,of all branches,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,2359785,,cache-references,0.12%,16664008,100.00,141.501,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,49823,,cache-misses,0.83%,16664008,100.00,2.114,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,10750256,,cpu-cycles,0.19%,16664008,100.00,0.645,GHz,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,0,,context-switches,0.00%,16654183,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,116,,page-faults,0.21%,16654183,100.00,6.956,K/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,16.65,msec,task-clock,0.20%,16654183,100.00,0.939,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,49823,,L1-dcache-load-misses,0.83%,16664008,100.00,2.11,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,2359785,,L1-dcache-loads,0.12%,16664008,100.00,141.501,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,2648537,,L1-dcache-stores,0.73%,12014525,72.10,158.815,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,165003,,L1-icache-load-misses,4.06%,2018824,12.11,,,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,8,1,1,1,jude,17660707,ns,duration_time,0.62%,17660707,100.00,1.059,G/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,483740,,branch-instructions,2.74%,1853065,12.24,32.196,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,123038,,branch-misses,0.76%,11851030,78.28,24.54,of all branches,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,1883641,,cache-references,0.16%,15138608,100.00,125.367,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,49422,,cache-misses,1.08%,15138608,100.00,2.632,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,9750794,,cpu-cycles,0.28%,15138608,100.00,0.649,GHz,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,1,,context-switches,24.49%,15124648,100.00,66.556,/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,110,,page-faults,0.22%,15124648,100.00,7.321,K/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,15.12,msec,task-clock,0.31%,15124648,100.00,0.934,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,49422,,L1-dcache-load-misses,1.08%,15138608,100.00,2.63,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,1883641,,L1-dcache-loads,0.16%,15138608,100.00,125.367,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,1952194,,L1-dcache-stores,2.78%,13285543,87.76,129.930,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,285275,,L1-icache-load-misses,19.43%,3287578,21.72,,,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,8,1,1,1,jude,16287955,ns,duration_time,0.85%,16287955,100.00,1.084,G/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,492075,,branch-instructions,12.81%,2238197,14.30,31.317,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,130494,,branch-misses,0.77%,12232335,78.13,28.66,of all branches,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,2010725,,cache-references,0.05%,15656790,100.00,127.968,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,48318,,cache-misses,3.34%,15656790,100.00,2.400,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,10089469,,cpu-cycles,0.28%,15656790,100.00,0.642,GHz,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,1,,context-switches,20.00%,15642673,100.00,63.643,/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,111,,page-faults,0.46%,15642673,100.00,7.064,K/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,15.64,msec,task-clock,0.29%,15642673,100.00,0.898,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,48318,,L1-dcache-load-misses,3.34%,15656790,100.00,2.40,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,2010725,,L1-dcache-loads,0.05%,15656790,100.00,127.968,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,2103346,,L1-dcache-stores,2.77%,13418593,85.70,133.862,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,218594,,L1-icache-load-misses,25.80%,3424455,21.87,,,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,4,1,1,1,jude,16842927,ns,duration_time,2.77%,16842927,100.00,1.072,G/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,365775,,branch-instructions,6.77%,766810,5.19,24.511,M/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,120926,,branch-misses,1.38%,10766701,72.82,26.05,of all branches,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,1801346,,cache-references,0.33%,14784680,100.00,120.711,M/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,49354,,cache-misses,2.93%,14784680,100.00,2.731,of all cache refs,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,9534712,,cpu-cycles,1.08%,14784680,100.00,0.639,GHz,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,0,,context-switches,0.00%,14783691,100.00,0.000,/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,112,,page-faults,0.33%,14783691,100.00,7.505,K/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,14.78,msec,task-clock,1.11%,14783691,100.00,0.928,CPUs utilized,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,49354,,L1-dcache-load-misses,2.93%,14784680,100.00,2.73,of all L1-dcache accesses,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,1801346,,L1-dcache-loads,0.33%,14784680,100.00,120.711,M/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,1848807,,L1-dcache-stores,2.22%,14017870,94.81,123.891,M/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,261448,,L1-icache-load-misses,24.14%,4017979,27.18,,,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+4_4_4,4_4_4,matmul_i32,cpp_manual,4,1,1,1,jude,15713445,ns,duration_time,1.43%,15713445,100.00,1.053,G/sec,perf-results-driver-matmul-m4_n4_k4-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,514717,,branch-instructions,0.92%,4662227,28.48,31.739,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,132411,,branch-misses,1.08%,14657039,89.52,25.50,of all branches,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,2042583,,cache-references,0.16%,16373035,100.00,125.951,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,54381,,cache-misses,2.39%,16373035,100.00,2.665,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,10549362,,cpu-cycles,0.37%,16373035,100.00,0.651,GHz,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,1,,context-switches,24.49%,16357189,100.00,61.663,/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,114,,page-faults,0.28%,16357189,100.00,7.030,K/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,16.36,msec,task-clock,0.38%,16357189,100.00,0.941,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,54381,,L1-dcache-load-misses,2.39%,16373035,100.00,2.67,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,2042583,,L1-dcache-loads,0.16%,16373035,100.00,125.951,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,2225884,,L1-dcache-stores,1.07%,11710808,71.52,137.254,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,179598,,L1-icache-load-misses,12.23%,1715996,10.48,,,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,8,1,1,1,jude,17661682,ns,duration_time,0.58%,17661682,100.00,1.089,G/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,553113,,branch-instructions,2.11%,3026188,18.15,33.210,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,141431,,branch-misses,0.83%,13020966,78.09,25.93,of all branches,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,2359347,,cache-references,0.09%,16675236,100.00,141.660,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,50406,,cache-misses,0.78%,16675236,100.00,2.132,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,10757298,,cpu-cycles,0.15%,16675236,100.00,0.646,GHz,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,0,,context-switches,0.00%,16667719,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,115,,page-faults,0.21%,16667719,100.00,6.905,K/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,16.67,msec,task-clock,0.16%,16667719,100.00,0.937,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,50406,,L1-dcache-load-misses,0.78%,16675236,100.00,2.13,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,2359347,,L1-dcache-loads,0.09%,16675236,100.00,141.660,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,2518444,,L1-dcache-stores,0.31%,13649048,81.85,151.212,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,144362,,L1-icache-load-misses,8.95%,3654270,21.91,,,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,8,1,1,1,jude,17747054,ns,duration_time,0.51%,17747054,100.00,1.066,G/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,527721,,branch-instructions,1.85%,9436732,62.44,35.107,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,125349,,branch-misses,0.70%,15113938,100.00,25.37,of all branches,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,1875366,,cache-references,0.02%,15113938,100.00,124.761,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,57483,,cache-misses,3.41%,15113938,100.00,3.064,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,9775054,,cpu-cycles,0.24%,15113938,100.00,0.650,GHz,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,0,,context-switches,0.00%,15113544,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,111,,page-faults,0.18%,15113544,100.00,7.384,K/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,15.11,msec,task-clock,0.23%,15113544,100.00,0.939,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,57483,,L1-dcache-load-misses,3.41%,15113938,100.00,3.06,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,1875366,,L1-dcache-loads,0.02%,15113938,100.00,124.761,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,1922613,,L1-dcache-stores,2.22%,5677206,37.56,127.904,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,8,1,1,1,jude,16215776,ns,duration_time,0.32%,16215776,100.00,1.079,G/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,34437419,,branch-instructions,0.06%,1123718550,76.77,23.235,M/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,237269,,branch-misses,2.01%,1131642614,77.31,0.69,of all branches,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,330615037,,cache-references,0.01%,981672776,67.07,223.069,M/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,17475009,,cache-misses,0.02%,983874299,67.22,5.287,of all cache refs,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,948546059,,cpu-cycles,1.20%,1143877923,78.15,0.640,GHz,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,3,,context-switches,27.89%,1463703547,100.00,2.024,/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,303,,page-faults,0.17%,1463703547,100.00,204.437,/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1463.70,msec,task-clock,1.20%,1463703547,100.00,0.986,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,17519655,,L1-dcache-load-misses,0.01%,1144008850,78.16,5.30,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,330664422,,L1-dcache-loads,0.01%,1144113459,78.16,223.102,M/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,330950397,,L1-dcache-stores,0.05%,1141814496,78.01,223.295,M/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,126451,,L1-icache-load-misses,5.06%,1131584300,77.31,,,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1465270087,ns,duration_time,1.21%,1465270087,100.00,988.632,M/sec,perf-results-driver-matmul-m256_n256_k256-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,555310,,branch-instructions,2.00%,9791357,63.45,35.672,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,127383,,branch-misses,0.61%,15432464,100.00,24.51,of all branches,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,2005605,,cache-references,0.09%,15432464,100.00,128.836,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,47914,,cache-misses,0.28%,15432464,100.00,2.381,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,9982255,,cpu-cycles,0.22%,15432464,100.00,0.641,GHz,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,0,,context-switches,0.00%,15431436,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,113,,page-faults,0.18%,15431436,100.00,7.259,K/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,15.43,msec,task-clock,0.26%,15431436,100.00,0.924,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,47914,,L1-dcache-load-misses,0.28%,15432464,100.00,2.38,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,2005605,,L1-dcache-loads,0.09%,15432464,100.00,128.836,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,2096365,,L1-dcache-stores,1.79%,5641107,36.55,134.666,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,4,1,1,1,jude,16518285,ns,duration_time,0.39%,16518285,100.00,1.061,G/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,481773,,branch-instructions,0.56%,5535867,38.23,33.033,M/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,121700,,branch-misses,0.98%,14481922,100.00,25.12,of all branches,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1779275,,cache-references,0.16%,14481922,100.00,121.996,M/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,50513,,cache-misses,2.02%,14481922,100.00,2.830,of all cache refs,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,9365643,,cpu-cycles,0.39%,14481922,100.00,0.642,GHz,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,0,,context-switches,0.00%,14484534,100.00,0.000,/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,108,,page-faults,0.45%,14484534,100.00,7.405,K/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,14.48,msec,task-clock,0.46%,14484534,100.00,0.925,CPUs utilized,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,50513,,L1-dcache-load-misses,2.02%,14481922,100.00,2.83,of all L1-dcache accesses,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1779275,,L1-dcache-loads,0.16%,14481922,100.00,121.996,M/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1976056,,L1-dcache-stores,1.62%,8946055,61.77,135.488,M/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_CPU,NONE,1,1,1,jude,15425398,ns,duration_time,0.87%,15425398,100.00,1.058,G/sec,perf-results-driver-matmul-m4_n4_k4-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,26631986,,branch-instructions,0.04%,686461144,77.45,30.103,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,1711561,,branch-misses,0.74%,686450292,77.45,6.43,of all branches,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,271981208,,cache-references,0.01%,586408964,66.17,307.428,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,1255609,,cache-misses,0.42%,586376964,66.16,0.462,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,573974592,,cpu-cycles,0.06%,686386652,77.45,0.649,GHz,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,3,,context-switches,17.00%,886238766,100.00,3.391,/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,1457,,page-faults,0.02%,886238766,100.00,1.647,K/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,886.24,msec,task-clock,0.07%,886238766,100.00,1.000,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,1237665,,L1-dcache-load-misses,0.41%,688957063,77.74,0.45,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,273494448,,L1-dcache-loads,0.01%,698971299,78.87,309.138,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,275091359,,L1-dcache-stores,0.10%,696986996,78.64,310.943,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,346200,,L1-icache-load-misses,10.78%,687015612,77.52,,,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,8,1,1,1,jude,887701222,ns,duration_time,0.06%,887701222,100.00,1.003,G/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc8.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,494201,,branch-instructions,2.65%,2679280,17.99,33.381,M/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,125738,,branch-misses,0.64%,12673449,85.08,26.56,of all branches,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,1809858,,cache-references,0.10%,14896486,100.00,122.249,M/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,52027,,cache-misses,2.09%,14896486,100.00,2.875,of all cache refs,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,9601965,,cpu-cycles,0.20%,14896486,100.00,0.649,GHz,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,0,,context-switches,0.00%,14892137,100.00,0.000,/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,112,,page-faults,0.18%,14892137,100.00,7.565,K/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,14.89,msec,task-clock,0.25%,14892137,100.00,0.939,CPUs utilized,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,52027,,L1-dcache-load-misses,2.09%,14896486,100.00,2.87,of all L1-dcache accesses,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,1809858,,L1-dcache-loads,0.10%,14896486,100.00,122.249,M/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,1886961,,L1-dcache-stores,1.83%,12217206,82.01,127.457,M/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,263877,,L1-icache-load-misses,22.62%,2223037,14.92,,,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L1,4,1,1,1,jude,15841785,ns,duration_time,0.73%,15841785,100.00,1.070,G/sec,perf-results-driver-matmul-m4_n4_k4-L1-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,660563,,branch-instructions,2.09%,2850197,14.63,34.105,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,163540,,branch-misses,2.96%,12850990,65.95,25.50,of all branches,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,2501210,,cache-references,0.06%,19485774,100.00,129.137,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,53770,,cache-misses,2.16%,19485774,100.00,2.150,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,12582745,,cpu-cycles,0.14%,19485774,100.00,0.650,GHz,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,0,,context-switches,0.00%,19476577,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,113,,page-faults,0.28%,19476577,100.00,5.834,K/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,19.48,msec,task-clock,0.16%,19476577,100.00,0.955,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,53770,,L1-dcache-load-misses,2.16%,19485774,100.00,2.15,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,2501210,,L1-dcache-loads,0.06%,19485774,100.00,129.137,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,2596782,,L1-dcache-stores,1.39%,16635577,85.37,134.071,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,108307,,L1-icache-load-misses,25.98%,6634784,34.05,,,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,4,1,1,1,jude,20487963,ns,duration_time,0.19%,20487963,100.00,1.058,G/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,1145297,,branch-instructions,3.00%,31966275,61.55,22.076,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,251092,,branch-misses,0.28%,31970778,61.55,22.73,of all branches,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,7734327,,cache-references,0.27%,27919936,53.76,149.079,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,116337,,cache-misses,2.22%,37916770,73.00,1.511,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,33619188,,cpu-cycles,0.17%,47915954,92.25,0.648,GHz,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,1,,context-switches,0.00%,51918135,100.00,19.275,/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,159,,page-faults,0.25%,51918135,100.00,3.065,K/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,51.92,msec,task-clock,0.17%,51918135,100.00,0.978,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,110508,,L1-dcache-load-misses,0.90%,51938956,100.00,1.39,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,7949820,,L1-dcache-loads,0.03%,51938956,100.00,153.233,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,8330998,,L1-dcache-stores,0.48%,43991701,84.70,160.580,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,39429,,L1-icache-load-misses,4.63%,33990364,65.44,,,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,16,1,1,1,jude,53155445,ns,duration_time,0.18%,53155445,100.00,1.025,G/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,809425,,branch-instructions,4.55%,6205415,25.07,32.424,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,180837,,branch-misses,4.81%,16197175,65.43,23.18,of all branches,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,3524448,,cache-references,0.25%,24753934,100.00,141.184,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,53743,,cache-misses,2.98%,24753934,100.00,1.522,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,16008136,,cpu-cycles,0.27%,24753934,100.00,0.641,GHz,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,0,,context-switches,0.00%,24749657,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,122,,page-faults,0.33%,24749657,100.00,4.887,K/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,24.75,msec,task-clock,0.29%,24749657,100.00,0.949,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,53743,,L1-dcache-load-misses,2.98%,24753934,100.00,1.52,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,3524448,,L1-dcache-loads,0.11%,24753934,100.00,141.184,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,3865347,,L1-dcache-stores,1.35%,18548519,74.93,154.840,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,61225,,L1-icache-load-misses,24.77%,8556759,34.57,,,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,8,1,1,1,jude,25768340,ns,duration_time,0.44%,25768340,100.00,1.032,G/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,2073564,,branch-instructions,0.35%,46436088,70.03,31.373,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,329784,,branch-misses,0.38%,46437332,70.03,16.08,of all branches,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,13090569,,cache-references,0.06%,36450118,54.97,198.059,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,114948,,cache-misses,0.76%,38956739,58.75,0.878,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,42906127,,cpu-cycles,0.09%,48957991,73.83,0.649,GHz,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,2,,context-switches,10.00%,66281839,100.00,30.260,/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,267,,page-faults,0.14%,66281839,100.00,4.040,K/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,66.28,msec,task-clock,0.09%,66281839,100.00,0.985,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,97044,,L1-dcache-load-misses,0.67%,58821218,88.71,0.66,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,14678249,,L1-dcache-loads,0.01%,66310734,100.00,222.081,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,15746593,,L1-dcache-stores,0.19%,57224778,86.30,238.245,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,60627,,L1-icache-load-misses,3.23%,47227397,71.22,,,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,4,1,1,1,jude,67612742,ns,duration_time,0.12%,67612742,100.00,1.023,G/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,2034313,,branch-instructions,0.20%,46438492,69.93,30.597,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,339941,,branch-misses,0.53%,46427138,69.91,16.68,of all branches,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,13006015,,cache-references,0.06%,36546903,55.03,195.615,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,121685,,cache-misses,1.58%,36542730,55.03,0.936,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,42921365,,cpu-cycles,0.14%,46405917,69.88,0.646,GHz,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,1,,context-switches,20.00%,66395565,100.00,15.040,/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,267,,page-faults,0.09%,66395565,100.00,4.016,K/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,66.40,msec,task-clock,0.15%,66395565,100.00,0.981,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,96119,,L1-dcache-load-misses,1.25%,55000451,82.82,0.65,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,14682130,,L1-dcache-loads,0.06%,65009568,97.89,220.824,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,15202328,,L1-dcache-stores,0.17%,61243569,92.22,228.648,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,62111,,L1-icache-load-misses,5.23%,51249979,77.17,,,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,4,1,1,1,jude,67598191,ns,duration_time,0.17%,67598191,100.00,1.017,G/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,65095859,,branch-instructions,0.04%,1888839095,77.77,26.823,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,6167064,,branch-misses,0.55%,1889020780,77.77,9.48,of all branches,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,347293746,,cache-references,0.07%,1619395311,66.67,143.101,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,3668151,,cache-misses,0.04%,1619265860,66.67,1.058,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,1574006999,,cpu-cycles,0.10%,1888895891,77.77,0.649,GHz,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,7,,context-switches,22.77%,2428757638,100.00,2.884,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,306,,page-faults,0.07%,2428757638,100.00,126.086,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,2428.76,msec,task-clock,0.10%,2428757638,100.00,1.000,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,3656103,,L1-dcache-load-misses,0.07%,1888884277,77.77,1.05,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,347181415,,L1-dcache-loads,0.06%,1889101506,77.78,143.055,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,347606865,,L1-dcache-stores,0.06%,1889384802,77.79,143.230,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,164190,,L1-icache-load-misses,4.15%,1889115339,77.78,,,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,4,1,1,1,jude,18446744071845621760,ns,duration_time,0.00%,18446744071845621760,100.00,7600921176.920,G/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,12941890,,branch-instructions,0.08%,329465053,76.72,30.049,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,1867869,,branch-misses,0.44%,329450544,76.72,14.41,of all branches,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,102650224,,cache-references,0.01%,279567319,65.10,238.341,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,424762,,cache-misses,2.11%,279578871,65.10,0.414,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,278017925,,cpu-cycles,0.09%,329559374,76.74,0.646,GHz,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,2,,context-switches,29.15%,429414532,100.00,4.644,/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,1312,,page-faults,0.03%,429414532,100.00,3.046,K/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,429.41,msec,task-clock,0.09%,429414532,100.00,0.994,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,404595,,L1-dcache-load-misses,2.03%,335796147,78.20,0.39,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,103664639,,L1-dcache-loads,0.07%,345832350,80.53,240.696,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,104294990,,L1-dcache-stores,0.19%,343468084,79.98,242.160,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,277874,,L1-icache-load-misses,5.92%,333434838,77.65,,,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,4,1,1,1,jude,430767401,ns,duration_time,0.10%,430767401,100.00,1.000,G/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,3758269,,branch-instructions,0.28%,83498823,67.61,30.455,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,325256,,branch-misses,1.06%,83519703,67.63,8.61,of all branches,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,34575163,,cache-references,0.23%,81326262,65.85,280.176,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,147154,,cache-misses,1.16%,91441545,74.04,0.423,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,79931994,,cpu-cycles,0.05%,103635052,83.92,0.648,GHz,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,1,,context-switches,24.49%,123485766,100.00,8.103,/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,302,,page-faults,0.13%,123485766,100.00,2.447,K/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,123.49,msec,task-clock,0.06%,123485766,100.00,0.990,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,146896,,L1-dcache-load-misses,0.97%,103637840,83.92,0.42,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,35066686,,L1-dcache-loads,0.02%,103496030,83.80,284.159,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,35412829,,L1-dcache-stores,0.90%,102028930,82.62,286.964,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,148480,,L1-icache-load-misses,10.17%,92034577,74.52,,,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,8,1,1,1,jude,124773434,ns,duration_time,0.04%,124773434,100.00,1.011,G/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc8.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,510402,,branch-instructions,7.99%,1473754,9.47,32.973,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,124962,,branch-misses,1.30%,11473239,73.73,26.39,of all branches,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,1921942,,cache-references,0.09%,15561427,100.00,124.162,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,54424,,cache-misses,3.78%,15561427,100.00,2.834,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,10036187,,cpu-cycles,0.35%,15561427,100.00,0.648,GHz,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,0,,context-switches,0.00%,15558925,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,114,,page-faults,0.18%,15558925,100.00,7.365,K/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,15.56,msec,task-clock,0.39%,15558925,100.00,0.939,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,54424,,L1-dcache-load-misses,3.78%,15561427,100.00,2.83,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,1921942,,L1-dcache-loads,0.09%,15561427,100.00,124.162,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,1973931,,L1-dcache-stores,2.15%,14087673,90.53,127.521,M/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,286502,,L1-icache-load-misses,21.28%,4088188,26.27,,,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+32_32_32,32_32_32,matmul_i32,cpp_manual,16,1,1,1,jude,16514117,ns,duration_time,0.65%,16514117,100.00,1.067,G/sec,perf-results-driver-matmul-m32_n32_k32-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,473931,,branch-instructions,2.35%,4368074,29.06,31.613,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,129638,,branch-misses,0.88%,14365870,95.58,27.00,of all branches,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,1849325,,cache-references,0.13%,15029956,100.00,123.357,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,48169,,cache-misses,3.47%,15029956,100.00,2.611,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,9680830,,cpu-cycles,0.28%,15029956,100.00,0.646,GHz,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,1,,context-switches,24.49%,15011999,100.00,66.704,/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,111,,page-faults,0.22%,15011999,100.00,7.404,K/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,15.01,msec,task-clock,0.33%,15011999,100.00,0.930,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,48169,,L1-dcache-load-misses,3.47%,15029956,100.00,2.61,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,1849325,,L1-dcache-loads,0.13%,15029956,100.00,123.357,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,2009681,,L1-dcache-stores,1.85%,10661882,70.94,134.053,M/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,54861,,L1-icache-load-misses,111.95%,664086,4.42,,,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_MEM,16,1,1,1,jude,16090063,ns,duration_time,0.60%,16090063,100.00,1.073,G/sec,perf-results-driver-matmul-m16_n16_k16-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,506781,,branch-instructions,4.43%,6131701,39.52,32.380,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,126025,,branch-misses,1.14%,15515993,100.00,26.43,of all branches,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,2054189,,cache-references,0.10%,15515993,100.00,131.249,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,49148,,cache-misses,0.55%,15515993,100.00,2.387,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,10036088,,cpu-cycles,0.26%,15515993,100.00,0.641,GHz,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,0,,context-switches,0.00%,15515879,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,115,,page-faults,0.27%,15515879,100.00,7.348,K/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,15.52,msec,task-clock,0.30%,15515879,100.00,0.929,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,49148,,L1-dcache-load-misses,0.55%,15515993,100.00,2.39,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,2054189,,L1-dcache-loads,0.10%,15515993,100.00,131.249,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,2373170,,L1-dcache-stores,1.92%,9384292,60.48,151.629,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,16,1,1,1,jude,16456108,ns,duration_time,0.75%,16456108,100.00,1.051,G/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,14490623,,branch-instructions,0.19%,525847718,76.67,21.215,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,788253,,branch-misses,1.05%,525869008,76.67,5.43,of all branches,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,107363281,,cache-references,0.04%,446025697,65.03,157.188,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,1349363,,cache-misses,0.16%,455104505,66.36,1.255,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,444323262,,cpu-cycles,0.23%,534949002,78.00,0.651,GHz,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,3,,context-switches,13.33%,685811596,100.00,4.392,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,306,,page-faults,0.08%,685811596,100.00,448.006,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,685.81,msec,task-clock,0.23%,685811596,100.00,1.002,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,1344827,,L1-dcache-load-misses,0.16%,544955949,79.46,1.25,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,107223022,,L1-dcache-loads,0.03%,545902786,79.60,156.982,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,107597985,,L1-dcache-stores,0.09%,540716292,78.84,157.531,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,80305,,L1-icache-load-misses,17.06%,530669357,77.37,,,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,8,1,1,1,jude,687150678,ns,duration_time,0.22%,687150678,100.00,1.006,G/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,484194,,branch-instructions,5.58%,6586772,43.66,32.198,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,125238,,branch-misses,0.63%,15085046,100.00,26.66,of all branches,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,1879617,,cache-references,0.10%,15085046,100.00,124.992,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,52831,,cache-misses,2.44%,15085046,100.00,2.814,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,9743309,,cpu-cycles,0.28%,15085046,100.00,0.648,GHz,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,1,,context-switches,24.49%,15071670,100.00,66.499,/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,110,,page-faults,0.18%,15071670,100.00,7.315,K/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,15.07,msec,task-clock,0.31%,15071670,100.00,0.936,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,52831,,L1-dcache-load-misses,2.44%,15085046,100.00,2.81,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,1879617,,L1-dcache-loads,0.10%,15085046,100.00,124.992,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,2156195,,L1-dcache-stores,1.84%,8498274,56.34,143.384,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,8,1,1,1,jude,16133317,ns,duration_time,0.44%,16133317,100.00,1.073,G/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,100008387,,branch-instructions,0.15%,2554284050,77.54,30.269,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,12324091,,branch-misses,1.15%,2554324786,77.54,12.30,of all branches,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,812830108,,cache-references,0.03%,2188428918,66.43,246.015,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,3720962,,cache-misses,0.41%,2198419005,66.73,0.458,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,2133338987,,cpu-cycles,0.09%,2568394776,77.97,0.646,GHz,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,4,,context-switches,9.35%,3294203921,100.00,1.211,/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,9521,,page-faults,0.00%,3294203921,100.00,2.882,K/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,3294.20,msec,task-clock,0.10%,3294203921,100.00,0.996,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,3763352,,L1-dcache-load-misses,0.46%,2574431475,78.15,0.46,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,811364892,,L1-dcache-loads,0.04%,2574410165,78.15,245.572,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,812754258,,L1-dcache-stores,0.02%,2565621457,77.88,245.992,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,2263919,,L1-icache-load-misses,3.81%,2555611944,77.58,,,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,4,1,1,1,jude,18446744072710584320,ns,duration_time,0.00%,18446744072710584320,100.00,5583184655.988,G/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,99936534,,branch-instructions,0.04%,2560429966,77.58,30.315,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,11156232,,branch-misses,0.29%,2560467747,77.58,11.18,of all branches,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,819431040,,cache-references,0.03%,2190636579,66.38,248.568,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,4307390,,cache-misses,0.44%,2198468101,66.61,0.526,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,2137176275,,cpu-cycles,0.08%,2568341696,77.82,0.648,GHz,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,5,,context-switches,10.95%,3300296925,100.00,1.517,/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,9522,,page-faults,0.01%,3300296925,100.00,2.888,K/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,3300.30,msec,task-clock,0.09%,3300296925,100.00,1.001,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,4339356,,L1-dcache-load-misses,0.40%,2578208333,78.12,0.53,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,818233883,,L1-dcache-loads,0.03%,2580414034,78.19,248.205,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,819754901,,L1-dcache-stores,0.03%,2571784326,77.92,248.666,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,1790466,,L1-icache-load-misses,25.25%,2561709322,77.62,,,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,4,1,1,1,jude,18446744072716587008,ns,duration_time,0.00%,18446744072716587008,100.00,5595672804.844,G/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,10782503,,branch-instructions,0.05%,283083154,77.36,29.477,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,688684,,branch-misses,1.67%,285968170,78.15,6.39,of all branches,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,116292552,,cache-references,0.03%,246145077,67.26,317.923,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,617471,,cache-misses,0.43%,246104364,67.25,0.531,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,236959348,,cpu-cycles,0.08%,285950598,78.14,0.648,GHz,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,1,,context-switches,48.99%,365926895,100.00,2.734,/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,451,,page-faults,0.09%,365926895,100.00,1.233,K/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,365.93,msec,task-clock,0.08%,365926895,100.00,0.997,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,610026,,L1-dcache-load-misses,0.41%,285950600,78.14,0.52,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,117011151,,L1-dcache-loads,0.03%,285946206,78.14,319.888,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,117968864,,L1-dcache-stores,0.13%,282653433,77.24,322.506,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,97107,,L1-icache-load-misses,14.63%,279813524,76.46,,,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,16,1,1,1,jude,367332288,ns,duration_time,0.09%,367332288,100.00,1.004,G/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,487003,,branch-instructions,1.93%,3436603,23.10,32.921,M/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,126840,,branch-misses,0.85%,13433737,90.32,26.27,of all branches,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1879818,,cache-references,0.11%,14874264,100.00,127.075,M/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,47225,,cache-misses,3.28%,14874264,100.00,2.519,of all cache refs,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,9580793,,cpu-cycles,0.26%,14874264,100.00,0.648,GHz,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1,,context-switches,24.49%,14858769,100.00,67.599,/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,109,,page-faults,0.22%,14858769,100.00,7.368,K/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,14.86,msec,task-clock,0.27%,14858769,100.00,0.934,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,47225,,L1-dcache-load-misses,3.28%,14874264,100.00,2.52,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1879818,,L1-dcache-loads,0.11%,14874264,100.00,127.075,M/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,2004688,,L1-dcache-stores,1.95%,11437661,76.90,135.516,M/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,221772,,L1-icache-load-misses,26.50%,1440527,9.68,,,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_CPU,NONE,1,1,1,jude,16026699,ns,duration_time,0.69%,16026699,100.00,1.083,G/sec,perf-results-driver-matmul-m16_n16_k16-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,477397,,branch-instructions,2.22%,3611560,24.19,32.087,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,128691,,branch-misses,0.81%,13607655,91.14,26.12,of all branches,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,1819556,,cache-references,0.16%,14930021,100.00,122.298,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,48053,,cache-misses,3.00%,14930021,100.00,2.645,of all cache refs,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,9618079,,cpu-cycles,0.32%,14930021,100.00,0.646,GHz,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,1,,context-switches,24.49%,14913716,100.00,67.213,/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,110,,page-faults,0.22%,14913716,100.00,7.393,K/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,14.91,msec,task-clock,0.37%,14913716,100.00,0.932,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,48053,,L1-dcache-load-misses,3.00%,14930021,100.00,2.65,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,1819556,,L1-dcache-loads,0.16%,14930021,100.00,122.298,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,1940012,,L1-dcache-stores,3.02%,11318461,75.81,130.394,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,207291,,L1-icache-load-misses,31.00%,1322366,8.86,,,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,8,1,1,1,jude,16068108,ns,duration_time,0.67%,16068108,100.00,1.080,G/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,403722,,branch-instructions,5.68%,821360,5.31,26.325,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,126048,,branch-misses,0.55%,10822101,70.00,25.79,of all branches,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,1893915,,cache-references,0.06%,15459267,100.00,123.492,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,52366,,cache-misses,2.67%,15459267,100.00,2.767,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,9971661,,cpu-cycles,0.31%,15459267,100.00,0.650,GHz,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,0,,context-switches,0.00%,15453005,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,111,,page-faults,0.40%,15453005,100.00,7.238,K/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,15.45,msec,task-clock,0.34%,15453005,100.00,0.942,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,52366,,L1-dcache-load-misses,2.67%,15459267,100.00,2.77,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,1893915,,L1-dcache-loads,0.06%,15459267,100.00,123.492,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,1941827,,L1-dcache-stores,2.22%,14637907,94.69,126.616,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,246425,,L1-icache-load-misses,23.87%,4637166,30.00,,,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,4,1,1,1,jude,16460523,ns,duration_time,0.51%,16460523,100.00,1.073,G/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,3744153,,branch-instructions,0.17%,83073986,67.50,30.419,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,332474,,branch-misses,1.35%,83095331,67.51,8.85,of all branches,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,34607834,,cache-references,0.20%,80952983,65.77,281.168,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,150249,,cache-misses,1.50%,90935634,73.88,0.433,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,79662972,,cpu-cycles,0.03%,103205409,83.85,0.647,GHz,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,1,,context-switches,20.00%,123065534,100.00,8.124,/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,302,,page-faults,0.08%,123065534,100.00,2.454,K/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,123.07,msec,task-clock,0.03%,123065534,100.00,0.990,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,150206,,L1-dcache-load-misses,0.97%,103080695,83.75,0.43,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,35024398,,L1-dcache-loads,0.02%,103076803,83.75,284.552,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,35259579,,L1-dcache-stores,0.94%,102126498,82.98,286.463,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,139221,,L1-icache-load-misses,11.70%,92126394,74.85,,,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,8,1,1,1,jude,124343945,ns,duration_time,0.03%,124343945,100.00,1.010,G/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,1586263,,branch-instructions,1.39%,31282681,61.04,30.918,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,275435,,branch-misses,0.24%,31274327,61.02,18.16,of all branches,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,7155607,,cache-references,0.41%,29887438,58.31,139.470,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,66902,,cache-misses,2.98%,39886721,77.82,0.946,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,33193986,,cpu-cycles,0.09%,49889203,97.34,0.647,GHz,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,1,,context-switches,0.00%,51235322,100.00,19.491,/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,122,,page-faults,0.33%,51235322,100.00,2.378,K/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,51.24,msec,task-clock,0.09%,51235322,100.00,0.977,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,60539,,L1-dcache-load-misses,1.48%,51253403,100.00,0.83,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,7286700,,L1-dcache-loads,0.04%,51253403,100.00,142.025,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,7455678,,L1-dcache-stores,0.33%,41336687,80.65,145.318,M/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,41178,,L1-icache-load-misses,3.60%,31345758,61.16,,,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,cpp_manual,4,1,1,1,jude,52428272,ns,duration_time,0.06%,52428272,100.00,1.022,G/sec,perf-results-driver-matmul-m64_n64_k64-MANUAL-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,2078201,,branch-instructions,0.20%,46590523,69.99,31.307,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,338827,,branch-misses,0.58%,46585379,69.98,16.40,of all branches,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,13062123,,cache-references,0.05%,36697598,55.13,196.774,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,110843,,cache-misses,0.83%,39004521,58.60,0.850,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,43083818,,cpu-cycles,0.09%,49004452,73.62,0.649,GHz,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,1,,context-switches,0.00%,66546504,100.00,15.065,/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,266,,page-faults,0.12%,66546504,100.00,4.007,K/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,66.55,msec,task-clock,0.09%,66546504,100.00,0.984,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,93268,,L1-dcache-load-misses,0.74%,58869760,88.44,0.64,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,14558968,,L1-dcache-loads,0.02%,66564984,100.00,219.324,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,15561354,,L1-dcache-stores,0.06%,57537071,86.44,234.424,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,93024,,L1-icache-load-misses,4.91%,47540068,71.42,,,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,4,1,1,1,jude,67855149,ns,duration_time,0.10%,67855149,100.00,1.022,G/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,8520418,,branch-instructions,0.14%,234062712,74.53,27.138,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,884711,,branch-misses,0.89%,234090807,74.54,10.35,of all branches,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,45235089,,cache-references,0.01%,201769988,64.25,144.079,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,435225,,cache-misses,0.53%,211814452,67.44,0.963,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,203482183,,cpu-cycles,0.10%,251810265,80.18,0.648,GHz,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,1,,context-switches,24.49%,314047138,100.00,3.185,/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,159,,page-faults,0.15%,314047138,100.00,506.432,/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,314.05,msec,task-clock,0.10%,314047138,100.00,0.996,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,433403,,L1-dcache-load-misses,0.48%,254125330,80.92,0.96,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,45183518,,L1-dcache-loads,0.02%,254065416,80.90,143.914,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,45309722,,L1-dcache-stores,0.08%,252220539,80.31,144.316,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,107575,,L1-icache-load-misses,12.96%,242207894,77.12,,,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,4,1,1,1,jude,315227488,ns,duration_time,0.11%,315227488,100.00,1.004,G/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,26625533,,branch-instructions,0.07%,682858363,77.35,30.157,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,1728067,,branch-misses,0.95%,682895500,77.35,6.49,of all branches,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,268922076,,cache-references,0.03%,583011414,66.04,304.592,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,1156862,,cache-misses,0.21%,583006954,66.04,0.430,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,571806454,,cpu-cycles,0.04%,682997396,77.36,0.648,GHz,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,2,,context-switches,41.83%,882821526,100.00,2.265,/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,1458,,page-faults,0.01%,882821526,100.00,1.651,K/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,882.82,msec,task-clock,0.04%,882821526,100.00,0.998,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,1136377,,L1-dcache-load-misses,0.29%,686983247,77.81,0.42,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,270538634,,L1-dcache-loads,0.02%,697000872,78.95,306.423,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,271586060,,L1-dcache-stores,0.09%,695688069,78.80,307.609,M/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,355954,,L1-icache-load-misses,4.33%,685637767,77.66,,,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_MEM,8,1,1,1,jude,884203597,ns,duration_time,0.05%,884203597,100.00,1.001,G/sec,perf-results-driver-matmul-m256_n256_k256-MEM-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,10754182,,branch-instructions,0.11%,280249377,76.85,29.496,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,643012,,branch-misses,1.54%,284706149,78.07,5.96,of all branches,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,117526071,,cache-references,0.02%,244725161,67.11,322.349,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,557435,,cache-misses,0.24%,244799887,67.13,0.474,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,236174284,,cpu-cycles,0.07%,284804829,78.10,0.648,GHz,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,1,,context-switches,40.00%,364671338,100.00,2.743,/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,449,,page-faults,0.09%,364671338,100.00,1.232,K/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,364.67,msec,task-clock,0.07%,364671338,100.00,0.997,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,548337,,L1-dcache-load-misses,0.26%,284801085,78.10,0.46,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,118238283,,L1-dcache-loads,0.02%,284689634,78.07,324.302,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,118394606,,L1-dcache-stores,0.40%,284270941,77.95,324.731,M/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,159767,,L1-icache-load-misses,7.87%,279850894,76.74,,,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,mlir_L1,16,1,1,1,jude,365928689,ns,duration_time,0.07%,365928689,100.00,1.004,G/sec,perf-results-driver-matmul-m256_n256_k256-L1-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,5470556,,branch-instructions,0.47%,230595180,74.30,17.621,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,677221,,branch-misses,0.72%,230911890,74.40,12.49,of all branches,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,49713271,,cache-references,0.07%,206972518,66.68,160.133,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,664641,,cache-misses,0.14%,216665647,69.81,1.339,of all cache refs,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,200941907,,cpu-cycles,0.20%,250525728,80.72,0.647,GHz,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,6,,context-switches,15.46%,310308180,100.00,19.327,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,306,,page-faults,0.12%,310308180,100.00,985.665,/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,310.31,msec,task-clock,0.20%,310308180,100.00,0.995,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,663039,,L1-dcache-load-misses,0.08%,250370004,80.67,1.34,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,49318069,,L1-dcache-loads,0.08%,250372364,80.67,158.860,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,49977084,,L1-dcache-stores,0.17%,243183497,78.35,160.983,M/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,64901,,L1-icache-load-misses,8.70%,233171298,75.13,,,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+256_256_256,256_256_256,matmul_i32,cpp_manual,16,1,1,1,jude,312089662,ns,duration_time,0.20%,312089662,100.00,1.005,G/sec,perf-results-driver-matmul-m256_n256_k256-MANUAL-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,673011,,branch-instructions,1.26%,3334400,16.18,32.601,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,174640,,branch-misses,3.89%,13178786,63.97,25.92,of all branches,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,3703498,,cache-references,0.09%,20603090,100.00,179.400,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,53636,,cache-misses,0.41%,20603090,100.00,1.447,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,13305348,,cpu-cycles,0.15%,20603090,100.00,0.645,GHz,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,1,,context-switches,37.42%,20590379,100.00,48.441,/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,125,,page-faults,0.32%,20590379,100.00,6.055,K/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,20.59,msec,task-clock,0.20%,20590379,100.00,0.944,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,53636,,L1-dcache-load-misses,0.41%,20603090,100.00,1.45,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,3703498,,L1-dcache-loads,0.09%,20603090,100.00,179.400,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,4029322,,L1-dcache-stores,3.55%,17268690,83.82,195.183,M/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,80793,,L1-icache-load-misses,30.15%,7424304,36.03,,,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+64_64_64,64_64_64,matmul_i32,mlir_L2,16,1,1,1,jude,21777579,ns,duration_time,0.42%,21777579,100.00,1.055,G/sec,perf-results-driver-matmul-m64_n64_k64-L2-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,12914638,,branch-instructions,0.07%,322673630,76.34,30.449,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,1585241,,branch-misses,0.54%,322681390,76.34,12.27,of all branches,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,102995333,,cache-references,0.04%,272814344,64.55,242.837,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,485571,,cache-misses,0.64%,272788637,64.54,0.471,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,273648830,,cpu-cycles,0.10%,322791732,76.37,0.645,GHz,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,2,,context-switches,12.25%,422640326,100.00,4.715,/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,1310,,page-faults,0.03%,422640326,100.00,3.089,K/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,422.64,msec,task-clock,0.10%,422640326,100.00,0.993,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,478211,,L1-dcache-load-misses,0.39%,332552594,78.68,0.46,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,103688935,,L1-dcache-loads,0.10%,342608311,81.06,244.472,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,104170832,,L1-dcache-stores,0.23%,339959748,80.43,245.609,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,270033,,L1-icache-load-misses,5.63%,329921978,78.06,,,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,4,1,1,1,jude,423958047,ns,duration_time,0.10%,423958047,100.00,999.586,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,821790,,branch-instructions,5.73%,4963190,20.06,33.244,M/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,208610,,branch-misses,5.04%,13662377,55.23,23.86,of all branches,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,7164696,,cache-references,1.17%,23435310,94.74,289.833,M/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,51127,,cache-misses,0.95%,24735614,100.00,0.737,of all cache refs,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,15961077,,cpu-cycles,0.06%,24735614,100.00,0.646,GHz,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1,,context-switches,24.49%,24719023,100.00,40.453,/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,120,,page-faults,0.20%,24719023,100.00,4.854,K/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,24.72,msec,task-clock,0.09%,24719023,100.00,0.955,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,51127,,L1-dcache-load-misses,0.95%,24735614,100.00,0.73,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,6964592,,L1-dcache-loads,0.04%,24735614,100.00,281.738,M/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,7756780,,L1-dcache-stores,4.74%,21072728,85.19,313.784,M/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,43887,,L1-icache-load-misses,33.91%,11073237,44.77,,,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+64_64_64,64_64_64,matmul_i32,mlir_CPU,NONE,1,1,1,jude,25948622,ns,duration_time,0.29%,25948622,100.00,1.050,G/sec,perf-results-driver-matmul-m64_n64_k64-CPU-accNONE.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,385081,,branch-instructions,5.60%,825738,5.53,25.847,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,121901,,branch-misses,0.71%,10825904,72.53,26.04,of all branches,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,1840487,,cache-references,0.02%,14926359,100.00,123.537,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,48650,,cache-misses,0.90%,14926359,100.00,2.644,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,9625875,,cpu-cycles,0.23%,14926359,100.00,0.646,GHz,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,0,,context-switches,0.00%,14925986,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,111,,page-faults,0.18%,14925986,100.00,7.451,K/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,14.93,msec,task-clock,0.30%,14925986,100.00,0.929,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,48650,,L1-dcache-load-misses,0.90%,14926359,100.00,2.64,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,1840487,,L1-dcache-loads,0.02%,14926359,100.00,123.537,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,1889719,,L1-dcache-stores,1.82%,14100621,94.47,126.841,M/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,256817,,L1-icache-load-misses,23.45%,4100455,27.47,,,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L1,16,1,1,1,jude,15933531,ns,duration_time,0.50%,15933531,100.00,1.069,G/sec,perf-results-driver-matmul-m16_n16_k16-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,12914323,,branch-instructions,0.11%,324249024,76.43,30.334,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,1515898,,branch-misses,0.70%,324263630,76.44,11.72,of all branches,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,102528617,,cache-references,0.02%,274369011,64.67,240.826,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,418592,,cache-misses,6.97%,274786022,64.77,0.408,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,274701305,,cpu-cycles,0.24%,324788555,76.56,0.645,GHz,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,1,,context-switches,40.00%,424223757,100.00,2.349,/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,1310,,page-faults,0.02%,424223757,100.00,3.077,K/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,424.22,msec,task-clock,0.24%,424223757,100.00,0.993,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,414409,,L1-dcache-load-misses,6.89%,334657960,78.89,0.40,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,103065355,,L1-dcache-loads,0.10%,344229017,81.14,242.087,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,103962795,,L1-dcache-stores,0.18%,339420140,80.01,244.195,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,256121,,L1-icache-load-misses,6.32%,329417466,77.65,,,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,4,1,1,1,jude,425468539,ns,duration_time,0.25%,425468539,100.00,999.369,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc4.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,2121746,,branch-instructions,0.35%,70892276,72.85,21.791,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,209789,,branch-misses,2.71%,77342129,79.48,9.81,of all branches,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,15007367,,cache-references,0.01%,67476659,69.34,154.134,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,195479,,cache-misses,0.91%,67450829,69.31,1.302,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,62997949,,cpu-cycles,0.03%,77449068,79.59,0.647,GHz,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,1,,context-switches,20.00%,97300859,100.00,10.271,/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,159,,page-faults,0.20%,97300859,100.00,1.633,K/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,97.30,msec,task-clock,0.03%,97300859,100.00,0.986,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,189789,,L1-dcache-load-misses,0.91%,77319228,79.45,1.26,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,15075219,,L1-dcache-loads,0.02%,77313681,79.45,154.831,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,15165062,,L1-dcache-stores,0.25%,76255736,78.36,155.753,M/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,90916,,L1-icache-load-misses,17.16%,69837260,71.76,,,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,cpp_manual,8,1,1,1,jude,98548174,ns,duration_time,0.04%,98548174,100.00,1.012,G/sec,perf-results-driver-matmul-m128_n128_k128-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,523401,,branch-instructions,1.56%,9694834,65.07,35.407,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,123431,,branch-misses,0.99%,14899846,100.00,25.10,of all branches,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,1807395,,cache-references,0.05%,14899846,100.00,122.266,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,59381,,cache-misses,3.89%,14899846,100.00,3.280,of all cache refs,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,9633136,,cpu-cycles,0.26%,14899846,100.00,0.652,GHz,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,0,,context-switches,0.00%,14894826,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,109,,page-faults,0.34%,14894826,100.00,7.374,K/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,14.89,msec,task-clock,0.25%,14894826,100.00,0.940,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,59381,,L1-dcache-load-misses,3.89%,14899846,100.00,3.28,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,1807395,,L1-dcache-loads,0.05%,14899846,100.00,122.266,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,1751072,,L1-dcache-stores,2.95%,5205012,34.93,118.456,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,8,1,1,1,jude,16071044,ns,duration_time,0.43%,16071044,100.00,1.087,G/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,485725,,branch-instructions,0.54%,8090113,55.98,33.465,M/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,121854,,branch-misses,1.11%,14452916,100.00,25.27,of all branches,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1788411,,cache-references,0.19%,14452916,100.00,123.215,M/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,45798,,cache-misses,0.74%,14452916,100.00,2.554,of all cache refs,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,9341790,,cpu-cycles,0.38%,14452916,100.00,0.644,GHz,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,0,,context-switches,0.00%,14449852,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,108,,page-faults,0.19%,14449852,100.00,7.441,K/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,14.45,msec,task-clock,0.45%,14449852,100.00,0.923,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,45798,,L1-dcache-load-misses,0.74%,14452916,100.00,2.55,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1788411,,L1-dcache-loads,0.19%,14452916,100.00,123.215,M/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1962856,,L1-dcache-stores,1.45%,6362803,44.02,135.234,M/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+8_8_8,8_8_8,matmul_i32,mlir_CPU,NONE,1,1,1,jude,15529756,ns,duration_time,0.84%,15529756,100.00,1.070,G/sec,perf-results-driver-matmul-m8_n8_k8-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,512240,,branch-instructions,5.48%,5814588,37.74,32.769,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,126019,,branch-misses,1.29%,15406061,100.00,26.65,of all branches,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,2052732,,cache-references,0.15%,15406061,100.00,131.318,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,48126,,cache-misses,1.55%,15406061,100.00,2.339,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,9965707,,cpu-cycles,0.45%,15406061,100.00,0.638,GHz,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,0,,context-switches,0.00%,15408790,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,114,,page-faults,0.33%,15408790,100.00,7.293,K/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,15.41,msec,task-clock,0.49%,15408790,100.00,0.921,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,48126,,L1-dcache-load-misses,1.55%,15406061,100.00,2.34,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,2052732,,L1-dcache-loads,0.15%,15406061,100.00,131.318,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,2361174,,L1-dcache-stores,1.89%,9591473,62.26,151.050,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,16,1,1,1,jude,16420246,ns,duration_time,0.83%,16420246,100.00,1.050,G/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc16.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,469783,,branch-instructions,6.27%,2268461,15.11,31.534,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,124760,,branch-misses,0.63%,12266907,81.73,27.54,of all branches,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,1824479,,cache-references,0.16%,15009229,100.00,122.466,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,48188,,cache-misses,2.20%,15009229,100.00,2.651,of all cache refs,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,9663585,,cpu-cycles,0.38%,15009229,100.00,0.649,GHz,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,1,,context-switches,24.49%,14990410,100.00,67.124,/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,111,,page-faults,0.49%,14990410,100.00,7.451,K/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,14.99,msec,task-clock,0.43%,14990410,100.00,0.934,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,48188,,L1-dcache-load-misses,2.20%,15009229,100.00,2.65,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,1824479,,L1-dcache-loads,0.16%,15009229,100.00,122.466,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,1900067,,L1-dcache-stores,1.77%,12740768,84.89,127.540,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,270457,,L1-icache-load-misses,20.94%,2742322,18.27,,,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,8,1,1,1,jude,16216550,ns,duration_time,0.66%,16216550,100.00,1.089,G/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,500382,,branch-instructions,2.01%,1218926,8.09,33.288,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,121270,,branch-misses,1.13%,11217436,74.42,24.25,of all branches,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,1839849,,cache-references,0.31%,15073756,100.00,122.395,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,49407,,cache-misses,3.72%,15073756,100.00,2.684,of all cache refs,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,9708971,,cpu-cycles,0.79%,15073756,100.00,0.646,GHz,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,1,,context-switches,20.00%,15060922,100.00,66.525,/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,111,,page-faults,0.18%,15060922,100.00,7.384,K/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,15.06,msec,task-clock,0.76%,15060922,100.00,0.927,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,49407,,L1-dcache-load-misses,3.72%,15073756,100.00,2.68,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,1839849,,L1-dcache-loads,0.31%,15073756,100.00,122.395,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,1881778,,L1-dcache-stores,1.94%,13854830,91.91,125.185,M/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,291349,,L1-icache-load-misses,20.09%,3856320,25.58,,,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L1,4,1,1,1,jude,16236077,ns,duration_time,0.81%,16236077,100.00,1.080,G/sec,perf-results-driver-matmul-m8_n8_k8-L1-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,483711,,branch-instructions,2.91%,4253907,28.09,32.240,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,130426,,branch-misses,0.84%,14250350,94.08,27.34,of all branches,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,1844701,,cache-references,0.15%,15146473,100.00,122.951,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,50922,,cache-misses,1.31%,15146473,100.00,2.772,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,9754527,,cpu-cycles,0.30%,15146473,100.00,0.650,GHz,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,1,,context-switches,37.42%,15129190,100.00,66.651,/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,111,,page-faults,0.18%,15129190,100.00,7.398,K/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,15.13,msec,task-clock,0.38%,15129190,100.00,0.933,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,50922,,L1-dcache-load-misses,1.31%,15146473,100.00,2.77,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,1844701,,L1-dcache-loads,0.15%,15146473,100.00,122.951,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,1986945,,L1-dcache-stores,2.20%,10892566,71.91,132.432,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,88331,,L1-icache-load-misses,66.79%,896123,5.92,,,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,8,1,1,1,jude,16348162,ns,duration_time,0.76%,16348162,100.00,1.090,G/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,997492,,branch-instructions,1.74%,9109876,32.10,34.900,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,188600,,branch-misses,5.09%,19104700,67.32,20.29,of all branches,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,6071125,,cache-references,2.25%,28377743,100.00,212.413,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,58335,,cache-misses,1.95%,28377743,100.00,0.997,of all cache refs,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,18364644,,cpu-cycles,0.19%,28377743,100.00,0.643,GHz,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,0,,context-switches,0.00%,28375992,100.00,0.000,/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,142,,page-faults,0.26%,28375992,100.00,4.968,K/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,28.38,msec,task-clock,0.21%,28375992,100.00,0.951,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,58335,,L1-dcache-load-misses,1.95%,28377743,100.00,0.96,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,6071125,,L1-dcache-loads,0.04%,28377743,100.00,212.413,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,7296669,,L1-dcache-stores,2.65%,19267867,67.90,255.292,M/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,53101,,L1-icache-load-misses,27.06%,9273043,32.68,,,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_MEM,8,1,1,1,jude,29716709,ns,duration_time,0.24%,29716709,100.00,1.040,G/sec,perf-results-driver-matmul-m64_n64_k64-MEM-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,1835121,,branch-instructions,0.64%,39362802,66.34,31.042,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,251663,,branch-misses,2.77%,39356780,66.33,13.95,of all branches,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,13700074,,cache-references,0.87%,29463860,49.66,231.740,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,114491,,cache-misses,2.07%,38969213,65.68,0.857,of all cache refs,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,38383281,,cpu-cycles,0.08%,48833828,82.31,0.649,GHz,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,2,,context-switches,10.00%,59296564,100.00,33.830,/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,177,,page-faults,0.14%,59296564,100.00,2.994,K/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,59.30,msec,task-clock,0.08%,59296564,100.00,0.983,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,98762,,L1-dcache-load-misses,1.26%,58836600,99.17,0.60,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,16559857,,L1-dcache-loads,0.01%,59331311,100.00,280.114,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,18232703,,L1-dcache-stores,1.47%,50330671,84.83,308.410,M/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,47257,,L1-icache-load-misses,24.85%,40336629,67.99,,,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_MEM,16,1,1,1,jude,60556004,ns,duration_time,0.10%,60556004,100.00,1.024,G/sec,perf-results-driver-matmul-m128_n128_k128-MEM-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,1788762,,branch-instructions,0.88%,39042897,66.16,30.294,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,252408,,branch-misses,1.62%,39045591,66.17,13.97,of all branches,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,13289512,,cache-references,1.39%,29149422,49.40,225.070,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,110704,,cache-misses,5.84%,36535149,61.91,0.821,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,38198329,,cpu-cycles,0.10%,46535296,78.86,0.647,GHz,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,2,,context-switches,10.00%,58987565,100.00,33.872,/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,175,,page-faults,0.14%,58987565,100.00,2.964,K/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,58.99,msec,task-clock,0.11%,58987565,100.00,0.979,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,91065,,L1-dcache-load-misses,3.61%,56401733,95.58,0.54,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,16747964,,L1-dcache-loads,0.02%,59011846,100.00,283.642,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,18101521,,L1-dcache-stores,1.42%,52441486,88.87,306.566,M/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,41657,,L1-icache-load-misses,18.01%,42442952,71.92,,,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L1,16,1,1,1,jude,60400692,ns,duration_time,0.10%,60400692,100.00,1.023,G/sec,perf-results-driver-matmul-m128_n128_k128-L1-acc16.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,3761984,,branch-instructions,0.13%,83966711,67.73,30.309,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,383342,,branch-misses,1.12%,83981022,67.75,10.18,of all branches,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,34702078,,cache-references,0.20%,82736044,66.74,279.582,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,149131,,cache-misses,0.69%,92847400,74.90,0.429,of all cache refs,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,80229654,,cpu-cycles,0.08%,104095356,83.97,0.646,GHz,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,1,,context-switches,40.00%,123951722,100.00,8.057,/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,302,,page-faults,0.15%,123951722,100.00,2.433,K/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,123.95,msec,task-clock,0.09%,123951722,100.00,0.989,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,148487,,L1-dcache-load-misses,0.74%,104092655,83.97,0.42,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,35059117,,L1-dcache-loads,0.02%,103967055,83.87,282.458,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,35699976,,L1-dcache-stores,0.75%,101101864,81.56,287.621,M/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,91131,,L1-icache-load-misses,14.54%,91101797,73.49,,,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_L2,8,1,1,1,jude,125139129,ns,duration_time,0.09%,125139129,100.00,1.008,G/sec,perf-results-driver-matmul-m128_n128_k128-L2-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,464447,,branch-instructions,1.88%,1022926,6.91,31.466,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,120798,,branch-misses,0.71%,11024314,74.51,25.48,of all branches,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,1803541,,cache-references,0.04%,14795886,100.00,122.189,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,48160,,cache-misses,1.76%,14795886,100.00,2.670,of all cache refs,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,9543247,,cpu-cycles,0.22%,14795886,100.00,0.647,GHz,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,0,,context-switches,0.00%,14793144,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,110,,page-faults,0.18%,14793144,100.00,7.452,K/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,14.79,msec,task-clock,0.27%,14793144,100.00,0.931,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,48160,,L1-dcache-load-misses,1.76%,14795886,100.00,2.67,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,1803541,,L1-dcache-loads,0.04%,14795886,100.00,122.189,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,1845779,,L1-dcache-stores,2.24%,13772960,93.09,125.051,M/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,279172,,L1-icache-load-misses,23.59%,3771572,25.49,,,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+8_8_8,8_8_8,matmul_i32,cpp_manual,8,1,1,1,jude,15791191,ns,duration_time,0.52%,15791191,100.00,1.070,G/sec,perf-results-driver-matmul-m8_n8_k8-MANUAL-acc8.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,4764572,,branch-instructions,0.30%,135315894,77.25,27.528,M/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,184490,,branch-misses,3.97%,135325042,77.25,3.88,of all branches,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,41406375,,cache-references,0.08%,115331763,65.84,239.232,M/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1779174,,cache-misses,1.12%,115325471,65.83,4.303,of all cache refs,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,113427763,,cpu-cycles,0.55%,135324879,77.25,0.655,GHz,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,2,,context-switches,12.25%,175137174,100.00,11.555,/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,158,,page-faults,0.31%,175137174,100.00,912.871,/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,175.14,msec,task-clock,0.55%,175137174,100.00,1.005,CPUs utilized,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,1807486,,L1-dcache-load-misses,1.10%,135178937,77.17,4.31,of all L1-dcache accesses,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,42001839,,L1-dcache-loads,0.17%,135151389,77.15,242.673,M/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,43134642,,L1-dcache-stores,0.54%,139699096,79.75,249.217,M/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,33282,,L1-icache-load-misses,28.14%,139723788,79.76,,,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+128_128_128,128_128_128,matmul_i32,mlir_CPU,NONE,1,1,1,jude,176454609,ns,duration_time,0.55%,176454609,100.00,1.019,G/sec,perf-results-driver-matmul-m128_n128_k128-CPU-accNONE.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,462305,,branch-instructions,2.27%,2020166,13.61,31.268,M/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,122291,,branch-misses,0.61%,12016310,80.98,24.94,of all branches,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,1806563,,cache-references,0.03%,14838464,100.00,122.189,M/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,49812,,cache-misses,0.94%,14838464,100.00,2.756,of all cache refs,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,9566271,,cpu-cycles,0.16%,14838464,100.00,0.647,GHz,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,0,,context-switches,0.00%,14837316,100.00,0.000,/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,112,,page-faults,0.28%,14837316,100.00,7.575,K/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,14.84,msec,task-clock,0.22%,14837316,100.00,0.941,CPUs utilized,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,49812,,L1-dcache-load-misses,0.94%,14838464,100.00,2.76,of all L1-dcache accesses,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,1806563,,L1-dcache-loads,0.03%,14838464,100.00,122.189,M/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,1877906,,L1-dcache-stores,2.72%,12818298,86.39,127.014,M/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,292467,,L1-icache-load-misses,22.24%,2822154,19.02,,,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+4_4_4,4_4_4,matmul_i32,mlir_L2,4,1,1,1,jude,15768319,ns,duration_time,0.20%,15768319,100.00,1.067,G/sec,perf-results-driver-matmul-m4_n4_k4-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,100241656,,branch-instructions,0.08%,2552672475,77.53,30.415,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,11980451,,branch-misses,0.38%,2552703153,77.53,11.97,of all branches,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,812549797,,cache-references,0.01%,2185701648,66.39,246.541,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,3650837,,cache-misses,0.28%,2196233676,66.71,0.449,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,2132151238,,cpu-cycles,0.04%,2566009123,77.94,0.647,GHz,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,13,,context-switches,18.04%,3292295378,100.00,3.944,/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,9522,,page-faults,0.00%,3292295378,100.00,2.889,K/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,3292.30,msec,task-clock,0.04%,3292295378,100.00,0.998,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,3691407,,L1-dcache-load-misses,0.37%,2573033803,78.15,0.45,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,811062658,,L1-dcache-loads,0.02%,2572458789,78.13,246.090,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,812416962,,L1-dcache-stores,0.02%,2565929258,77.93,246.501,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,2300699,,L1-icache-load-misses,3.98%,2555941566,77.63,,,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,4,1,1,1,jude,18446744072710227968,ns,duration_time,0.00%,18446744072710227968,100.00,5597053915.562,G/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,516375,,branch-instructions,1.03%,7408242,47.17,32.566,M/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,122171,,branch-misses,1.82%,15705746,100.00,23.58,of all branches,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,2444278,,cache-references,0.14%,15705746,100.00,154.153,M/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,46667,,cache-misses,4.13%,15705746,100.00,1.904,of all cache refs,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,10153756,,cpu-cycles,0.46%,15705746,100.00,0.640,GHz,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,0,,context-switches,0.00%,15700749,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,111,,page-faults,0.36%,15700749,100.00,7.000,K/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,15.70,msec,task-clock,0.51%,15700749,100.00,0.928,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,46667,,L1-dcache-load-misses,4.13%,15705746,100.00,1.90,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,2444278,,L1-dcache-loads,0.14%,15705746,100.00,154.153,M/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,3106086,,L1-dcache-stores,2.46%,8297504,52.83,195.891,M/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+32_32_32,32_32_32,matmul_i32,mlir_CPU,NONE,1,1,1,jude,16737783,ns,duration_time,0.97%,16737783,100.00,1.056,G/sec,perf-results-driver-matmul-m32_n32_k32-CPU-accNONE.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,26653525,,branch-instructions,0.03%,681250165,77.31,30.234,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,1667686,,branch-misses,0.35%,681358502,77.32,6.26,of all branches,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,268571539,,cache-references,0.02%,581731500,66.01,304.653,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,1171605,,cache-misses,0.46%,581810484,66.02,0.436,of all cache refs,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,570647494,,cpu-cycles,0.03%,681467845,77.33,0.647,GHz,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,6,,context-switches,14.53%,881157266,100.00,6.806,/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,1457,,page-faults,0.02%,881157266,100.00,1.653,K/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,881.16,msec,task-clock,0.03%,881157266,100.00,0.997,CPUs utilized,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,1154897,,L1-dcache-load-misses,0.46%,684905948,77.72,0.43,of all L1-dcache accesses,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,270068580,,L1-dcache-loads,0.03%,694674680,78.83,306.351,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,270790806,,L1-dcache-stores,0.08%,695767893,78.96,307.171,M/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,428599,,L1-icache-load-misses,2.94%,685811840,77.83,,,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+256_256_256,256_256_256,matmul_i32,mlir_L2,8,1,1,1,jude,883048641,ns,duration_time,0.04%,883048641,100.00,1.002,G/sec,perf-results-driver-matmul-m256_n256_k256-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,496047,,branch-instructions,16.79%,1631483,10.39,31.800,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,126939,,branch-misses,0.89%,11627175,74.08,29.49,of all branches,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,2066469,,cache-references,0.12%,15695221,100.00,132.475,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,49602,,cache-misses,2.98%,15695221,100.00,2.404,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,10112725,,cpu-cycles,0.16%,15695221,100.00,0.648,GHz,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,1,,context-switches,24.49%,15682057,100.00,64.107,/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,115,,page-faults,0.00%,15682057,100.00,7.372,K/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,15.68,msec,task-clock,0.26%,15682057,100.00,0.936,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,49602,,L1-dcache-load-misses,2.98%,15695221,100.00,2.40,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,2066469,,L1-dcache-loads,0.12%,15695221,100.00,132.475,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,2141576,,L1-dcache-stores,3.16%,14063738,89.61,137.290,M/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,275130,,L1-icache-load-misses,21.80%,4068046,25.92,,,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+32_32_32,32_32_32,matmul_i32,mlir_L1,16,1,1,1,jude,16976907,ns,duration_time,0.55%,16976907,100.00,1.088,G/sec,perf-results-driver-matmul-m32_n32_k32-L1-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,493316,,branch-instructions,10.03%,4366864,27.89,31.613,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,130543,,branch-misses,0.88%,14363790,91.73,28.09,of all branches,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,2008719,,cache-references,0.12%,15658239,100.00,128.726,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,48919,,cache-misses,0.47%,15658239,100.00,2.434,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,10091881,,cpu-cycles,0.24%,15658239,100.00,0.647,GHz,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,0,,context-switches,0.00%,15646335,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,113,,page-faults,0.18%,15646335,100.00,7.241,K/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,15.65,msec,task-clock,0.29%,15646335,100.00,0.940,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,48919,,L1-dcache-load-misses,0.47%,15658239,100.00,2.43,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,2008719,,L1-dcache-loads,0.12%,15658239,100.00,128.726,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,2198899,,L1-dcache-stores,1.52%,11291375,72.11,140.913,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,263013,,L1-icache-load-misses,18.83%,1294449,8.27,,,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,4,1,1,1,jude,16646558,ns,duration_time,0.49%,16646558,100.00,1.067,G/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc4.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,934917,,branch-instructions,1.52%,8680317,30.29,32.716,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,225701,,branch-misses,3.84%,15290165,53.36,24.63,of all branches,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,6093582,,cache-references,3.05%,25268457,88.19,213.234,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,60862,,cache-misses,1.06%,28653669,100.00,1.035,of all cache refs,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,18505133,,cpu-cycles,0.16%,28653669,100.00,0.648,GHz,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,1,,context-switches,24.49%,28636367,100.00,34.993,/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,141,,page-faults,0.22%,28636367,100.00,4.934,K/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,28.64,msec,task-clock,0.16%,28636367,100.00,0.964,CPUs utilized,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,60862,,L1-dcache-load-misses,1.06%,28653669,100.00,0.99,of all L1-dcache accesses,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,6141003,,L1-dcache-loads,0.03%,28653669,100.00,214.893,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,6881145,,L1-dcache-stores,3.14%,23358564,81.52,240.793,M/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,47864,,L1-icache-load-misses,36.08%,13363504,46.64,,,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+64_64_64,64_64_64,matmul_i32,mlir_L1,8,1,1,1,jude,29981759,ns,duration_time,0.39%,29981759,100.00,1.049,G/sec,perf-results-driver-matmul-m64_n64_k64-L1-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,562660,,branch-instructions,1.38%,2810526,16.93,33.872,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,141204,,branch-misses,0.94%,12809978,77.16,26.50,of all branches,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,2355540,,cache-references,0.08%,16602845,100.00,141.804,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,48936,,cache-misses,0.47%,16602845,100.00,2.078,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,10709053,,cpu-cycles,0.08%,16602845,100.00,0.645,GHz,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,0,,context-switches,0.00%,16594947,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,117,,page-faults,0.34%,16594947,100.00,7.043,K/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,16.59,msec,task-clock,0.09%,16594947,100.00,0.939,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,48936,,L1-dcache-load-misses,0.47%,16602845,100.00,2.08,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,2355540,,L1-dcache-loads,0.08%,16602845,100.00,141.804,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,2498363,,L1-dcache-stores,0.49%,13792319,83.07,150.402,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,147281,,L1-icache-load-misses,9.72%,3792867,22.84,,,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,8,1,1,1,jude,17621951,ns,duration_time,0.43%,17621951,100.00,1.061,G/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc8.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,526031,,branch-instructions,5.59%,9440144,63.93,35.387,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,124340,,branch-misses,0.65%,14765264,100.00,26.46,of all branches,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,1832665,,cache-references,0.10%,14765264,100.00,123.287,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,47559,,cache-misses,3.53%,14765264,100.00,2.588,of all cache refs,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,9544388,,cpu-cycles,0.41%,14765264,100.00,0.642,GHz,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,0,,context-switches,0.00%,14764261,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,111,,page-faults,0.36%,14764261,100.00,7.467,K/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,14.76,msec,task-clock,0.47%,14764261,100.00,0.931,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,47559,,L1-dcache-load-misses,3.53%,14765264,100.00,2.59,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,1832665,,L1-dcache-loads,0.10%,14765264,100.00,123.287,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,1820256,,L1-dcache-stores,2.54%,5325120,36.07,122.452,M/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+16_16_16,16_16_16,matmul_i32,mlir_L2,16,1,1,1,jude,15832342,ns,duration_time,0.41%,15832342,100.00,1.065,G/sec,perf-results-driver-matmul-m16_n16_k16-L2-acc16.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,464995,,branch-instructions,2.44%,4868006,32.87,31.136,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,124600,,branch-misses,0.87%,14809689,100.00,25.63,of all branches,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,1823057,,cache-references,0.16%,14809689,100.00,122.072,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,49744,,cache-misses,0.79%,14809689,100.00,2.718,of all cache refs,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,9578158,,cpu-cycles,0.29%,14809689,100.00,0.641,GHz,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,0,,context-switches,0.00%,14868565,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,110,,page-faults,0.29%,14868565,100.00,7.366,K/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,14.87,msec,task-clock,0.29%,14868565,100.00,0.888,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,49744,,L1-dcache-load-misses,0.79%,14809689,100.00,2.72,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,1823057,,L1-dcache-loads,0.16%,14809689,100.00,122.072,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,2020663,,L1-dcache-stores,2.23%,9941683,67.13,135.304,M/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_MEM,4,1,1,1,jude,15806604,ns,duration_time,4.15%,15806604,100.00,1.058,G/sec,perf-results-driver-matmul-m8_n8_k8-MEM-acc4.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,475730,,branch-instructions,6.40%,6628969,44.82,31.833,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,125333,,branch-misses,0.72%,14788771,100.00,27.17,of all branches,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,1820230,,cache-references,0.08%,14788771,100.00,121.798,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,47407,,cache-misses,0.49%,14788771,100.00,2.597,of all cache refs,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,9559599,,cpu-cycles,0.24%,14788771,100.00,0.640,GHz,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,0,,context-switches,0.00%,14784498,100.00,0.000,/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,111,,page-faults,0.18%,14784498,100.00,7.427,K/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,14.78,msec,task-clock,0.29%,14784498,100.00,0.922,CPUs utilized,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,47407,,L1-dcache-load-misses,0.49%,14788771,100.00,2.60,of all L1-dcache accesses,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,1820230,,L1-dcache-loads,0.08%,14788771,100.00,121.798,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,2082894,,L1-dcache-stores,1.89%,8159802,55.18,139.374,M/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+16_16_16,16_16_16,matmul_i32,cpp_manual,16,1,1,1,jude,15789801,ns,duration_time,0.42%,15789801,100.00,1.057,G/sec,perf-results-driver-matmul-m16_n16_k16-MANUAL-acc16.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,525952,,branch-instructions,1.73%,9731941,65.92,35.479,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,124724,,branch-misses,0.88%,14762922,100.00,25.32,of all branches,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,1825387,,cache-references,0.06%,14762922,100.00,123.135,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,46644,,cache-misses,0.67%,14762922,100.00,2.554,of all cache refs,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,9548222,,cpu-cycles,0.22%,14762922,100.00,0.644,GHz,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,0,,context-switches,0.00%,14761898,100.00,0.000,/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,110,,page-faults,0.18%,14761898,100.00,7.420,K/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,14.76,msec,task-clock,0.28%,14761898,100.00,0.929,CPUs utilized,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,46644,,L1-dcache-load-misses,0.67%,14762922,100.00,2.55,of all L1-dcache accesses,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,1825387,,L1-dcache-loads,0.06%,14762922,100.00,123.135,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,1775530,,L1-dcache-stores,2.73%,5030981,34.08,119.772,M/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,<not counted>,,L1-icache-load-misses,0.00%,0,0.00,,,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+8_8_8,8_8_8,matmul_i32,mlir_L2,4,1,1,1,jude,15863354,ns,duration_time,0.24%,15863354,100.00,1.070,G/sec,perf-results-driver-matmul-m8_n8_k8-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,675571,,branch-instructions,2.44%,1815442,8.43,31.569,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,179027,,branch-misses,3.13%,10452834,48.56,25.21,of all branches,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,3473386,,cache-references,0.39%,20446658,94.98,162.308,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,54720,,cache-misses,1.90%,21527048,100.00,1.600,of all cache refs,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,13874543,,cpu-cycles,0.22%,21527048,100.00,0.648,GHz,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,1,,context-switches,40.00%,21511159,100.00,46.729,/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,132,,page-faults,0.28%,21511159,100.00,6.168,K/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,21.51,msec,task-clock,0.25%,21511159,100.00,0.954,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,54720,,L1-dcache-load-misses,1.90%,21527048,100.00,1.61,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,3415412,,L1-dcache-loads,0.08%,21527048,100.00,159.599,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,3490826,,L1-dcache-stores,2.66%,20791996,96.59,163.123,M/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,149599,,L1-icache-load-misses,22.23%,11074214,51.44,,,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_MEM,4,1,1,1,jude,22837765,ns,duration_time,0.50%,22837765,100.00,1.067,G/sec,perf-results-driver-matmul-m32_n32_k32-MEM-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,711431,,branch-instructions,1.35%,8169661,38.50,33.373,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,156579,,branch-misses,2.38%,18162996,85.60,22.73,of all branches,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,3406264,,cache-references,0.18%,21217971,100.00,159.788,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,52316,,cache-misses,2.13%,21217971,100.00,1.532,of all cache refs,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,13708057,,cpu-cycles,0.23%,21217971,100.00,0.643,GHz,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,0,,context-switches,0.00%,21206624,100.00,0.000,/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,131,,page-faults,0.15%,21206624,100.00,6.145,K/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,21.21,msec,task-clock,0.27%,21206624,100.00,0.925,CPUs utilized,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,52316,,L1-dcache-load-misses,2.13%,21217971,100.00,1.53,of all L1-dcache accesses,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,3406264,,L1-dcache-loads,0.07%,21217971,100.00,159.788,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,4023209,,L1-dcache-stores,2.52%,13048310,61.50,188.729,M/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,140171,,L1-icache-load-misses,10.22%,3054975,14.40,,,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
+32_32_32,32_32_32,matmul_i32,mlir_L2,4,1,1,1,jude,22223889,ns,duration_time,2.28%,22223889,100.00,1.043,G/sec,perf-results-driver-matmul-m32_n32_k32-L2-acc4.csv
