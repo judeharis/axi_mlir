@@ -37,7 +37,9 @@ mock: $(OBJDIR) mock_api_v1 mock_api_v1_lib mock_unit_test
 
 pynq: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
-pynq_exp: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_accv1 pynq_accv2 pynq_accv3 pynq_accv4 pynq_accv5
+pynq_exp: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_accv1 pynq_accv2 pynq_accv3 pynq_accv4 pynq_accv5 
+
+pynq_conv: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_conv_v2
 
 pynq_accv1 : pynq_tiling1_4x4v1
 
@@ -48,6 +50,8 @@ pynq_accv3 : pynq_tiling1_4x4v3 pynq_tiling2_4x4v3
 pynq_accv4 : pynq_tiling1_4x4v4 pynq_tiling2_4x4v4 pynq_tiling3_4x4v4
 
 pynq_accv5 : pynq_tiling1_4x4v5 
+
+pynq_conv_v2 : pynq_conv2
 
 pynq_test: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_mmv1_ts1 pynq_mmv1_ts1_prof pynq_mmv1_ts1_hwc pynq_conv_v1
 
@@ -173,6 +177,11 @@ pynq_tiling1_4x4v5: $(PYNQ_OBJDIR)
 	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/pynq_tiling1_4x4v5 tiling1_4x4v5.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
 
 #-----------------------
+
+# ----------------ConvV2----------------
+
+pynq_conv2: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/conv_v2_t1 conv_v2_t1.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
 
 
 #----------------------- SYSC 
