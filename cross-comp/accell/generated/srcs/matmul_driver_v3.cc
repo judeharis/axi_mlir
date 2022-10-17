@@ -33,6 +33,10 @@
 #include "bench_config.h"
 #include "mlir_utils.h"
 #include "mm4x4v1_ts1.h"
+#include "mm4x4v1_ts2.h"
+#include "mm4x4v1_ts3.h"
+#include "mm4x4v1_ts4.h"
+#include "mm4x4v1_ts5.h"
 
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
@@ -106,7 +110,7 @@ void reset(int *arg0, int *arg1, int *arg2) {
   }
   for (int i = 0; i < K; i++) {
     for (int j = 0; j < N; j++) {
-      arg1[i * N + j] = 1;
+      arg1[i * N + j] = j;
     }
   }
   for (int i = 0; i < M; i++) {
@@ -134,7 +138,11 @@ int main() {
   // C++ Version
   // Reset
   reset(arg0, arg1, arg2);
-  v1_ts1(arg0, arg1, arg2);
+  // v1_ts1(arg0, arg1, arg2);
+  v1_ts2(arg0, arg1, arg2);
+  // v1_ts3(arg0, arg1, arg2);
+  // v1_ts4(arg0, arg1, arg2);
+  // v1_ts5(arg0, arg1, arg2);
 
 #elif RUNMLIR
   // ==========================================================
@@ -158,6 +166,8 @@ int main() {
   // clang-format on
 #endif
 
+  // std::cout << "DONE" << std::endl;
+  // dump(arg0, arg1, arg2);
   free(arg0);
   free(arg1);
   free(arg2);

@@ -1,0 +1,8 @@
+{
+    "CPU_cache_levels": [128,32],
+    "L1_cache_size": 32,
+    "L2_cache_size": 512
+
+
+}
+

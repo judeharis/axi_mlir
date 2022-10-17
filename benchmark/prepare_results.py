@@ -29,7 +29,7 @@ def getDictFromFilename(filename):
   acc_size=r[3].split('.')[0].replace('acc','')
   d['accel_size']=acc_size
 
-  d['hostname']=os.uname()[1]
+  d['hostname']=os.uname()[1] + "_rel"
 
   return d
 

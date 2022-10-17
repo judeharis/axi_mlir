@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
   for (int n = 0; n < pN; n += tile_N) {
     for (int m = 0; m < pM; m += tile_M) {
       for (int k = 0; k < pK; k += tile_K) {
-        // C stationary
+        // No stationary
         int A_base = n * pK + k;
         int B_base = m * pK + k;
         int C_base = n * pM + m;
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
         // Data_len is used to track what is in the DMA_IN_BUFFER
         int data_len = 0;
 
-        // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
+        // Encodes HEADER; Tells accelerator to expect A, B tiles, compute C and Send C
         uint32_t h = 15;
         dma_inbuffer[0] = h;
         data_len++;

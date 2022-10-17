@@ -26,6 +26,35 @@ PROBLEM_DIM=64
 # Declaring input arrays
 
 # Used by both MLIR MATMUL library and final app
+# declare -a AccelSizeArray=(
+#     "4"
+#     "8"
+#     "16"
+# )
+
+# declare -a KernelNameArray=(
+#     "matmul"
+# )
+
+# declare -a StrategyArray=(
+#     "MEM"
+#     "L2"
+#     "L1"
+#     "CPU"
+#     "MANUAL"
+# )
+
+# declare -a ProblemDimArray=(
+#     "4"
+#     "8"
+#     "16"
+#     "32"
+#     "64"
+#     "128"
+#     "256"
+#     "512"
+# )
+
 declare -a AccelSizeArray=(
     "4"
     "8"
@@ -37,10 +66,10 @@ declare -a KernelNameArray=(
 )
 
 declare -a StrategyArray=(
-    "MEM"
-    "L2"
-    "L1"
-    "CPU"
+    # "MEM"
+    # "L2"
+    # "L1"
+    # "CPU"
     "MANUAL"
 )
 

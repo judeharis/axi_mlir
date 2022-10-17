@@ -1,0 +1,38 @@
+{
+  "name": "MM_v1_16x16",
+  "version": "1.0",
+  "description": "MM Accelerator",
+  "memory_layout": {
+    "#A_Buffer": {"size": 256, "data_type": "int32"},
+    "#B_Buffer": {"size": 256, "data_type": "int32"},
+    "#C_Buffer": {"size": 256, "data_type": "int32"}
+  },
+  "tile_based": 1,
+  "tile_size": 16,
+  "data_type": "int32",
+  "data_size": 4,
+  "dims": ["N", "M", "K"],
+  "data": {"A": ["N", "K"], "B": ["M", "K"], "C": ["N", "M"]},
+  "permutation_map": {"from": ["m", "n", "k"], "to": ["m", "k", "n"]},
+  "indexing_maps": [
+    {"from": ["m", "n", "k"], "to": ["m", "k"]},
+    {"from": ["m", "n", "k"], "to": ["k", "n"]},
+    {"from": ["m", "n", "k"], "to": ["m", "n"]}
+  ],
+  "inputs": 2,
+  "outputs": 1,
+  "input_data": ["A", "B"],
+  "output_data": ["C"],
+  "dma_config": [1600, 1700, 1000, 1800, 1000],
+  "ISA": {
+    "instruction_format": {"opcode_length": 32, "op_args": 0},
+    "opcodes": {
+      "-1": [
+        {"READ": {"dma_fifo_id": 0, "data": "A", "offset": 0, "length": 256}},
+        {"READ": {"dma_fifo_id": 0, "data": "B", "offset": 0, "length": 256}},
+        {"COMPUTE": {"kernel_id": 0, "data": "C"}},
+        {"SEND": {"dma_fifo_id": 1, "data": "C", "offset": 0, "length": 256}}
+      ]
+    }
+  }
+}
