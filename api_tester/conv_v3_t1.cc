@@ -238,7 +238,7 @@ int main(int argc, char *argv[]) {
   dump_out(p, arg2);
 }
 
-// SFS (SIC (SF ( SI C APC)+)) RO) -- filter S
+//  ((SF ((SI C AC)+)+ RC)+)+ -- filter S
 
 // unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
 // int data_len = 0;
