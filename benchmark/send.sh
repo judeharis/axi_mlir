@@ -5,6 +5,9 @@
 if [ "$HOSTNAME" = WE40997 ]; then
   board_user=xilinx
   board_hostname=tul
+elif [ "$HOSTNAME" = AORUS-W ]; then
+  board_user=xilinx
+  board_hostname=tul
 elif [ "$HOSTNAME" = jude-MS-7B79 ]; then
   board_user=xilinx
   board_hostname=192.168.0.17

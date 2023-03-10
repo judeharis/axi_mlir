@@ -18,7 +18,7 @@ BITW=64
 # Static CONFIGS
 KERNEL_NAME=matmul
 ACCEL_SIZE=4
-STRATEGY=MEM
+STRATEGY=ACCELERATE
 PROBLEM_DIM=64
 
 
@@ -57,8 +57,8 @@ PROBLEM_DIM=64
 
 declare -a AccelSizeArray=(
     "4"
-    "8"
-    "16"
+    # "8"
+    # "16"
 )
 
 declare -a KernelNameArray=(
@@ -68,20 +68,20 @@ declare -a KernelNameArray=(
 declare -a StrategyArray=(
     # "MEM"
     # "L2"
-    # "L1"
+    "L1"
     # "CPU"
-    "MANUAL"
+    # "MANUAL"
 )
 
 declare -a ProblemDimArray=(
     "4"
     "8"
-    "16"
-    "32"
-    "64"
-    "128"
-    "256"
-    "512"
+    # "16"
+    # "32"
+    # "64"
+    # "128"
+    # "256"
+    # "512"
 )
 
 # ===========================
@@ -94,8 +94,23 @@ for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 #-convert-std-to-llvm="index-bitwidth=$BITW emit-c-wrappers" \
     # -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
 
+ 
+    # V1
+    # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s r)\", accel-tile-size=${ACCEL_SIZE} acc-on-cpu=2" \
+    
+    
+    # V2 - Tiling1
+    # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send_literal(7), op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s r)\",  number-of-caches=2 tile-sizes=128,128,128,32,32,32 acc-on-cpu=2 accel-tile-size=${ACCEL_SIZE}" --cse \
+
+    # V2 - Tiling2
+    # --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,2,1 opcode-map=\"opcode_map<s0=[op_send_literal(1), op_send(0)], s1c=[op_send_literal(6), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s0 (s1c r))\" accel-tile-size=${ACCEL_SIZE} acc-on-cpu=2" --cse \
+
+    # V2 - Tiling3 
+    #    --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=1,2,0 opcode-map=\"opcode_map<s1=[op_send_literal(2), op_send(1)], s0c=[op_send_literal(5), op_send(0)], r=[op_recv(2)]>\" opcode-flow=\"(s1 (s0c r))\" acc-on-cpu=2 accel-tile-size=4" --cse \
+
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-    -test-linalg-to-axi4mlir="flow-cpu-accumulation tile-sizes=128,128,128,32,32,32 accel-tile-size=${ACCEL_SIZE}" \
+   --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=1,2,0 opcode-map=\"opcode_map<s1=[op_send_literal(2), op_send(1)], s0c=[op_send_literal(5), op_send(0)], r=[op_recv(2)]>\" opcode-flow=\"(s1 (s0c r))\" acc-on-cpu=2 accel-tile-size=4" --cse \
+    -test-accel-to-axi4mlir \
     -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
     -convert-scf-to-cf  \
     -arith-expand \
