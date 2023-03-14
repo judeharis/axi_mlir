@@ -12,7 +12,7 @@ else
 fi
 
 arm_libs_dir=$axi4mlir_projroot/builds/llvm-project/build-runner-arm/lib
-arm_app_dir=$axi4mlir_projroot/cross-comp/accell/generated/output
+arm_app_dir=$axi4mlir_projroot/cross-comp/generated/output
 
 bins_dir=bins
 libs_dir=libs
