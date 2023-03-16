@@ -18,6 +18,8 @@ BITW=64
 # Static CONFIGS
 KERNEL_NAME=matmul
 ACCEL_SIZE=4
+ACCEL_TYPE=v1
+FLOW=Ns
 STRATEGY=ACCELERATE
 PROBLEM_DIM=64
 
@@ -25,58 +27,32 @@ PROBLEM_DIM=64
 # ===========================
 # Declaring input arrays
 
-# Used by both MLIR MATMUL library and final app
-# declare -a AccelSizeArray=(
-#     "4"
-#     "8"
-#     "16"
-# )
-
-# declare -a KernelNameArray=(
-#     "matmul"
-# )
-
-# declare -a StrategyArray=(
-#     "MEM"
-#     "L2"
-#     "L1"
-#     "CPU"
-#     "MANUAL" # TODO manual is not working, need to fix
-# )
-
-# declare -a ProblemDimArray=(
-#     "4"
-#     "8"
-#     "16"
-#     "32"
-#     "64"
-#     "128"
-#     "256"
-#     "512"
-# )
-
 declare -a AccelSizeArray=(
     "4"
-    # "8"
+    "8"
     # "16"
 )
 
-# Declare scripts because the commandline has different types of quotation marks
-# note that filename is importatnt as it will be split into
-#    compile_mlir_matmul-${ACCEL_TYPE}.sh
-declare -a AccelTypeScriptArray=(
-    scripts/compile_mlir_matmul-v1_Ns.sh
-    # scripts/compile_mlir_matmul-v2_Ns.sh
-    # scripts/compile_mlir_matmul-v2_As.sh
-    # scripts/compile_mlir_matmul-v2_Bs.sh
+declare -a AccelTypeArray=(
+    "v1"
+    "v2"
+    # "v4"
 )
 
 declare -a KernelNameArray=(
     "matmul"
 )
 
+declare -a FlowArray=(
+    "NA"
+    "Ns"
+    "As"
+    "Bs"
+    # "Cs"
+)
+
 declare -a StrategyArray=(
-    "OVERRRIDEN_BY_SCRIPT"
+    "ACC"
     # "MEM"
     # "L2"
     # "L1"
@@ -85,10 +61,8 @@ declare -a StrategyArray=(
 )
 
 declare -a ProblemDimArray=(
-    "4"
-    # "8"
-    # "16"
-    # "32"
+    "16"
+    "32"
     # "64"
     # "128"
     # "256"
@@ -100,56 +74,78 @@ declare -a ProblemDimArray=(
 
 # Iterate the string array using for loop
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
-for ACCEL_TYPE_SCRIPT in ${AccelTypeScriptArray[@]}; do
-
-ACCEL_TYPE=$(echo $ACCEL_TYPE_SCRIPT | cut -d'-' -f2 | cut -d'.' -f1)
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation 
-source $ACCEL_TYPE_SCRIPT
+source scripts/compile_mlir_matmul-all.sh
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir $OUTDIR/llvm.mlir -o $OUTDIR/libmlirmatmuls.ll
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
+    -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll \
+    $OUTDIR/llvm_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
     -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
-    -c -o $OUTDIR/libmlirmatmuls.o $OUTDIR/libmlirmatmuls.ll
+    -c -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
+    $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
 
 # No need for a static library
 # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so $OUTDIR/libmlirmatmuls.o \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
+    -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
+    $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
     --target=arm-linux-gnueabihf \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -lmlir_runner_utils -lmlir_axi_runner_utils
 
-done
-done
+done # ACCEL_TYPE
+done # ACCEL_SIZE
 
 # ===========================
 # Compiling output binary for a given problem, strategy, accel size
 
 # Iterate the string array using for loop
-# for STRATEGY in ${StrategyArray[@]}; do
-for ACCEL_TYPE_SCRIPT in ${AccelTypeScriptArray[@]}; do
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
+for FLOW in ${FlowArray[@]}; do
+for STRATEGY in ${StrategyArray[@]}; do
 for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
+
+if [ "$STRATEGY" == "MANUAL" ] || [ "$STRATEGY" == "CPU" ]; then
+  if [ "$FLOW" != "NA" ]; then
+    continue
+  fi
+else
+  if [ "$FLOW" == "NA" ]; then
+    continue
+  fi
+fi
 
 if [ "$ACCEL_SIZE" -gt "$PROBLEM_DIM" ]; then
   continue
 fi
 
+if [ "$ACCEL_TYPE" == "v1" ]; then
+  if [ "$FLOW" == "As" ] || [ "$FLOW" == "Bs" ] || [ "$FLOW" == "Cs" ]; then
+    continue
+  fi
+fi
 
-# TODO: For now, strategy is overriden by the script
-ACCEL_TYPE=$(echo $ACCEL_TYPE_SCRIPT | cut -d'-' -f2 | cut -d'.' -f1)
-STRATEGY=$ACCEL_TYPE
+if [ "$ACCEL_TYPE" == "v2" ]; then
+  if [ "$FLOW" == "Cs" ]; then
+    continue
+  fi
+fi
+
 
 M=$PROBLEM_DIM
 N=$PROBLEM_DIM
 K=$PROBLEM_DIM
 DIMS=m${M}_n${N}_k${K}
-CALL_NAME=${KERNEL_NAME}_${DIMS}_${STRATEGY}
+CALL_NAME=${KERNEL_NAME}_${DIMS}_${STRATEGY}_${ACCEL_TYPE}_${FLOW}
 MLIR_CALL=${CALL_NAME}_call
 MLIRMATMULCALL=$MLIR_CALL
 CIMLIRMATMULCALL=_mlir_ciface_$MLIR_CALL
@@ -158,7 +154,7 @@ MLIR_CPU_CALL=${CALL_NAME}_call
 MLIRMATMULCALLCPU=${MLIR_CPU_CALL}
 CIMLIRMATMULCALLCPU=_mlir_ciface_${MLIR_CPU_CALL}
 
-RUN_NAME=${KERNEL_NAME}-${DIMS}-${STRATEGY}-acc$ACCEL_SIZE
+RUN_NAME=${KERNEL_NAME}-${DIMS}-${STRATEGY}-acc${ACCEL_SIZE}_${ACCEL_TYPE}_${FLOW}
 APPNAME=driver-${RUN_NAME}-app
 
 if [ "$STRATEGY" == "MANUAL" ]; then
@@ -203,6 +199,8 @@ done #AccelSizeArray
 done #ProblemDimArray
 done #KernelNameArray
 done #StrategyArray
+done #FlowArray
+done #AccelTypeArray
 
 set +e
 set +x

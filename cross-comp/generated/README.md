@@ -7,8 +7,8 @@ This step is not necessary if the files  `mlir_matmuls.mlir` `mlir_matmuls.h.inc
 Inside this folder call:
 
 ```bash
-./generate_all.py 4 2 9 -t v1_Ns --template srcs/template_mlir_matmuls.mlir > srcs/mlir_matmuls.mlir
-./generate_all.py 4 2 9 -t v1_Ns --template srcs/template_mlir_matmuls.h > srcs/mlir_matmuls.h.inc
+./generate_all.py 16 2 9 -t ACC_v1_Ns ACC_v2_Ns ACC_v2_As ACC_v2_Bs --template srcs/template_mlir_matmuls.mlir > srcs/mlir_matmuls.mlir
+./generate_all.py 16 2 9 -t ACC_v1_Ns ACC_v2_Ns ACC_v2_As ACC_v2_Bs --template srcs/template_mlir_matmuls.h > srcs/mlir_matmuls.h.inc
 ```
 To generate/regenerate or regenerate the mlir matmuls file.
 
