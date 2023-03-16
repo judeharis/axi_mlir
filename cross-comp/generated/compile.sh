@@ -41,7 +41,7 @@ PROBLEM_DIM=64
 #     "L2"
 #     "L1"
 #     "CPU"
-#     "MANUAL"
+#     "MANUAL" # TODO manual is not working, need to fix
 # )
 
 # declare -a ProblemDimArray=(
@@ -61,21 +61,32 @@ declare -a AccelSizeArray=(
     # "16"
 )
 
+# Declare scripts because the commandline has different types of quotation marks
+# note that filename is importatnt as it will be split into
+#    compile_mlir_matmul-${ACCEL_TYPE}.sh
+declare -a AccelTypeScriptArray=(
+    scripts/compile_mlir_matmul-v1_Ns.sh
+    # scripts/compile_mlir_matmul-v2_Ns.sh
+    # scripts/compile_mlir_matmul-v2_As.sh
+    # scripts/compile_mlir_matmul-v2_Bs.sh
+)
+
 declare -a KernelNameArray=(
     "matmul"
 )
 
 declare -a StrategyArray=(
+    "OVERRRIDEN_BY_SCRIPT"
     # "MEM"
     # "L2"
-    "L1"
+    # "L1"
     # "CPU"
-    # "MANUAL"
+    # "MANUAL" # TODO manual is not working, need to fix
 )
 
 declare -a ProblemDimArray=(
     "4"
-    "8"
+    # "8"
     # "16"
     # "32"
     # "64"
@@ -89,43 +100,12 @@ declare -a ProblemDimArray=(
 
 # Iterate the string array using for loop
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
- 
-# Adding the emit-c-wrappers options affect every function declared inside the mlir file
-#-convert-std-to-llvm="index-bitwidth=$BITW emit-c-wrappers" \
-    # -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
+for ACCEL_TYPE_SCRIPT in ${AccelTypeScriptArray[@]}; do
 
- 
-    # V1
-    # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s r)\", accel-tile-size=${ACCEL_SIZE} acc-on-cpu=2" \
-    
-    
-    # V2 - Tiling1
-    # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send_literal(7), op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s r)\",  number-of-caches=2 tile-sizes=128,128,128,32,32,32 acc-on-cpu=2 accel-tile-size=${ACCEL_SIZE}" --cse \
+ACCEL_TYPE=$(echo $ACCEL_TYPE_SCRIPT | cut -d'-' -f2 | cut -d'.' -f1)
 
-    # V2 - Tiling2
-    # --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,2,1 opcode-map=\"opcode_map<s0=[op_send_literal(1), op_send(0)], s1c=[op_send_literal(6), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s0 (s1c r))\" accel-tile-size=${ACCEL_SIZE} acc-on-cpu=2" --cse \
-
-    # V2 - Tiling3 
-    #    --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=1,2,0 opcode-map=\"opcode_map<s1=[op_send_literal(2), op_send(1)], s0c=[op_send_literal(5), op_send(0)], r=[op_recv(2)]>\" opcode-flow=\"(s1 (s0c r))\" acc-on-cpu=2 accel-tile-size=4" --cse \
-
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-   --test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=1,2,0 opcode-map=\"opcode_map<s1=[op_send_literal(2), op_send(1)], s0c=[op_send_literal(5), op_send(0)], r=[op_recv(2)]>\" opcode-flow=\"(s1 (s0c r))\" acc-on-cpu=2 accel-tile-size=4" --cse \
-    -test-accel-to-axi4mlir \
-    -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting --buffer-deallocation \
-    -convert-scf-to-cf  \
-    -arith-expand \
-    -memref-expand \
-    -convert-vector-to-llvm \
-    -convert-memref-to-llvm="index-bitwidth=$BITW" \
-    -convert-scf-to-cf  \
-    -convert-arith-to-llvm="index-bitwidth=$BITW" \
-    -convert-std-to-llvm="index-bitwidth=$BITW" \
-    -canonicalize \
-    -reconcile-unrealized-casts \
-    srcs/mlir_matmuls.mlir \
-    -o $OUTDIR/llvm.mlir  
-    # \
-    # -print-ir-after-all 2>&1 | cat > intermediate.mlir
+# Call the script that performs the MLIR compilation 
+source $ACCEL_TYPE_SCRIPT
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir $OUTDIR/llvm.mlir -o $OUTDIR/libmlirmatmuls.ll
 
@@ -137,18 +117,21 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
 # No need for a static library
 # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}.so $OUTDIR/libmlirmatmuls.o \
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so $OUTDIR/libmlirmatmuls.o \
     --target=arm-linux-gnueabihf \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -lmlir_runner_utils -lmlir_axi_runner_utils
+
+done
 done
 
 # ===========================
 # Compiling output binary for a given problem, strategy, accel size
 
 # Iterate the string array using for loop
-for STRATEGY in ${StrategyArray[@]}; do
+# for STRATEGY in ${StrategyArray[@]}; do
+for ACCEL_TYPE_SCRIPT in ${AccelTypeScriptArray[@]}; do
 for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
@@ -156,6 +139,11 @@ for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 if [ "$ACCEL_SIZE" -gt "$PROBLEM_DIM" ]; then
   continue
 fi
+
+
+# TODO: For now, strategy is overriden by the script
+ACCEL_TYPE=$(echo $ACCEL_TYPE_SCRIPT | cut -d'-' -f2 | cut -d'.' -f1)
+STRATEGY=$ACCEL_TYPE
 
 M=$PROBLEM_DIM
 N=$PROBLEM_DIM
@@ -198,7 +186,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
     -lmlir_runner_utils -lmlir_c_runner_utils -lmlir_axi_runner_utils \
     -L$OUTDIR \
-    -lmlirmatmuls_acc${ACCEL_SIZE} \
+    -lmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE} \
     -Dtile_M=$ACCEL_SIZE \
     -Dtile_N=$ACCEL_SIZE \
     -Dtile_K=$ACCEL_SIZE \
