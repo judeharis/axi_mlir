@@ -13,7 +13,7 @@ def main(raw_args=None):
   args = parser.parse_args(raw_args)
 
   if os.path.isfile(args.bitstream):
-    print("Loading bitistream: {}".format(args.bitstream))
+    print("Loading bitstream: {}".format(args.bitstream))
     overlay = Overlay(args.bitstream)
     print(overlay.ip_dict.keys())
   else:

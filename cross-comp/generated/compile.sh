@@ -63,7 +63,7 @@ declare -a StrategyArray=(
 declare -a ProblemDimArray=(
     "16"
     "32"
-    # "64"
+    "64"
     # "128"
     # "256"
     # "512"

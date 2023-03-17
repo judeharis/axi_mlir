@@ -133,8 +133,8 @@ int main() {
   auto arg1 = new int[K * N];
   auto arg2 = new int[M * N];
   
-  printf("Call accelerator\n");
-  dump(arg0, arg1, arg2);
+  // printf("Call accelerator\n");
+  // dump(arg0, arg1, arg2);
 
 #ifdef RUNCPP
   // ==========================================================
@@ -169,8 +169,8 @@ int main() {
   // clang-format on
 #endif
   
-  printf("finished\n");
-  dump(arg0, arg1, arg2);
+  // printf("finished\n");
+  // dump(arg0, arg1, arg2);
 
   // std::cout << "DONE" << std::endl;
   // dump(arg0, arg1, arg2);

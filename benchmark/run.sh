@@ -23,14 +23,14 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    # "8"
+    "8"
     # "16"
 )
 
 declare -a ProblemDimArray=(
     "16"
     "32"
-    # "64"
+    "64"
     # "128"
     # "256"
     # "512"
@@ -47,7 +47,7 @@ declare -a StrategyArray=(
 
 declare -a AccelTypeArray=(
   v1
-  # v2
+  v2
   # v3
 )
 
@@ -58,47 +58,43 @@ for ACCEL_TYPE in ${AccelTypeArray[@]}; do
   if [ $ACCEL_TYPE == "v1" ]; then
     BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
   elif [ $ACCEL_TYPE == "v2" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v2.bit"
+    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v2.bit"
   elif [ $ACCEL_TYPE == "v3" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v3.bit"
+    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
   fi
 
-  echo "Loading bitstream: $BITSTREAM"
-  # ./load_bitstream.py $BITSTREAM
+  if test -f "$BITSTREAM"; then
+    ./load_bitstream.py $BITSTREAM
+  else
+    echo "Bitstream $BITSTREAM does not exist"
+    exit 1
+  fi
 
 for S in ${StrategyArray[@]}; do
 for D in ${ProblemDimArray[@]}; do
 
 # No problem with invalid filenames exist because they will be tested
-declare -a AppArray=(
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v1_Ns
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_Ns
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_As
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_Bs
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Ns
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
-  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
-# driver-matmul-m${D}_n${D}_k${D}-MANUAL-acc${ACCEL_SIZE}
-# driver-matmul-m${D}_n${D}_k${D}-accNONE
-)
+# declare -a AppArray=(
+# # driver-matmul-m${D}_n${D}_k${D}-MANUAL-acc${ACCEL_SIZE}
+# # driver-matmul-m${D}_n${D}_k${D}-accNONE
+# )
 
-# if [ $ACCEL_TYPE == "v1" ]; then
-#   declare -a AppArray=(
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
-#   )
-# elif [ $ACCEL_TYPE == "v2" ]; then
-#   declare -a AppArray=(
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
-#   )
-# elif [ $ACCEL_TYPE == "v3" ]; then
-#   declare -a AppArray=(
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
-#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
-#   )
-# fi
+if [ $ACCEL_TYPE == "v1" ]; then
+  declare -a AppArray=(
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
+  )
+elif [ $ACCEL_TYPE == "v2" ]; then
+  declare -a AppArray=(
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
+  )
+elif [ $ACCEL_TYPE == "v3" ]; then
+  declare -a AppArray=(
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+  )
+fi
 
 
 for INPUT in ${AppArray[@]}; do
