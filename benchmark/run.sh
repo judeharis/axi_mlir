@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Exit if a single commmand fails
-set -e
+set -e -o pipefail
 
 # Change limit
 ulimit -s 65536
@@ -20,108 +20,86 @@ PEVENTS_L1=L1-dcache-load-misses,L1-dcache-loads,L1-dcache-stores,L1-icache-load
 PEVENTS_LLC=LLC-load-misses,LLC-loads,LLC-store-misses,LLC-stores
 PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 
-# LOAD correct bitstream
-# TODO
-
-# A "-app" will be appented to create the final app name
-
-
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    "8"
-    "16"
+    # "8"
+    # "16"
 )
+
+declare -a ProblemDimArray=(
+    "16"
+    "32"
+    # "64"
+    # "128"
+    # "256"
+    # "512"
+)
+
+declare -a StrategyArray=(
+    # "MEM"
+    # "L2"
+    # "L1"
+    "ACC"
+    # "CPU"
+    # "MANUAL"
+)
+
+declare -a AccelTypeArray=(
+  v1
+  # v2
+  # v3
+)
+
 
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
+  BITSTREAM=""
+  if [ $ACCEL_TYPE == "v1" ]; then
+    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
+  elif [ $ACCEL_TYPE == "v2" ]; then
+    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v2.bit"
+  elif [ $ACCEL_TYPE == "v3" ]; then
+    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v3.bit"
+  fi
 
-./load_bitstream.py /home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit
+  echo "Loading bitstream: $BITSTREAM"
+  # ./load_bitstream.py $BITSTREAM
 
+for S in ${StrategyArray[@]}; do
+for D in ${ProblemDimArray[@]}; do
+
+# No problem with invalid filenames exist because they will be tested
 declare -a AppArray=(
-  # driver-matmul-m128_n128_k128-CPU-accNONE
-  # driver-matmul-m128_n128_k128-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m128_n128_k128-L2-acc${ACCEL_SIZE}
-  driver-matmul-m128_n128_k128-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m128_n128_k128-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m16_n16_k16-CPU-accNONE
-  # driver-matmul-m16_n16_k16-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m16_n16_k16-L2-acc${ACCEL_SIZE}
-  driver-matmul-m16_n16_k16-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m16_n16_k16-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m256_n256_k256-CPU-accNONE
-  # driver-matmul-m256_n256_k256-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m256_n256_k256-L2-acc${ACCEL_SIZE}
-  driver-matmul-m256_n256_k256-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m256_n256_k256-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m32_n32_k32-CPU-accNONE
-  # driver-matmul-m32_n32_k32-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m32_n32_k32-L2-acc${ACCEL_SIZE}
-  driver-matmul-m32_n32_k32-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m32_n32_k32-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m4_n4_k4-CPU-accNONE
-  # driver-matmul-m4_n4_k4-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m4_n4_k4-L2-acc${ACCEL_SIZE}
-  driver-matmul-m4_n4_k4-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m4_n4_k4-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m512_n512_k512-CPU-accNONE
-  # driver-matmul-m512_n512_k512-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m512_n512_k512-L2-acc${ACCEL_SIZE}
-  # driver-matmul-m512_n512_k512-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m512_n512_k512-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m64_n64_k64-CPU-accNONE
-  # driver-matmul-m64_n64_k64-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m64_n64_k64-L2-acc${ACCEL_SIZE}
-  driver-matmul-m64_n64_k64-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m64_n64_k64-MEM-acc${ACCEL_SIZE}
-  # driver-matmul-m8_n8_k8-CPU-accNONE
-  # driver-matmul-m8_n8_k8-L1-acc${ACCEL_SIZE}
-  # driver-matmul-m8_n8_k8-L2-acc${ACCEL_SIZE}
-  driver-matmul-m8_n8_k8-MANUAL-acc${ACCEL_SIZE}
-  # driver-matmul-m8_n8_k8-MEM-acc${ACCEL_SIZE}
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v1_Ns
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_Ns
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_As
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v2_Bs
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Ns
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
+  driver-matmul-m${D}_n${D}_k${D}-${S}-acc${ACCEL_SIZE}_v3_Cs
+# driver-matmul-m${D}_n${D}_k${D}-MANUAL-acc${ACCEL_SIZE}
+# driver-matmul-m${D}_n${D}_k${D}-accNONE
 )
 
-# declare -a AppArray=(
-#   driver-matmul-m128_n128_k128-CPU-accNONE
-#   driver-matmul-m128_n128_k128-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m128_n128_k128-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m128_n128_k128-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m128_n128_k128-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m16_n16_k16-CPU-accNONE
-#   driver-matmul-m16_n16_k16-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m16_n16_k16-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m16_n16_k16-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m16_n16_k16-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m256_n256_k256-CPU-accNONE
-#   driver-matmul-m256_n256_k256-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m256_n256_k256-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m256_n256_k256-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m256_n256_k256-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m32_n32_k32-CPU-accNONE
-#   driver-matmul-m32_n32_k32-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m32_n32_k32-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m32_n32_k32-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m32_n32_k32-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m4_n4_k4-CPU-accNONE
-#   driver-matmul-m4_n4_k4-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m4_n4_k4-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m4_n4_k4-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m4_n4_k4-MEM-acc${ACCEL_SIZE}
-#   # driver-matmul-m512_n512_k512-CPU-accNONE
-#   # driver-matmul-m512_n512_k512-L1-acc${ACCEL_SIZE}
-#   # driver-matmul-m512_n512_k512-L2-acc${ACCEL_SIZE}
-#   # driver-matmul-m512_n512_k512-MANUAL-acc${ACCEL_SIZE}
-#   # driver-matmul-m512_n512_k512-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m64_n64_k64-CPU-accNONE
-#   driver-matmul-m64_n64_k64-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m64_n64_k64-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m64_n64_k64-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m64_n64_k64-MEM-acc${ACCEL_SIZE}
-#   driver-matmul-m8_n8_k8-CPU-accNONE
-#   driver-matmul-m8_n8_k8-L1-acc${ACCEL_SIZE}
-#   driver-matmul-m8_n8_k8-L2-acc${ACCEL_SIZE}
-#   driver-matmul-m8_n8_k8-MANUAL-acc${ACCEL_SIZE}
-#   driver-matmul-m8_n8_k8-MEM-acc${ACCEL_SIZE}
-# )
+# if [ $ACCEL_TYPE == "v1" ]; then
+#   declare -a AppArray=(
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
+#   )
+# elif [ $ACCEL_TYPE == "v2" ]; then
+#   declare -a AppArray=(
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
+#   )
+# elif [ $ACCEL_TYPE == "v3" ]; then
+#   declare -a AppArray=(
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
+#     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+#   )
+# fi
+
 
 for INPUT in ${AppArray[@]}; do
 
@@ -135,10 +113,15 @@ for INPUT in ${AppArray[@]}; do
 
     # Delay to let the board "cool"
     sleep 0.1
+  else
+    echo "WARNING: File $INPUT-app does not exist"
   fi
-done
+done # End of INPUT loop
 
-done
+done # End of D loop
+done # End of S loop
+done # End of ACCEL_TYPE loop
+done # End of ACCEL_SIZE loop
   
 # Process alls CSV files and concatenate into a final output
 mkdir -p results
@@ -150,6 +133,8 @@ chown -R xilinx:xilinx *
 
 rm ./perf_output/*
 
+
+# -----------------------------------------
 # Ignore this for now. Just an example on how to permute multiple options
 
 # declare -a StringArray=(
