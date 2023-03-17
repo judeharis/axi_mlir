@@ -19,3 +19,6 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
   -o $OUTDIR/llvm_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
   # \
   # -print-ir-after-all 2>&1 | cat > $OUTDIR/intermediate_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
+
+  # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send_literal(15), op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"(s r)\"  number-of-caches=2 acc-on-cpu=2 accel-tile-size=${ACCEL_SIZE} anchor-filter=ACC_v3_Ns" \
+  # -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=0,1,2 opcode-map=\"opcode_map<s=[op_send_literal(7), op_send(0), op_send(1)], r=[op_recv(2)]>\" opcode-flow=\"((s) r)\"  number-of-caches=2 acc-on-cpu=2 accel-tile-size=${ACCEL_SIZE} anchor-filter=ACC_v3_Cs" \

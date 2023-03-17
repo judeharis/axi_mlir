@@ -140,6 +140,11 @@ if [ "$ACCEL_TYPE" == "v2" ]; then
   fi
 fi
 
+if [ "$ACCEL_TYPE" == "v3" ]; then
+  if [ "$FLOW" == "As" ] || [ "$FLOW" == "Bs" ]; then
+    continue
+  fi
+fi
 
 M=$PROBLEM_DIM
 N=$PROBLEM_DIM
