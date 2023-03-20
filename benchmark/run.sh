@@ -5,6 +5,7 @@ set -e -o pipefail
 
 # Change limit
 ulimit -s 65536
+# ulimit -s 131072
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/xilinx/Development/axi4mlir/benchmark/libs/
 
@@ -23,14 +24,14 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    "8"
+    # "8"
     # "16"
 )
 
 declare -a ProblemDimArray=(
     "16"
-    "32"
-    "64"
+    # "32"
+    # "64"
     # "128"
     # "256"
     # "512"
@@ -47,7 +48,7 @@ declare -a StrategyArray=(
 
 declare -a AccelTypeArray=(
   v1
-  v2
+  # v2
   # v3
 )
 
