@@ -14,6 +14,12 @@ mkdir -p $OUTDIR
 APICC=$PROJ_ROOT/llvm-project/mlir/lib/ExecutionEngine/axi
 BITW=64
 
+TARGET=arm
+# TARGET=sysc
+# Default above, but we can change it based on the first argument
+if [ $# -eq 1 ]; then
+  TARGET=$1
+fi
 
 # Static CONFIGS
 KERNEL_NAME=matmul
@@ -29,13 +35,14 @@ PROBLEM_DIM=64
 
 declare -a AccelSizeArray=(
     "4"
-    "8"
+    # "8"
     # "16"
 )
 
 declare -a AccelTypeArray=(
     "v1"
-    "v2"
+    # "v2"
+    # "v3"
     # "v4"
 )
 
@@ -61,9 +68,11 @@ declare -a StrategyArray=(
 )
 
 declare -a ProblemDimArray=(
+    "4"
+    "8"
     "16"
-    "32"
-    "64"
+    # "32"
+    # "64"
     # "128"
     # "256"
     # "512"
@@ -83,22 +92,39 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
     -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll \
     $OUTDIR/llvm_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
-    --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
-    -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
-    -c -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-    $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
+# if target is do what is below, else link the systemc library
 
-# No need for a static library
-# ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
+if [ $TARGET == "arm" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
+      --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
+      -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
+      -c -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
+      $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
 
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
-    -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
-    $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-    --target=arm-linux-gnueabihf \
-    -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
-    -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
-    -lmlir_runner_utils -lmlir_axi_runner_utils
+  # No need for a static library
+  # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
+
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
+      -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
+      $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
+      --target=arm-linux-gnueabihf \
+      -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+      -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+      -lmlir_runner_utils -lmlir_axi_runner_utils
+elif [ $TARGET == "sysc" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
+      -c -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
+      $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
+
+  # No need for a static library
+  # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
+
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
+      -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
+      $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
+      -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
+      -lmlir_runner_utils -lmlir_syscaxi_runner_utils
+fi
 
 done # ACCEL_TYPE
 done # ACCEL_SIZE
@@ -140,11 +166,9 @@ if [ "$ACCEL_TYPE" == "v2" ]; then
   fi
 fi
 
-if [ "$ACCEL_TYPE" == "v3" ]; then
-  if [ "$FLOW" == "As" ] || [ "$FLOW" == "Bs" ]; then
-    continue
-  fi
-fi
+# if [ "$ACCEL_TYPE" == "v3" ]; then
+# V3 supports all flows
+# fi
 
 M=$PROBLEM_DIM
 N=$PROBLEM_DIM
@@ -175,8 +199,8 @@ else
     ADDITIONAL_FLAGS=-DRUNMLIR
 fi
 
-# Use this to include the standalone AXI lib for C++ drivers
-$PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
+if [ $TARGET == "arm" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
     srcs/matmul_driver_v3.cc \
     -Isrcs \
     -I$PROJ_ROOT/llvm-project/mlir/include \
@@ -199,6 +223,32 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
     $ADDITIONAL_FLAGS
+elif [ $TARGET == "sysc" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
+    srcs/matmul_driver_v3.cc \
+    -Isrcs \
+    -I$PROJ_ROOT/llvm-project/mlir/include \
+    -Wl,--copy-dt-needed-entries \
+    -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-x86/lib \
+    -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
+    -lmlir_runner_utils -lmlir_syscaxi_runner_utils \
+    -L$OUTDIR \
+    -lmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE} \
+    -Dtile_M=$ACCEL_SIZE \
+    -Dtile_N=$ACCEL_SIZE \
+    -Dtile_K=$ACCEL_SIZE \
+    -DM=$M \
+    -DN=$N \
+    -DK=$K \
+    -DMLIRMATMULCALL=$MLIRMATMULCALL \
+    -DCIMLIRMATMULCALL=$CIMLIRMATMULCALL \
+    -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
+    -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
+    $ADDITIONAL_FLAGS
+
+  echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
+  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:$LD_LIBRARY_PATH"
+fi
 
 done #AccelSizeArray
 done #ProblemDimArray
