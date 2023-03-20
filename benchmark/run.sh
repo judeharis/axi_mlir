@@ -92,6 +92,8 @@ elif [ $ACCEL_TYPE == "v2" ]; then
 elif [ $ACCEL_TYPE == "v3" ]; then
   declare -a AppArray=(
     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
+    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
     driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
   )
 fi
