@@ -41,7 +41,7 @@ declare -a AccelSizeArray=(
 
 declare -a AccelTypeArray=(
     "v1"
-    # "v2"
+    "v2"
     # "v3"
     # "v4"
 )
@@ -224,6 +224,17 @@ if [ $TARGET == "arm" ]; then
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
     $ADDITIONAL_FLAGS
 elif [ $TARGET == "sysc" ]; then
+  SYSC_LIB=-lmlir_syscaxi_runner_utils
+  if [ "$ACCEL_TYPE" == "v1" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv1
+  elif [ "$ACCEL_TYPE" == "v2" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv2
+  elif [ "$ACCEL_TYPE" == "v3" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv3
+  elif [ "$ACCEL_TYPE" == "v4" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  fi
+
   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
     srcs/matmul_driver_v3.cc \
     -Isrcs \
@@ -231,7 +242,7 @@ elif [ $TARGET == "sysc" ]; then
     -Wl,--copy-dt-needed-entries \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-x86/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
-    -lmlir_runner_utils -lmlir_syscaxi_runner_utils \
+    -lmlir_runner_utils $SYSC_LIB \
     -L$OUTDIR \
     -lmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE} \
     -Dtile_M=$ACCEL_SIZE \
@@ -247,7 +258,7 @@ elif [ $TARGET == "sysc" ]; then
     $ADDITIONAL_FLAGS
 
   echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
-  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:$LD_LIBRARY_PATH"
+  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:/working_dir/builds/llvm-project/build-x86/lib:$LD_LIBRARY_PATH"
 fi
 
 done #AccelSizeArray
