@@ -8,7 +8,7 @@ if [ "$HOSTNAME" = WE40997 ]; then
 elif [ "$HOSTNAME" = AORUS-W ]; then
   board_user=xilinx
   board_hostname=tul
-elif [ "$HOSTNAME" = jude-MS-7B79 ]; then
+elif [ "$HOSTNAME" = jude ]; then
   board_user=xilinx
   board_hostname=192.168.0.17
 else

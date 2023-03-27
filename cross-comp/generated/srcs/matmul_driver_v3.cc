@@ -105,13 +105,13 @@ void dump(int *arg0, int *arg1, int *arg2) {
 void reset(int *arg0, int *arg1, int *arg2) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < K; j++) {
-      arg0[i * K + j] = 1;
+      arg0[i * K + j] = i;
     }
   }
   for (int i = 0; i < K; i++) {
     for (int j = 0; j < N; j++) {
       arg1[i * N + j] = j;
-    
+
       // Do the transpose
       // arg1[i * N + j] = i;
     }
@@ -135,7 +135,7 @@ int main() {
   auto arg0 = new int[M * K];
   auto arg1 = new int[K * N];
   auto arg2 = new int[M * N];
-  
+
   // printf("Before accelerator\n");
   // dump(arg0, arg1, arg2);
 
@@ -144,8 +144,8 @@ int main() {
   // C++ Version
   // Reset
   reset(arg0, arg1, arg2);
-  // v1_ts1(arg0, arg1, arg2);
-  v1_ts2(arg0, arg1, arg2);
+  v1_ts1(arg0, arg1, arg2);
+  // v1_ts2(arg0, arg1, arg2);
   // v1_ts3(arg0, arg1, arg2);
   // v1_ts4(arg0, arg1, arg2);
   // v1_ts5(arg0, arg1, arg2);
@@ -171,7 +171,7 @@ int main() {
                  (int *)arg2, (int *)arg2, 0, M, N, N, 1);
   // clang-format on
 #endif
-  
+
   // printf("finished\n");
   // dump(arg0, arg1, arg2);
 

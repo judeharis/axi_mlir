@@ -5,21 +5,37 @@
 
 #include "bench_config.h"
 
-void v1_ts1(int *A, int *B, int *C) {
+void v1_ts1(int *A, volatile int *B, int *C) {
   //   LOG("=========================");
   //   LOG("ACC: MM_4x4v1");
   //   LOG("Tiling Strat: 1");
   //   LOG("=========================");
 
   // Init DMA + ACC
+
+#ifdef SYSC_T
+  int i = 0;
+  for (int k = 0; k < K; k += 1) {
+    for (int n = 0; n < N; n += 1)
+      B[i++] += (-1) + 1;
+  }
+  struct dma dma1;
+  dma1.dma_init(0, 0, 1000, 0, 1000);
+
+#else
   struct dma dma1;
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
+#endif
+
+  // struct dma dma1;
+  // dma1.dma_init(0, 0, 1000, 0, 1000);
 
   // Start Tiling
   for (int k = 0; k < K; k += tile_K) {
     for (int n = 0; n < N; n += tile_N) {
       for (int m = 0; m < M; m += tile_M) {
 
+        int C_base = m * N + n;
         // Gets pointer to DMA_IN_BUFFER
         unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
 
@@ -34,10 +50,11 @@ void v1_ts1(int *A, int *B, int *C) {
                 A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
 
-        for (int tn = 0; tn < tile_N; tn++)
-          for (int tk = 0; tk < tile_K; tk++)
+        for (int tk = 0; tk < tile_K; tk++)
+          for (int tn = 0; tn < tile_N; tn++)
             dma_inbuffer[data_len + tile_K * tn + tk] =
-                B[(k + tk) * N + (n + tn)];
+                B[(K * tn) + (k * N) + n + tk];
+
         data_len += tile_N * tile_K;
 
         // Sends data_len of data
@@ -56,9 +73,9 @@ void v1_ts1(int *A, int *B, int *C) {
         unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
 
         // Copies result from DMA_OUT_BUFFER to padded output buffer
-        for (int tn = 0; tn < tile_N; tn++) {
-          for (int tm = 0; tm < tile_M; tm++) {
-            C[(m + tm) * N + (n + tn)] += dma_outbuffer[tile_M * tn + tm];
+        for (int tm = 0; tm < tile_M; tm++) {
+          for (int tn = 0; tn < tile_N; tn++) {
+            C[tn + (tm + m) * N + n] += dma_outbuffer[tile_N * tm + tn];
           }
         }
       }

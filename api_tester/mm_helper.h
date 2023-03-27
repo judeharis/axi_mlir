@@ -2,9 +2,9 @@
 #define MMHELPER
 
 // Defining Dims here to change , easier to change all at once
-#define N (argc != 4 ? 32 :  strtol(argv[1], NULL, 10))
-#define M (argc != 4 ? 64 :  strtol(argv[2], NULL, 10))
-#define K (argc != 4 ? 4096 :  strtol(argv[3], NULL, 10))
+#define N (argc != 4 ? 8 :  strtol(argv[1], NULL, 10))
+#define M (argc != 4 ? 8 :  strtol(argv[2], NULL, 10))
+#define K (argc != 4 ? 8 :  strtol(argv[3], NULL, 10))
 
 #include <vector>
 #include <iostream>
