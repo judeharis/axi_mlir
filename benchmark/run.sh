@@ -43,7 +43,7 @@ declare -a StrategyArray=(
     # "L2"
     # "L1"
     "ACC"
-    # "CPU"
+    "CPU" # only runs with accel type == v1 and accel size == 4
     # "MAN"
 )
 
@@ -85,22 +85,35 @@ for D in ${ProblemDimArray[@]}; do
 # # driver-matmul-m${D}_n${D}_k${D}-accNONE
 # )
 
-if [ $ACCEL_TYPE == "v1" ]; then
+# Decides which app to run
+if [ $S == "ACC" ] || [ $S == "MEM" ] || [ $S == "L2" ] || [ $S == "L1" ]; then
+  if [ $ACCEL_TYPE == "v1" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
+    )
+  elif [ $ACCEL_TYPE == "v2" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
+    )
+  elif [ $ACCEL_TYPE == "v3" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+    )
+  fi
+elif [ $S == "CPU" ]; then
+  # CPU does not need to run for every accel type or size
+  # check if accel type is v1 and accel size is 4, if not, skip
+  if [ $ACCEL_TYPE != "v1" ] || [ $ACCEL_SIZE != "4" ]; then
+    continue
+  fi
+
   declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
-  )
-elif [ $ACCEL_TYPE == "v2" ]; then
-  declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
-  )
-elif [ $ACCEL_TYPE == "v3" ]; then
-  declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+    driver-matmul-m${D}_n${D}_k${D}-CPU-accNONE
   )
 fi
 
