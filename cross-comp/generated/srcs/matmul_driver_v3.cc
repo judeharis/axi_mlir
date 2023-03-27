@@ -111,6 +111,9 @@ void reset(int *arg0, int *arg1, int *arg2) {
   for (int i = 0; i < K; i++) {
     for (int j = 0; j < N; j++) {
       arg1[i * N + j] = j;
+    
+      // Do the transpose
+      // arg1[i * N + j] = i;
     }
   }
   for (int i = 0; i < M; i++) {
@@ -133,7 +136,7 @@ int main() {
   auto arg1 = new int[K * N];
   auto arg2 = new int[M * N];
   
-  // printf("Call accelerator\n");
+  // printf("Before accelerator\n");
   // dump(arg0, arg1, arg2);
 
 #ifdef RUNCPP
