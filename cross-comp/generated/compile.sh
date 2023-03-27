@@ -63,8 +63,8 @@ declare -a StrategyArray=(
     # "MEM"
     # "L2"
     # "L1"
-    # "CPU"
-    # "MANUAL" # TODO manual is not working, need to fix
+    "CPU"
+    # "MAN"
 )
 
 declare -a ProblemDimArray=(
@@ -152,7 +152,7 @@ for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 
-if [ "$STRATEGY" == "MANUAL" ] || [ "$STRATEGY" == "CPU" ]; then
+if [ "$STRATEGY" == "MAN" ] || [ "$STRATEGY" == "CPU" ]; then
   if [ "$FLOW" != "NA" ]; then
     continue
   fi
@@ -191,14 +191,14 @@ MLIR_CALL=${CALL_NAME}_call
 MLIRMATMULCALL=$MLIR_CALL
 CIMLIRMATMULCALL=_mlir_ciface_$MLIR_CALL
 
-MLIR_CPU_CALL=${CALL_NAME}_call
+MLIR_CPU_CALL=${KERNEL_NAME}_${DIMS}_${STRATEGY}_call
 MLIRMATMULCALLCPU=${MLIR_CPU_CALL}
 CIMLIRMATMULCALLCPU=_mlir_ciface_${MLIR_CPU_CALL}
 
 RUN_NAME=${KERNEL_NAME}-${DIMS}-${STRATEGY}-acc${ACCEL_SIZE}_${ACCEL_TYPE}_${FLOW}
 APPNAME=driver-${RUN_NAME}-app
 
-if [ "$STRATEGY" == "MANUAL" ]; then
+if [ "$STRATEGY" == "MAN" ]; then
     # Compiling driver implemented by hand
     ADDITIONAL_FLAGS=-DRUNCPP
 elif [ "$STRATEGY" == "CPU" ]; then

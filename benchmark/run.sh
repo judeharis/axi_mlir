@@ -43,7 +43,7 @@ declare -a StrategyArray=(
     # "L1"
     "ACC"
     # "CPU"
-    # "MANUAL"
+    # "MAN"
 )
 
 declare -a AccelTypeArray=(
