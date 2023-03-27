@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e -o pipefail
-set -x
+# set -x
 
 # This is not the right target
 # target datalayout = "e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64"
@@ -35,14 +35,14 @@ PROBLEM_DIM=64
 
 declare -a AccelSizeArray=(
     "4"
-    # "8"
-    # "16"
+    "8"
+    "16"
 )
 
 declare -a AccelTypeArray=(
     "v1"
     "v2"
-    # "v3"
+    "v3"
     # "v4"
 )
 
@@ -55,7 +55,7 @@ declare -a FlowArray=(
     "Ns"
     "As"
     "Bs"
-    # "Cs"
+    "Cs"
 )
 
 declare -a StrategyArray=(
@@ -68,18 +68,19 @@ declare -a StrategyArray=(
 )
 
 declare -a ProblemDimArray=(
-    "4"
-    "8"
+    # "4"
+    # "8"
     "16"
-    # "32"
-    # "64"
-    # "128"
-    # "256"
+    "32"
+    "64"
+    "128"
+    "256"
     # "512"
 )
 
 # ===========================
 # Compiling mlir matmul library for a given accelerator size
+echo "Compiling mlir matmul library for a given accelerator size..."
 
 # Iterate the string array using for loop
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
@@ -140,9 +141,11 @@ fi
 
 done # ACCEL_TYPE
 done # ACCEL_SIZE
+echo "... Done compiling mlir matmul library for a given accelerator size."
 
 # ===========================
 # Compiling output binary for a given problem, strategy, accel size
+echo "Compiling output binary for a given problem, strategy, accel size..."
 
 # Iterate the string array using for loop
 for ACCEL_TYPE in ${AccelTypeArray[@]}; do
@@ -286,4 +289,4 @@ if [ $TARGET == "sysc" ]; then
 fi
 
 set +e
-set +x
+# set +x

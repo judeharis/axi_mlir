@@ -9,6 +9,7 @@ ulimit -s 65536
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/xilinx/Development/axi4mlir/benchmark/libs/
 
+BIT_DIR="/home/xilinx/pynq/overlays/axi4mlir-mm-2023-04-25"
 POUTDIR=perf_output
 APPDIR=bins
 
@@ -24,16 +25,16 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    # "8"
-    # "16"
+    "8"
+    "16"
 )
 
 declare -a ProblemDimArray=(
     "16"
-    # "32"
-    # "64"
-    # "128"
-    # "256"
+    "32"
+    "64"
+    "128"
+    "256"
     # "512"
 )
 
@@ -48,20 +49,24 @@ declare -a StrategyArray=(
 
 declare -a AccelTypeArray=(
   v1
-  # v2
-  # v3
+  v2
+  v3
 )
 
 
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 for ACCEL_TYPE in ${AccelTypeArray[@]}; do
   BITSTREAM=""
+
   if [ $ACCEL_TYPE == "v1" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v1.bit"
   elif [ $ACCEL_TYPE == "v2" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v2.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v2.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v2.bit"
   elif [ $ACCEL_TYPE == "v3" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v3.bit"
   fi
 
   if test -f "$BITSTREAM"; then
@@ -127,6 +132,7 @@ mkdir -p results
 TIMESTAMP_RAW=`date +%c`
 TIMESTAMP=${TIMESTAMP_RAW// /_}
 ./prepare_results.py perf_output > results/results-${HOSTNAME}-${TIMESTAMP}.csv
+cp results/results-${HOSTNAME}-${TIMESTAMP}.csv results/results-latest.csv
 
 chown -R xilinx:xilinx *
 
