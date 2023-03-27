@@ -145,7 +145,7 @@ mkdir -p results
 TIMESTAMP_RAW=`date +%c`
 TIMESTAMP=${TIMESTAMP_RAW// /_}
 ./prepare_results.py perf_output > results/results-${HOSTNAME}-${TIMESTAMP}.csv
-cp results/results-${HOSTNAME}-${TIMESTAMP}.csv results/results-latest.csv
+cp -f results/results-${HOSTNAME}-${TIMESTAMP}.csv results/results-latest.csv
 
 chown -R xilinx:xilinx *
 
