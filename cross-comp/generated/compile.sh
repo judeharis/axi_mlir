@@ -119,11 +119,23 @@ elif [ $TARGET == "sysc" ]; then
   # No need for a static library
   # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
 
+
+  SYSC_LIB=-lmlir_syscaxi_runner_utils
+  if [ "$ACCEL_TYPE" == "v1" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv1
+  elif [ "$ACCEL_TYPE" == "v2" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv2
+  elif [ "$ACCEL_TYPE" == "v3" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv3
+  elif [ "$ACCEL_TYPE" == "v4" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  fi
+
   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
       -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
       $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
       -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
-      -lmlir_runner_utils -lmlir_syscaxi_runner_utils
+      -lmlir_runner_utils $SYSC_LIB
 fi
 
 done # ACCEL_TYPE
@@ -256,9 +268,6 @@ elif [ $TARGET == "sysc" ]; then
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
     $ADDITIONAL_FLAGS
-
-  echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
-  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:/working_dir/builds/llvm-project/build-x86/lib:$LD_LIBRARY_PATH"
 fi
 
 done #AccelSizeArray
@@ -267,6 +276,14 @@ done #KernelNameArray
 done #StrategyArray
 done #FlowArray
 done #AccelTypeArray
+
+echo "... Done compiling apps"
+
+if [ $TARGET == "sysc" ]; then
+  echo ""
+  echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
+  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:/working_dir/builds/llvm-project/build-x86/lib"
+fi
 
 set +e
 set +x
