@@ -1,17 +1,18 @@
-#ifndef MM4x4v1_TS1_H
-#define MM4x4v1_TS1_H
+#ifndef MM4x4v2_TS1_H
+#define MM4x4v2_TS1_H
 
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
 #include "bench_config.h"
 
-void v1_ts1(int *A, volatile int *B, int *C) {
+void v2_ts1(int *A, volatile int *B, int *C) {
   //   LOG("=========================");
   //   LOG("ACC: MM_4x4v1");
   //   LOG("Tiling Strat: 1");
   //   LOG("=========================");
 
   // Init DMA + ACC
+
 #ifdef SYSC_T
   int i = 0;
   for (int k = 0; k < K; k += 1) {
@@ -25,7 +26,6 @@ void v1_ts1(int *A, volatile int *B, int *C) {
   struct dma dma1;
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
 #endif
-
   // Start Tiling
   for (int k = 0; k < K; k += tile_K) {
     for (int n = 0; n < N; n += tile_N) {
@@ -38,12 +38,19 @@ void v1_ts1(int *A, volatile int *B, int *C) {
         // Data_len is used to track what is in the DMA_IN_BUFFER
         int data_len = 0;
 
+
+        // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
+        uint32_t h = 7;
+        dma_inbuffer[0] = h;
+        data_len++;
+
         // Copies A into DMA_IN_BUFFER; Increments data_len by length of A
         for (int tm = 0; tm < tile_M; tm++)
           for (int tk = 0; tk < tile_K; tk++)
             dma_inbuffer[data_len + tile_K * tm + tk] =
                 A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
+
 
         // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
         for (int tk = 0; tk < tile_K; tk++)
@@ -80,4 +87,4 @@ void v1_ts1(int *A, volatile int *B, int *C) {
   dma1.dma_free();
 }
 
-#endif /* MM4x4v1_TS1_H */
+#endif /* MM4x4v2_TS1_H */

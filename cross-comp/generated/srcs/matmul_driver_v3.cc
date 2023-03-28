@@ -33,10 +33,15 @@
 #include "bench_config.h"
 #include "mlir_utils.h"
 #include "mm4x4v1_ts1.h"
-#include "mm4x4v1_ts2.h"
-#include "mm4x4v1_ts3.h"
-#include "mm4x4v1_ts4.h"
-#include "mm4x4v1_ts5.h"
+#include "mm4x4v2_ts1.h"
+#include "mm4x4v3_ts1.h"
+#include "mm4x4v4_ts1.h"
+// #include "mm4x4v1_ts5.h"
+
+#define v1 1
+#define v2 2
+#define v3 3
+#define v4 4
 
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
@@ -144,7 +149,17 @@ int main() {
   // C++ Version
   // Reset
   reset(arg0, arg1, arg2);
+#ifdef ACCV
+#if ACCV == v1
   v1_ts1(arg0, arg1, arg2);
+#elif ACCV == v2
+  v2_ts1(arg0, arg1, arg2);
+#elif ACCV == v3
+  v3_ts1(arg0, arg1, arg2);
+#elif ACCV == v4
+  v4_ts1(arg0, arg1, arg2);
+#endif
+#endif
   // v1_ts2(arg0, arg1, arg2);
   // v1_ts3(arg0, arg1, arg2);
   // v1_ts4(arg0, arg1, arg2);
