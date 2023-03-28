@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e -o pipefail
-set -x
+# set -x
 
 # This is not the right target
 # target datalayout = "e-m:e-p:32:32-i64:64-v128:64:128-a:0:32-n32-S64"
@@ -35,14 +35,14 @@ PROBLEM_DIM=64
 
 declare -a AccelSizeArray=(
     "4"
-    # "8"
-    # "16"
+    "8"
+    "16"
 )
 
 declare -a AccelTypeArray=(
     "v1"
-    # "v2"
-    # "v3"
+    "v2"
+    "v3"
     # "v4"
 )
 
@@ -55,7 +55,7 @@ declare -a FlowArray=(
     "Ns"
     "As"
     "Bs"
-    # "Cs"
+    "Cs"
 )
 
 declare -a StrategyArray=(
@@ -63,23 +63,24 @@ declare -a StrategyArray=(
     # "MEM"
     # "L2"
     # "L1"
-    # "CPU"
-    # "MANUAL" # TODO manual is not working, need to fix
+    "CPU"
+    # "MAN"
 )
 
 declare -a ProblemDimArray=(
-    "4"
-    "8"
+    # "4"
+    # "8"
     "16"
-    # "32"
-    # "64"
-    # "128"
-    # "256"
+    "32"
+    "64"
+    "128"
+    "256"
     # "512"
 )
 
 # ===========================
 # Compiling mlir matmul library for a given accelerator size
+echo "Compiling mlir matmul library for a given accelerator size..."
 
 # Iterate the string array using for loop
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
@@ -119,18 +120,32 @@ elif [ $TARGET == "sysc" ]; then
   # No need for a static library
   # ar -rv $OUTDIR/libmlirmatmuls.a $OUTDIR/libmlirmatmuls.o
 
+
+  SYSC_LIB=-lmlir_syscaxi_runner_utils
+  if [ "$ACCEL_TYPE" == "v1" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv1
+  elif [ "$ACCEL_TYPE" == "v2" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv2
+  elif [ "$ACCEL_TYPE" == "v3" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv3
+  elif [ "$ACCEL_TYPE" == "v4" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  fi
+
   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
       -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
       $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
       -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
-      -lmlir_runner_utils -lmlir_syscaxi_runner_utils
+      -lmlir_runner_utils $SYSC_LIB
 fi
 
 done # ACCEL_TYPE
 done # ACCEL_SIZE
+echo "... Done compiling mlir matmul library for a given accelerator size."
 
 # ===========================
 # Compiling output binary for a given problem, strategy, accel size
+echo "Compiling output binary for a given problem, strategy, accel size..."
 
 # Iterate the string array using for loop
 for ACCEL_TYPE in ${AccelTypeArray[@]}; do
@@ -140,7 +155,7 @@ for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 
-if [ "$STRATEGY" == "MANUAL" ] || [ "$STRATEGY" == "CPU" ]; then
+if [ "$STRATEGY" == "MAN" ] || [ "$STRATEGY" == "CPU" ]; then
   if [ "$FLOW" != "NA" ]; then
     continue
   fi
@@ -179,14 +194,14 @@ MLIR_CALL=${CALL_NAME}_call
 MLIRMATMULCALL=$MLIR_CALL
 CIMLIRMATMULCALL=_mlir_ciface_$MLIR_CALL
 
-MLIR_CPU_CALL=${CALL_NAME}_call
+MLIR_CPU_CALL=${KERNEL_NAME}_${DIMS}_${STRATEGY}_call
 MLIRMATMULCALLCPU=${MLIR_CPU_CALL}
 CIMLIRMATMULCALLCPU=_mlir_ciface_${MLIR_CPU_CALL}
 
 RUN_NAME=${KERNEL_NAME}-${DIMS}-${STRATEGY}-acc${ACCEL_SIZE}_${ACCEL_TYPE}_${FLOW}
 APPNAME=driver-${RUN_NAME}-app
 
-if [ "$STRATEGY" == "MANUAL" ]; then
+if [ "$STRATEGY" == "MAN" ]; then
     # Compiling driver implemented by hand
     ADDITIONAL_FLAGS=-DRUNCPP
 elif [ "$STRATEGY" == "CPU" ]; then
@@ -222,8 +237,20 @@ if [ $TARGET == "arm" ]; then
     -DCIMLIRMATMULCALL=$CIMLIRMATMULCALL \
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
+    -DACCV=$ACCEL_TYPE \
     $ADDITIONAL_FLAGS
 elif [ $TARGET == "sysc" ]; then
+  SYSC_LIB=-lmlir_syscaxi_runner_utils
+  if [ "$ACCEL_TYPE" == "v1" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv1
+  elif [ "$ACCEL_TYPE" == "v2" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv2
+  elif [ "$ACCEL_TYPE" == "v3" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv3
+  elif [ "$ACCEL_TYPE" == "v4" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  fi
+
   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
     srcs/matmul_driver_v3.cc \
     -Isrcs \
@@ -231,7 +258,7 @@ elif [ $TARGET == "sysc" ]; then
     -Wl,--copy-dt-needed-entries \
     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-x86/lib \
     -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
-    -lmlir_runner_utils -lmlir_syscaxi_runner_utils \
+    -lmlir_runner_utils $SYSC_LIB \
     -L$OUTDIR \
     -lmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE} \
     -Dtile_M=$ACCEL_SIZE \
@@ -244,10 +271,9 @@ elif [ $TARGET == "sysc" ]; then
     -DCIMLIRMATMULCALL=$CIMLIRMATMULCALL \
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
+    -DSYSC_T \
+    -DACCV=$ACCEL_TYPE \
     $ADDITIONAL_FLAGS
-
-  echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
-  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:$LD_LIBRARY_PATH"
 fi
 
 done #AccelSizeArray
@@ -257,5 +283,13 @@ done #StrategyArray
 done #FlowArray
 done #AccelTypeArray
 
+echo "... Done compiling apps"
+
+if [ $TARGET == "sysc" ]; then
+  echo ""
+  echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
+  echo "export LD_LIBRARY_PATH=$PROJ_ROOT/cross-comp/generated/output:/working_dir/builds/llvm-project/build-x86/lib"
+fi
+
 set +e
-set +x
+# set +x

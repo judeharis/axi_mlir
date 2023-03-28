@@ -9,6 +9,7 @@ ulimit -s 65536
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/xilinx/Development/axi4mlir/benchmark/libs/
 
+BIT_DIR="/home/xilinx/pynq/overlays/axi4mlir-mm-2023-04-25"
 POUTDIR=perf_output
 APPDIR=bins
 
@@ -24,16 +25,16 @@ PEVENTS_ALL=$PEVENTS_HW,$PEVENTS_SW,$PEVENTS_L1,duration_time
 # Used by both MLIR MATMUL library and final app
 declare -a AccelSizeArray=(
     "4"
-    # "8"
-    # "16"
+    "8"
+    "16"
 )
 
 declare -a ProblemDimArray=(
     "16"
-    # "32"
-    # "64"
-    # "128"
-    # "256"
+    "32"
+    "64"
+    "128"
+    "256"
     # "512"
 )
 
@@ -42,26 +43,33 @@ declare -a StrategyArray=(
     # "L2"
     # "L1"
     "ACC"
-    # "CPU"
-    # "MANUAL"
+    "CPU" # only runs with accel type == v1 and accel size == 4
+    # "MAN"
 )
 
 declare -a AccelTypeArray=(
   v1
-  # v2
-  # v3
+  v2
+  v3
 )
 
 
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 for ACCEL_TYPE in ${AccelTypeArray[@]}; do
   BITSTREAM=""
+
   if [ $ACCEL_TYPE == "v1" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm${ACCEL_SIZE}x${ACCEL_SIZE}_v1_highv1_nostatus.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v1.bit"
   elif [ $ACCEL_TYPE == "v2" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v2.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v2.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v2.bit"
   elif [ $ACCEL_TYPE == "v3" ]; then
-    BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v3.bit"
+  elif [ $ACCEL_TYPE == "v4" ]; then
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v4.bit"
   fi
 
   if test -f "$BITSTREAM"; then
@@ -80,22 +88,42 @@ for D in ${ProblemDimArray[@]}; do
 # # driver-matmul-m${D}_n${D}_k${D}-accNONE
 # )
 
-if [ $ACCEL_TYPE == "v1" ]; then
+# Decides which app to run
+if [ $S == "ACC" ] || [ $S == "MEM" ] || [ $S == "L2" ] || [ $S == "L1" ]; then
+  if [ $ACCEL_TYPE == "v1" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
+    )
+  elif [ $ACCEL_TYPE == "v2" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
+    )
+  elif [ $ACCEL_TYPE == "v3" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+    )
+  elif [ $ACCEL_TYPE == "v4" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Bs
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Cs
+    )
+  fi
+elif [ $S == "CPU" ]; then
+  # CPU does not need to run for every accel type or size
+  # check if accel type is v1 and accel size is 4, if not, skip
+  if [ $ACCEL_TYPE != "v1" ] || [ $ACCEL_SIZE != "4" ]; then
+    continue
+  fi
+
   declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v1_Ns
-  )
-elif [ $ACCEL_TYPE == "v2" ]; then
-  declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Ns
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_As
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v2_Bs
-  )
-elif [ $ACCEL_TYPE == "v3" ]; then
-  declare -a AppArray=(
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
-    driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+    driver-matmul-m${D}_n${D}_k${D}-CPU-accNONE
   )
 fi
 
@@ -127,6 +155,7 @@ mkdir -p results
 TIMESTAMP_RAW=`date +%c`
 TIMESTAMP=${TIMESTAMP_RAW// /_}
 ./prepare_results.py perf_output > results/results-${HOSTNAME}-${TIMESTAMP}.csv
+cp -f results/results-${HOSTNAME}-${TIMESTAMP}.csv results/results-latest.csv
 
 chown -R xilinx:xilinx *
 

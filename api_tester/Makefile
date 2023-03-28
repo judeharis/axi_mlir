@@ -6,7 +6,7 @@ ACC = arm-linux-gnueabihf-g++
 
 SYSC_PATH= ${SYSTEMC_HOME}
 SYSC_INCLUDE=-I$(SYSC_PATH)/include
-SYSC_CFLAGS= -fPIC
+SYSC_CFLAGS= -fPIC -DCPU_MM
 SYSC_LINK=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PATH)/lib-linux64 -lsystemc
 
 
@@ -57,11 +57,17 @@ pynq_test: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_mmv1_ts1 pynq_mmv1_ts
 
 pynq_v: $(PYNQ_OBJDIR) pynq_api_v1_V pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
-sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_api_4x4v3 sysc_api_4x4v5 sysc_unit_test
+# sysc: $(SYSC_OBJDIR) sysc_api_4x4v1 sysc_api_4x4v2 sysc_api_4x4v3 sysc_api_4x4v5 sysc_unit_test
+
+sysc: $(SYSC_OBJDIR)  sysc_api_4x4v1
 
 sysc_api_4x4v1: sysc_api_v1_4x4v1 sysc_api_v1_lib_4x4v1 sysc_tiling1_4x4v1
 
 sysc_api_4x4v2: sysc_api_v1_4x4v2 sysc_api_v1_lib_4x4v2 sysc_tiling1_4x4v2 sysc_tiling2_4x4v2 sysc_tiling3_4x4v2
+
+# sysc_api_4x4v4: sysc_api_v1_4x4v4 sysc_api_v1_lib_4x4v4 sysc_tiling1_4x4v4 sysc_tiling2_4x4v4 sysc_tiling3_4x4v4
+
+sysc_api_4x4v4: sysc_api_v1_4x4v4 sysc_api_v1_lib_4x4v4 sysc_tiling3_4x4v4
 
 sysc_api_4x4v3: sysc_api_v1_4x4v3 sysc_api_v1_lib_4x4v3 sysc_tiling1_4x4v3 sysc_tiling2_4x4v3
 
