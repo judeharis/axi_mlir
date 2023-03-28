@@ -6,6 +6,8 @@ elif [ "$HOSTNAME" = jude-MS-7B79 ]; then
   axi4mlir_projroot=/mnt/UDrive/UWorkspace/AXI4MLIR/axi4mlir/
 elif [ "$HOSTNAME" = AORUS-W ]; then
   axi4mlir_projroot=/home/agostini/Development/axi_mlir/
+elif [ "$HOSTNAME" = lion ]; then
+  axi4mlir_projroot=/home/nico/Development/axi4mlir/
 else
   echo "Hostname not recognized. Exiting..."
   exit 0
@@ -29,6 +31,10 @@ elif [ "$HOSTNAME" = jude-MS-7B79 ]; then
   cp $arm_app_dir/*.so $libs_dir/.
   cp $arm_app_dir/*-app $bins_dir/.
 elif [ "$HOSTNAME" = AORUS-W ]; then
+  cp $arm_libs_dir/*.so.15git  $libs_dir/.
+  cp $arm_app_dir/*.so $libs_dir/.
+  cp $arm_app_dir/*-app $bins_dir/.
+elif [ "$HOSTNAME" = lion ]; then
   cp $arm_libs_dir/*.so.15git  $libs_dir/.
   cp $arm_app_dir/*.so $libs_dir/.
   cp $arm_app_dir/*-app $bins_dir/.
