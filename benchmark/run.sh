@@ -67,6 +67,9 @@ for ACCEL_TYPE in ${AccelTypeArray[@]}; do
   elif [ $ACCEL_TYPE == "v3" ]; then
     # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
     BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v3.bit"
+  elif [ $ACCEL_TYPE == "v4" ]; then
+    # BITSTREAM="/home/xilinx/pynq/overlays/axi4mlir_maps/mm_acc_${ACCEL_SIZE}x${ACCEL_SIZE}v3.bit"
+    BITSTREAM="${BIT_DIR}/MM_${ACCEL_SIZE}x${ACCEL_SIZE}_v4.bit"
   fi
 
   if test -f "$BITSTREAM"; then
@@ -103,6 +106,13 @@ if [ $S == "ACC" ] || [ $S == "MEM" ] || [ $S == "L2" ] || [ $S == "L1" ]; then
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+    )
+  elif [ $ACCEL_TYPE == "v4" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Ns
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_As
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Bs
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Cs
     )
   fi
 elif [ $S == "CPU" ]; then
