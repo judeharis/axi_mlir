@@ -64,7 +64,7 @@ declare -a StrategyArray=(
     # "L2"
     # "L1"
     "CPU"
-    # "MAN"
+    "MAN"
 )
 
 declare -a ProblemDimArray=(
@@ -155,8 +155,12 @@ for KERNEL_NAME in ${KernelNameArray[@]}; do
 for PROBLEM_DIM in ${ProblemDimArray[@]}; do
 for ACCEL_SIZE in ${AccelSizeArray[@]}; do
 
-if [ "$STRATEGY" == "MAN" ] || [ "$STRATEGY" == "CPU" ]; then
+if  [ "$STRATEGY" == "CPU" ]; then
   if [ "$FLOW" != "NA" ]; then
+    continue
+  fi
+elif [ "$STRATEGY" == "MAN" ]; then
+  if [ "$FLOW" != "Ns" ]; then
     continue
   fi
 else

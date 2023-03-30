@@ -44,7 +44,7 @@ declare -a StrategyArray=(
     # "L1"
     "ACC"
     "CPU" # only runs with accel type == v1 and accel size == 4
-    # "MAN"
+    "MAN"
 )
 
 declare -a AccelTypeArray=(
@@ -113,6 +113,25 @@ if [ $S == "ACC" ] || [ $S == "MEM" ] || [ $S == "L2" ] || [ $S == "L1" ]; then
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_As
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Bs
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v4_Cs
+    )
+  fi
+elif [ $S == "MAN" ]; then
+  # same as above for v1, v2, v3 but with MAN instead of ACC and only Ns
+  if [ $ACCEL_TYPE == "v1" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v1_Ns
+    )
+  elif [ $ACCEL_TYPE == "v2" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v2_Ns
+    )
+  elif [ $ACCEL_TYPE == "v3" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v3_Ns
+    )
+  elif [ $ACCEL_TYPE == "v4" ]; then
+    declare -a AppArray=(
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v4_Ns
     )
   fi
 elif [ $S == "CPU" ]; then

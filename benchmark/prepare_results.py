@@ -25,7 +25,7 @@ def getDictFromFilename(filename):
 
   # if MAN or MANUAL, then cpp_manual
   if('MAN' in d['strategy'] or 'MANUAL' in d['strategy']):
-    d['tool']='cpp_manual'
+    d['tool']='cpp_MAN'
   else:
     d['tool']='mlir_{}'.format(d['strategy'])
 

@@ -32,6 +32,7 @@ arm_app_dir=/home/xilinx/Development/axi4mlir
 
 rsync -r -av -e ssh ../benchmark $board_user@$board_hostname:$arm_app_dir/
 
+rm -f results/results-latest.csv
 # Attempt to receive results from the board
 echo "If results folder exists, try to copy it to the host system..."
 rsync -r -av -e ssh $board_user@$board_hostname:$arm_app_dir/benchmark/results .
