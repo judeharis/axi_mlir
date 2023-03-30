@@ -74,7 +74,7 @@ def main(raw_args=None):
         for l in file.readlines():
           if (',' in l):
             # Format : 
-            # problem_size,dims,kernel,tool,accel_version,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT,filename
+            # problem_size,dims,kernel,tool,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT,filename
             print('{},{},{},{},{},{},{},{},{},{},{}'.format(d['dims'],d['dims'],d['kernel'],d['tool'],d['accel_size'], d['accel_version'],d['accel_strategy'],1,d['hostname'],l.strip('\n'),filename))
 
 if __name__ == "__main__":
