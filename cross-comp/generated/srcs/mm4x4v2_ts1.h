@@ -31,13 +31,11 @@ void v2_ts1(int *A, volatile int *B, int *C) {
     for (int n = 0; n < N; n += tile_N) {
       for (int m = 0; m < M; m += tile_M) {
 
-        int C_base = m * N + n;
         // Gets pointer to DMA_IN_BUFFER
         unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
 
         // Data_len is used to track what is in the DMA_IN_BUFFER
         int data_len = 0;
-
 
         // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
         uint32_t h = 7;
@@ -50,7 +48,6 @@ void v2_ts1(int *A, volatile int *B, int *C) {
             dma_inbuffer[data_len + tile_K * tm + tk] =
                 A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
-
 
         // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
         for (int tk = 0; tk < tile_K; tk++)
