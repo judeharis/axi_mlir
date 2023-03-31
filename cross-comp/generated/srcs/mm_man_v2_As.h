@@ -7,10 +7,9 @@
 
 void v2_As(int *A, int *B, int *C) {
 #if DBG
-  printf("=========================");
-  printf("ACC: MM_4x4v2");
-  printf("Tiling Strat: As");
-  printf("=========================");
+  printf("==============================\n");
+  printf("ACC on file: %s\n", __FILE__);
+  printf("=-----------------------=\n");
 #endif
 
   // Init DMA + ACC

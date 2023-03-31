@@ -7,10 +7,9 @@
 
 void v3_Ns(int *A, volatile int *B, int *C) {
 #if DBG
-  printf("=========================");
-  printf("ACC: MM_4x4v3");
-  printf("Tiling Strat: Ns");
-  printf("=========================\n");
+  printf("==============================\n");
+  printf("ACC on file: %s\n", __FILE__);
+  printf("=-----------------------=\n");
 #endif
 
   // Init DMA + ACC
