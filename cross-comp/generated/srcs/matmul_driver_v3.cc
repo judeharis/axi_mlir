@@ -32,18 +32,18 @@
 
 #include "bench_config.h"
 #include "mlir_utils.h"
-#include "mm4x4v1_Ns.h"
+#include "mm_man_v1_Ns.h"
 
-#include "mm4x4v2_As.h"
-#include "mm4x4v2_Bs.h"
-#include "mm4x4v2_Ns.h"
+#include "mm_man_v2_As.h"
+#include "mm_man_v2_Bs.h"
+#include "mm_man_v2_Ns.h"
 
-#include "mm4x4v3_As.h"
-#include "mm4x4v3_Bs.h"
-#include "mm4x4v3_Cs.h"
-#include "mm4x4v3_Ns.h"
+#include "mm_man_v3_As.h"
+#include "mm_man_v3_Bs.h"
+#include "mm_man_v3_Cs.h"
+#include "mm_man_v3_Ns.h"
 
-#include "mm4x4v4_Ns.h"
+#include "mm_man_v4_Ns.h"
 
 
 // Define the API for the MLIR function, see
