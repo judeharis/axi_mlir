@@ -1,5 +1,5 @@
-#ifndef MM4x4v3_TS1_H
-#define MM4x4v3_TS1_H
+#ifndef MM_MAN_v3_NS_H
+#define MM_MAN_v3_NS_H
 
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
@@ -87,4 +87,4 @@ void v3_Ns(int *A, volatile int *B, int *C) {
   dma1.dma_free();
 }
 
-#endif /* MM4x4v3_TS1_H */
+#endif /* MM_MAN_v3_NS_H */
