@@ -287,3 +287,16 @@ To recompile inside docker, with `PROJ_ROOT=/working_dir`:
 cmake --build /working_dir/builds/llvm-project/build-x86 --target clang opt mlir-opt mlir-translate mlir-cpu-runner mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils mlir-lsp-server FileCheck && cmake --build /working_dir/builds/llvm-project/build-runner-arm --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
 ```
 
+# One commandline to rule them all:
+```
+cmake --build /working_dir/builds/llvm-project/build-x86 --target clang opt mlir-opt mlir-translate mlir-lsp-server FileCheck \
+ mlir-cpu-runner mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils \
+ mlir_syscaxi_runner_utils \
+ mlir_syscaxi_runner_utils_accv1 \
+ mlir_syscaxi_runner_utils_accv2 \
+ mlir_syscaxi_runner_utils_accv3 \
+ mlir_syscaxi_runner_utils_accv4 \
+ mlir_syscaxi_runner_utils_conv_accv1 \
+ && \
+cmake --build /working_dir/builds/llvm-project/build-runner-arm --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
+```
