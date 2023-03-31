@@ -171,7 +171,10 @@ done # End of ACCEL_SIZE loop
   
 # Process alls CSV files and concatenate into a final output
 mkdir -p results
-TIMESTAMP_RAW=`date +%c`
+# TODO: change timestamp to something that sorts automatically
+# use the date command to get a timestamp that sorts automatically
+# like this: 2019-03-20 15:00:00 UTC
+TIMESTAMP_RAW=`date +%Y_%m_%d-%H:%M:%S-%Z`
 TIMESTAMP=${TIMESTAMP_RAW// /_}
 ./prepare_results.py perf_output > results/results-${HOSTNAME}-${TIMESTAMP}.csv
 cp -f results/results-${HOSTNAME}-${TIMESTAMP}.csv results/results-latest.csv
