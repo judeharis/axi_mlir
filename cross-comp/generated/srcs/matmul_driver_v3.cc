@@ -45,7 +45,6 @@
 
 #include "mm_man_v4_Ns.h"
 
-
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
 //
@@ -153,7 +152,6 @@ int main() {
   // Reset
   reset(arg0, arg1, arg2);
 
-
 #ifdef ACCv1Ns
   v1_Ns(arg0, arg1, arg2);
 
@@ -172,11 +170,13 @@ int main() {
   v3_Cs(arg0, arg1, arg2);
 #elif ACCv3Ns
   v3_Ns(arg0, arg1, arg2);
-#else 
+#else
   std::cout << "No accelerator version specified" << std::endl;
   exit(1);
 #endif
-
+#if DBG
+  printf("Executed MANUAL version on accelerator\n");
+#endif
 
 #elif RUNMLIR
   // ==========================================================
@@ -187,7 +187,10 @@ int main() {
   MLIRMATMULCALL((int *)arg0, (int *)arg0, 0, M, K, K, 1,
                  (int *)arg1, (int *)arg1, 0, K, N, N, 1,
                  (int *)arg2, (int *)arg2, 0, M, N, N, 1);
-  // clang-format on
+// clang-format on
+#if DBG
+  printf("Executed MLIR version on accelerator\n");
+#endif
 #else
   // ==========================================================
   // MLIR without C interface
@@ -197,17 +200,20 @@ int main() {
   MLIRMATMULCALLCPU((int *)arg0, (int *)arg0, 0, M, K, K, 1,
                  (int *)arg1, (int *)arg1, 0, K, N, N, 1,
                  (int *)arg2, (int *)arg2, 0, M, N, N, 1);
-  // clang-format on
+// clang-format on
+#if DBG
+  printf("Executed MLIR version on CPU\n");
+#endif
 #endif
 
-  #if DBG
-  // print the problemn size and tile size along with message
+#if DBG
   printf("Problem ");
-  printf("M=%d, N=%d, K=%d, tile_M=%d, tile_N=%d, tile_K=%d ", M, N, K, tile_M, tile_N, tile_K);
+  printf("M=%d, N=%d, K=%d, tile_M=%d, tile_N=%d, tile_K=%d ", M, N, K, tile_M,
+         tile_N, tile_K);
   printf("finished execution. Printing matrices: \n");
   dump(arg0, arg1, arg2);
   printf("Done.\n");
-  #endif
+#endif
 
   free(arg0);
   free(arg1);
