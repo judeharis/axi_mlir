@@ -7,7 +7,7 @@
 
 void v2_ts2(int *A, int *B, int *C) {
   //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v1");
+  //   LOG("ACC: MM_4x4v2");
   //   LOG("Tiling Strat: 2");
   //   LOG("=========================");
 

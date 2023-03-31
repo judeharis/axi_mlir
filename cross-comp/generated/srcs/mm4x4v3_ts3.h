@@ -1,13 +1,13 @@
-#ifndef MM4x4v2_TS3_H
-#define MM4x4v2_TS3_H
+#ifndef MM4x4v3_TS3_H
+#define MM4x4v3_TS3_H
 
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
 #include "bench_config.h"
 
-void v2_ts3(int *A, int *B, int *C) {
+void v3_ts3(int *A, int *B, int *C) {
   //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v2");
+  //   LOG("ACC: MM_4x4v3");
   //   LOG("Tiling Strat: 3");
   //   LOG("=========================");
 
@@ -52,7 +52,7 @@ void v2_ts3(int *A, int *B, int *C) {
 
         data_len = 0;
         // Encodes HEADER; Tells accelerator to expect A tiles and compute C
-        uint32_t h = 5;
+        uint32_t h = 13;
         dma_inbuffer[0] = h;
         data_len++;
 
@@ -90,4 +90,4 @@ void v2_ts3(int *A, int *B, int *C) {
   dma1.dma_free();
 }
 
-#endif /* MM4x4v2_TS3_H */
+#endif /* MM4x4v3_TS3_H */
