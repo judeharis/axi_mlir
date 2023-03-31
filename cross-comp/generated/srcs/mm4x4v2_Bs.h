@@ -1,14 +1,14 @@
-#ifndef MM4x4v3_TS1_H
-#define MM4x4v3_TS1_H
+#ifndef MM4x4v2_TS3_H
+#define MM4x4v2_TS3_H
 
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
 #include "bench_config.h"
 
-void v3_ts1(int *A, volatile int *B, int *C) {
+void v2_Bs(int *A, int *B, int *C) {
   //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v1");
-  //   LOG("Tiling Strat: 1");
+  //   LOG("ACC: MM_4x4v2");
+  //   LOG("Tiling Strat: 3");
   //   LOG("=========================");
 
   // Init DMA + ACC
@@ -29,18 +29,30 @@ void v3_ts1(int *A, volatile int *B, int *C) {
   // Start Tiling
   for (int k = 0; k < K; k += tile_K) {
     for (int n = 0; n < N; n += tile_N) {
+
+      // Gets pointer to DMA_IN_BUFFER
+      unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
+      int data_len = 0;
+      // Tells accelerator to expect B tiles
+      uint32_t h = 2;
+      dma_inbuffer[data_len] = h;
+      data_len++;
+
+      // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
+      for (int tk = 0; tk < tile_K; tk++)
+        for (int tn = 0; tn < tile_N; tn++)
+          dma_inbuffer[data_len + tile_K * tn + tk] =
+              B[(K * tn) + (k * N) + n + tk];
+      data_len += tile_N * tile_K;
+
+      dma1.dma_start_send(data_len, 0);
+      dma1.dma_wait_send();
+
       for (int m = 0; m < M; m += tile_M) {
 
-        int C_base = m * N + n;
-        // Gets pointer to DMA_IN_BUFFER
-        unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
-
-        // Data_len is used to track what is in the DMA_IN_BUFFER
-        int data_len = 0;
-
-
-        // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
-        uint32_t h = 15;
+        data_len = 0;
+        // Encodes HEADER; Tells accelerator to expect A tiles and compute C
+        uint32_t h = 5;
         dma_inbuffer[0] = h;
         data_len++;
 
@@ -50,15 +62,6 @@ void v3_ts1(int *A, volatile int *B, int *C) {
             dma_inbuffer[data_len + tile_K * tm + tk] =
                 A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
-
-
-        // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
-        for (int tk = 0; tk < tile_K; tk++)
-          for (int tn = 0; tn < tile_N; tn++)
-            dma_inbuffer[data_len + tile_K * tn + tk] =
-                B[(K * tn) + (k * N) + n + tk];
-
-        data_len += tile_N * tile_K;
 
         // Sends data_len of data
         dma1.dma_start_send(data_len, 0);
@@ -87,4 +90,4 @@ void v3_ts1(int *A, volatile int *B, int *C) {
   dma1.dma_free();
 }
 
-#endif /* MM4x4v3_TS1_H */
+#endif /* MM4x4v2_TS3_H */

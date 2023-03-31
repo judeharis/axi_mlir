@@ -10,7 +10,7 @@
 #define C_buffer 4096
 
 
-void v4_ts1(int *A, volatile int *B, int *C) {
+void v4_Ns(int *A, volatile int *B, int *C) {
   //   LOG("=========================");
   //   LOG("ACC: MM_4x4v1");
   //   LOG("Tiling Strat: 1");

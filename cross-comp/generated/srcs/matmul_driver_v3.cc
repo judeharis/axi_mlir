@@ -32,20 +32,19 @@
 
 #include "bench_config.h"
 #include "mlir_utils.h"
-#include "mm4x4v1_ts1.h"
+#include "mm4x4v1_Ns.h"
 
-#include "mm4x4v2_ts1.h"
-#include "mm4x4v2_ts2.h"
-#include "mm4x4v2_ts3.h"
+#include "mm4x4v2_Ns.h"
+#include "mm4x4v2_As.h"
+#include "mm4x4v2_Bs.h"
 
-#include "mm4x4v3_ts1.h"
-#include "mm4x4v3_ts2.h"
-#include "mm4x4v3_ts3.h"
-#include "mm4x4v3_ts4.h"
+#include "mm4x4v3_Ns.h"
+#include "mm4x4v3_As.h"
+#include "mm4x4v3_Bs.h"
+#include "mm4x4v3_Cs.h"
 
 
-#include "mm4x4v4_ts1.h"
-// #include "mm4x4v1_ts5.h"
+#include "mm4x4v4_Ns.h"
 
 #define v1 1
 #define v2 2
@@ -160,18 +159,18 @@ int main() {
   reset(arg0, arg1, arg2);
 #ifdef ACCV
 #if ACCV == v1
-  v1_ts1(arg0, arg1, arg2);
+  v1_Ns(arg0, arg1, arg2);
 #elif ACCV == v2
-  v2_ts1(arg0, arg1, arg2);
-  // v2_ts2(arg0, arg1, arg2);
-  // v2_ts3(arg0, arg1, arg2);
+  v2_Ns(arg0, arg1, arg2);
+  // v2_As(arg0, arg1, arg2);
+  // v2_Bs(arg0, arg1, arg2);
 #elif ACCV == v3
-  v3_ts1(arg0, arg1, arg2);
-  // v3_ts2(arg0, arg1, arg2);
-  // v3_ts3(arg0, arg1, arg2);
-  // v3_ts4(arg0, arg1, arg2);
+  v3_Ns(arg0, arg1, arg2);
+  // v3_As(arg0, arg1, arg2);
+  // v3_Bs(arg0, arg1, arg2);
+  // v3_Cs(arg0, arg1, arg2);
 #elif ACCV == v4
-  v4_ts1(arg0, arg1, arg2);
+  v4_Ns(arg0, arg1, arg2);
 #endif
 #endif
 
@@ -198,8 +197,8 @@ int main() {
   // clang-format on
 #endif
 
-  // printf("finished\n");
-  // dump(arg0, arg1, arg2);
+  printf("finished\n");
+  dump(arg0, arg1, arg2);
 
   // std::cout << "DONE" << std::endl;
   // dump(arg0, arg1, arg2);
