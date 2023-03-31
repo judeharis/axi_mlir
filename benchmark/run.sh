@@ -9,7 +9,7 @@ ulimit -s 65536
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/xilinx/Development/axi4mlir/benchmark/libs/
 
-BIT_DIR="/home/xilinx/pynq/overlays/axi4mlir-mm-2023-04-25"
+BIT_DIR="/home/xilinx/pynq/overlays/axi4mlir-mm-2023-03-31"
 POUTDIR=perf_output
 APPDIR=bins
 
@@ -124,10 +124,15 @@ elif [ $S == "MAN" ]; then
   elif [ $ACCEL_TYPE == "v2" ]; then
     declare -a AppArray=(
       driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v2_Ns
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v2_As
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v2_Bs
     )
   elif [ $ACCEL_TYPE == "v3" ]; then
     declare -a AppArray=(
       driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v3_Ns
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v3_As
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v3_Bs
+      driver-matmul-m${D}_n${D}_k${D}-MAN-acc${ACCEL_SIZE}_v3_Cs
     )
   elif [ $ACCEL_TYPE == "v4" ]; then
     declare -a AppArray=(

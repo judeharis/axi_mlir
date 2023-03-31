@@ -6,10 +6,12 @@
 #include "bench_config.h"
 
 void v2_Ns(int *A, volatile int *B, int *C) {
-  //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v2");
-  //   LOG("Tiling Strat: 1");
-  //   LOG("=========================");
+#if DBG
+  printf("=========================");
+  printf("ACC: MM_4x4v2");
+  printf("Tiling Strat: Ns");
+  printf("=========================");
+#endif
 
   // Init DMA + ACC
 

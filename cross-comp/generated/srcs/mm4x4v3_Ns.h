@@ -6,10 +6,12 @@
 #include "bench_config.h"
 
 void v3_Ns(int *A, volatile int *B, int *C) {
-  //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v1");
-  //   LOG("Tiling Strat: 1");
-  //   LOG("=========================");
+#if DBG
+  printf("=========================");
+  printf("ACC: MM_4x4v3");
+  printf("Tiling Strat: Ns");
+  printf("=========================\n");
+#endif
 
   // Init DMA + ACC
 
@@ -38,7 +40,6 @@ void v3_Ns(int *A, volatile int *B, int *C) {
         // Data_len is used to track what is in the DMA_IN_BUFFER
         int data_len = 0;
 
-
         // Encodes HEADER; Tells accelerator to expect A, B tiles and compute C
         uint32_t h = 15;
         dma_inbuffer[0] = h;
@@ -50,7 +51,6 @@ void v3_Ns(int *A, volatile int *B, int *C) {
             dma_inbuffer[data_len + tile_K * tm + tk] =
                 A[(m + tm) * K + (k + tk)];
         data_len += tile_M * tile_K;
-
 
         // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
         for (int tk = 0; tk < tile_K; tk++)

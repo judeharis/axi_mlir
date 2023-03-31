@@ -15,10 +15,17 @@ APICC=$PROJ_ROOT/llvm-project/mlir/lib/ExecutionEngine/axi
 BITW=64
 
 TARGET=arm
+DBG=0
 # TARGET=sysc
 # Default above, but we can change it based on the first argument
 if [ $# -eq 1 ]; then
   TARGET=$1
+fi
+
+# if there are two arguments, then the second one is the debug flag
+if [ $# -eq 2 ]; then
+  TARGET=$1
+  DBG=$2
 fi
 
 # Static CONFIGS
@@ -159,10 +166,6 @@ if  [ "$STRATEGY" == "CPU" ]; then
   if [ "$FLOW" != "NA" ]; then
     continue
   fi
-elif [ "$STRATEGY" == "MAN" ]; then
-  if [ "$FLOW" != "Ns" ]; then
-    continue
-  fi
 else
   if [ "$FLOW" == "NA" ]; then
     continue
@@ -207,7 +210,7 @@ APPNAME=driver-${RUN_NAME}-app
 
 if [ "$STRATEGY" == "MAN" ]; then
     # Compiling driver implemented by hand
-    ADDITIONAL_FLAGS=-DRUNCPP
+    ADDITIONAL_FLAGS="-DRUNCPP -DACC${ACCEL_TYPE}${FLOW}"
 elif [ "$STRATEGY" == "CPU" ]; then
     # Compiling driver in MLIR without acceleration
     ADDITIONAL_FLAGS=""
@@ -241,7 +244,7 @@ if [ $TARGET == "arm" ]; then
     -DCIMLIRMATMULCALL=$CIMLIRMATMULCALL \
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
-    -DACCV=$ACCEL_TYPE \
+    -DDBG=$DBG \
     $ADDITIONAL_FLAGS
 elif [ $TARGET == "sysc" ]; then
   SYSC_LIB=-lmlir_syscaxi_runner_utils
@@ -276,7 +279,7 @@ elif [ $TARGET == "sysc" ]; then
     -DMLIRMATMULCALLCPU=$MLIRMATMULCALLCPU \
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
     -DSYSC_T \
-    -DACCV=$ACCEL_TYPE \
+    -DDBG=$DBG \
     $ADDITIONAL_FLAGS
 fi
 

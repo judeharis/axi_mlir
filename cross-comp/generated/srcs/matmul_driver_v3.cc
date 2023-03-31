@@ -34,22 +34,17 @@
 #include "mlir_utils.h"
 #include "mm4x4v1_Ns.h"
 
-#include "mm4x4v2_Ns.h"
 #include "mm4x4v2_As.h"
 #include "mm4x4v2_Bs.h"
+#include "mm4x4v2_Ns.h"
 
-#include "mm4x4v3_Ns.h"
 #include "mm4x4v3_As.h"
 #include "mm4x4v3_Bs.h"
 #include "mm4x4v3_Cs.h"
-
+#include "mm4x4v3_Ns.h"
 
 #include "mm4x4v4_Ns.h"
 
-#define v1 1
-#define v2 2
-#define v3 3
-#define v4 4
 
 // Define the API for the MLIR function, see
 // https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
@@ -157,21 +152,29 @@ int main() {
   // C++ Version
   // Reset
   reset(arg0, arg1, arg2);
-#ifdef ACCV
-#if ACCV == v1
+
+
+#ifdef ACCv1Ns
   v1_Ns(arg0, arg1, arg2);
-#elif ACCV == v2
+
+#elif ACCv2As
+  v2_As(arg0, arg1, arg2);
+#elif ACCv2Bs
+  v2_Bs(arg0, arg1, arg2);
+#elif ACCv2Ns
   v2_Ns(arg0, arg1, arg2);
-  // v2_As(arg0, arg1, arg2);
-  // v2_Bs(arg0, arg1, arg2);
-#elif ACCV == v3
+
+#elif ACCv3As
+  v3_As(arg0, arg1, arg2);
+#elif ACCv3Bs
+  v3_Bs(arg0, arg1, arg2);
+#elif ACCv3Cs
+  v3_Cs(arg0, arg1, arg2);
+#elif ACCv3Ns
   v3_Ns(arg0, arg1, arg2);
-  // v3_As(arg0, arg1, arg2);
-  // v3_Bs(arg0, arg1, arg2);
-  // v3_Cs(arg0, arg1, arg2);
-#elif ACCV == v4
-  v4_Ns(arg0, arg1, arg2);
-#endif
+#else 
+  std::cout << "No accelerator version specified" << std::endl;
+  exit(1);
 #endif
 
 
@@ -197,11 +200,15 @@ int main() {
   // clang-format on
 #endif
 
-  printf("finished\n");
+  #if DBG
+  // print the problemn size and tile size along with message
+  printf("Problem ");
+  printf("M=%d, N=%d, K=%d, tile_M=%d, tile_N=%d, tile_K=%d ", M, N, K, tile_M, tile_N, tile_K);
+  printf("finished execution. Printing matrices: \n");
   dump(arg0, arg1, arg2);
+  printf("Done.\n");
+  #endif
 
-  // std::cout << "DONE" << std::endl;
-  // dump(arg0, arg1, arg2);
   free(arg0);
   free(arg1);
   free(arg2);

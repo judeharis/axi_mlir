@@ -9,12 +9,13 @@
 #define B_buffer 4096
 #define C_buffer 4096
 
-
 void v4_Ns(int *A, volatile int *B, int *C) {
-  //   LOG("=========================");
-  //   LOG("ACC: MM_4x4v1");
-  //   LOG("Tiling Strat: 1");
-  //   LOG("=========================");
+#if DBG
+  printf("=========================");
+  printf("ACC: MM_4x4v4");
+  printf("Tiling Strat: Ns");
+  printf("=========================\n");
+#endif
 
   // Init DMA + ACC
 
