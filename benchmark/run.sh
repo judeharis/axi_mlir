@@ -105,7 +105,7 @@ if [ $S == "ACC" ] || [ $S == "MEM" ] || [ $S == "L2" ] || [ $S == "L1" ]; then
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Ns
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_As
       driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Bs
-      # driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
+      driver-matmul-m${D}_n${D}_k${D}-ACC-acc${ACCEL_SIZE}_v3_Cs
     )
   elif [ $ACCEL_TYPE == "v4" ]; then
     declare -a AppArray=(

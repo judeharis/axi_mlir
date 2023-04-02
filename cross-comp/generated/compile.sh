@@ -62,7 +62,7 @@ declare -a FlowArray=(
     "Ns"
     "As"
     "Bs"
-    # "Cs"
+    "Cs"
 )
 
 declare -a StrategyArray=(
