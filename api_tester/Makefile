@@ -10,7 +10,7 @@ SYSC_CFLAGS= -fPIC -DCPU_MM
 SYSC_LINK=-I$(SYSC_PATH)/include -L$(SYSC_PATH)/lib-linux64 -Wl,-rpath=$(SYSC_PATH)/lib-linux64 -lsystemc
 
 
-CFLAGS = -fPIC -DREAL
+CFLAGS = -fPIC -DREAL -DACC_NEON
 # CFLAGS = -fPIC -DREAL -DCPU_MM
 
 
@@ -25,6 +25,8 @@ MKDIR = mkdir -p
 APICC=../llvm-project/mlir/lib/ExecutionEngine/axi
 
 ACCCXXFLAGS += \
+	-marm \
+	-mfloat-abi=hard \
 	-march=armv7-a \
 	-mfpu=neon \
 	-funsafe-math-optimizations \
@@ -101,7 +103,7 @@ pynq_api_v1_V: $(PYNQ_OBJDIR)
 	$(ACC) -c -o $(PYNQ_OBJDIR)/pynq_api_v1.o $(APICC)/api_v1.cpp $(INCLUDE)  $(CFLAGS) $(VERBOSE)
 
 pynq_api_v1: $(PYNQ_OBJDIR)
-	$(ACC) -c -o $(PYNQ_OBJDIR)/pynq_api_v1.o $(APICC)/api_v1.cpp $(INCLUDE)  $(CFLAGS)
+	$(ACC) -c -o $(PYNQ_OBJDIR)/pynq_api_v1.o $(APICC)/api_v1.cpp $(INCLUDE)  $(CFLAGS) $(ACCCXXFLAGS)
 
 pynq_api_v1_lib: $(PYNQ_OBJDIR)
 	$(ACC) -shared -o $(PYNQ_OBJDIR)/libpynq_api_v1.so $(PYNQ_OBJDIR)/pynq_api_v1.o
