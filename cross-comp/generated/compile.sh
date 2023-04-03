@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# ./compile.sh [target] [debug]
+# target: arm*, sysc
+# debug: 0*, 1
+#example: ./compile.sh # default target is arm and debug is 0
+#example: ./compile.sh arm 1
+#example: ./compile.sh sysc 1
+
+# This will generate a folder called output with the contents:
+# driver-matmul-m128_n128_k128-ACC-acc16_v1_Ns-app  
+# driver-matmul-m128_n128_k128-MAN-acc16_v2_Ns-app
+# intermediate_acc16_v1.mlir libmlirmatmuls_acc16_v1.ll etc...
+
+# all apps end in `*-app``.
+# Run this line to execute each app after waiting for an user input:
+# for i in `ls -1 output/*-app`; do echo "Start $i?"; read; ./$i; echo "Finished $i"; done
+
 set -e -o pipefail
 # set -x
 
@@ -40,11 +56,18 @@ PROBLEM_DIM=64
 # ===========================
 # Declaring input arrays
 
+# Sysc only supports 4x4 accelerators
+if [ $TARGET == "sysc" ]; then
+declare -a AccelSizeArray=(
+    "4"
+)
+else
 declare -a AccelSizeArray=(
     "4"
     "8"
     "16"
 )
+fi
 
 declare -a AccelTypeArray=(
     "v1"
