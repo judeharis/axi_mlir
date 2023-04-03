@@ -32,6 +32,7 @@ BITW=64
 
 TARGET=arm
 DBG=0
+TEST=0
 # TARGET=sysc
 # Default above, but we can change it based on the first argument
 if [ $# -eq 1 ]; then
@@ -42,6 +43,13 @@ fi
 if [ $# -eq 2 ]; then
   TARGET=$1
   DBG=$2
+fi
+
+# if there are two arguments, then the second one is the debug flag
+if [ $# -eq 3 ]; then
+  TARGET=$1
+  DBG=$2
+  TEST=$3
 fi
 
 # Static CONFIGS
@@ -269,6 +277,7 @@ if [ $TARGET == "arm" ]; then
     -DCIMLIRMATMULCALLCPU=$CIMLIRMATMULCALLCPU \
     -DACCV=$ACCEL_TYPE \
     -DDBG=$DBG \
+    -DTEST=$TEST \
     $ADDITIONAL_FLAGS
 elif [ $TARGET == "sysc" ]; then
   SYSC_LIB=-lmlir_syscaxi_runner_utils
@@ -305,6 +314,7 @@ elif [ $TARGET == "sysc" ]; then
     -DSYSC_T \
     -DACCV=$ACCEL_TYPE \
     -DDBG=$DBG \
+    -DTEST=$TEST \
     $ADDITIONAL_FLAGS
 fi
 
