@@ -155,7 +155,7 @@ fi
 for INPUT in ${AppArray[@]}; do
 
   if test -f "$APPDIR/$INPUT-app"; then
-    echo "Running $INPUT-app"
+    echo "Running $INPUT-app ..."
     perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT-app
     #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
@@ -163,6 +163,7 @@ for INPUT in ${AppArray[@]}; do
     mv $POUTDIR/perf-results-tmp.csv $POUTDIR/perf-results-$INPUT.csv
 
     # Delay to let the board "cool"
+    echo "... finished $INPUT-app"
     sleep 0.1
   else
     echo "WARNING: File $INPUT-app does not exist"
