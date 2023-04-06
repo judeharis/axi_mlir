@@ -32,17 +32,6 @@
 
 #include "bench_config.h"
 #include "mlir_utils.h"
-#include "mm_man_v1_Ns.h"
-
-#include "mm_man_v2_As.h"
-#include "mm_man_v2_Bs.h"
-#include "mm_man_v2_Ns.h"
-
-#include "mm_man_v3_As.h"
-#include "mm_man_v3_Bs.h"
-#include "mm_man_v3_Cs.h"
-#include "mm_man_v3_Ns.h"
-
 #include "mm_man_v4_Ns.h"
 
 // Define the API for the MLIR function, see
@@ -188,25 +177,7 @@ int main() {
   // Reset
   reset(arg0, arg1, arg2);
 
-#ifdef ACCv1Ns
-  v1_Ns(arg0, arg1, arg2);
-
-#elif ACCv2As
-  v2_As(arg0, arg1, arg2);
-#elif ACCv2Bs
-  v2_Bs(arg0, arg1, arg2);
-#elif ACCv2Ns
-  v2_Ns(arg0, arg1, arg2);
-
-#elif ACCv3As
-  v3_As(arg0, arg1, arg2);
-#elif ACCv3Bs
-  v3_Bs(arg0, arg1, arg2);
-#elif ACCv3Cs
-  v3_Cs(arg0, arg1, arg2);
-#elif ACCv3Ns
-  v3_Ns(arg0, arg1, arg2);
-#elif ACCv4Ns
+#ifdef ACCv4Ns
   v4_Ns(arg0, arg1, arg2);
 #else
   std::cout << "No accelerator version specified" << std::endl;
@@ -257,7 +228,6 @@ int main() {
 #if TEST
   // Compare with C++ MM implementation
   ret = testCorrect(arg2, arg3);
-  free(arg3);
 #endif
 
   free(arg0);

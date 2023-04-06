@@ -13,6 +13,7 @@ void v4_Ns(int *A, volatile int *B, int *C) {
 #if DBG
   printf("==============================\n");
   printf("ACC on file: %s\n", __FILE__);
+
   printf("=-----------------------=\n");
 #endif
 
@@ -25,7 +26,7 @@ void v4_Ns(int *A, volatile int *B, int *C) {
       B[i++] += (-1) + 1;
   }
   struct dma dma1;
-  dma1.dma_init(0, 0, 10000, 0, 10000);
+  dma1.dma_init(0, 0, 1000, 0, 1000);
 
 #else
   struct dma dma1;
@@ -63,8 +64,8 @@ void v4_Ns(int *A, volatile int *B, int *C) {
         ce_a = ce_a << 8;
         ce_a += block_N;
         ce_a = ce_a << 8;
-        ce_a += block_M;
-
+        ce_a = block_M;
+        ce_a = ce_a << 8;
 
         dma_inbuffer[data_len++] = op_code;
         dma_inbuffer[data_len++] = ce_a;

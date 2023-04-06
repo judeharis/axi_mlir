@@ -1,0 +1,1 @@
+  -test-generic-to-accel="anchor-op=linalg.matmul loop-permutation=${PERM} opcode-map=\"${OPMAP}\" opcode-flow=\"${OPFLOW}\" accel-tile-size=${ACCEL_SIZE} acc-on-cpu=2  anchor-filter=${TAG}" \
