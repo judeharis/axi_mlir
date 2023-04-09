@@ -29,3 +29,8 @@ Note, to mimic the benchmark steps it is adviseble to kill the jupyter server
 that runs on the background.
 
 -  This can be achieved by running `sudo htop` and `F9` and `SIGTERM` jupyter
+
+
+For v4 run to gather and send all the files correctly:
+    cd ./benchmark/
+    cd ./v4_exp/ && ./gather_v4.sh && cd .. && ./send.sh

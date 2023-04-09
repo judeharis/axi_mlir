@@ -47,8 +47,9 @@ def main(raw_args=None):
     conv_dict['OPFLOW'] = args.OPFLOW
     conv_dict['ACCEL_SIZE'] = "${ACCEL_SIZE}"
 
-    with open(args.template) as f:
-        print(string.Template(f.read()).substitute(conv_dict))
+    if (args.template != 'template.mlir'):
+        with open(args.template) as f:
+            print(string.Template(f.read()).substitute(conv_dict))
 
 
 if __name__ == "__main__":

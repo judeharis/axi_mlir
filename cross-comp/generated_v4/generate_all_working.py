@@ -63,7 +63,6 @@ def main(raw_args=None):
     id = 0
     if(args.template == "srcs/template_cmd.h"):
         print(sh_before)
-
     for dims in problems:
         M = dims[0]
         N = dims[1]
@@ -73,6 +72,8 @@ def main(raw_args=None):
         bests = of.get_access_count(M, N, K, tile_sizes)
         # bests = of.get_access_count_A(M, N, K, tile_sizes)
 
+
+            
         # best = None
         # for i in bests:
         #     if i[1]==i[2] and i[2]==i[3]:
@@ -80,63 +81,63 @@ def main(raw_args=None):
         #         break
         # if best == None:
         #     continue
-    #   best = bests[0]
 
+        best = bests[0]
+        
         if args.template == "template.mlir":
             print("M = {}, N = {}, K = {}".format(M, N, K))
+            print("Best: {}".format(best))
 
-        for best in bests:
-            if args.template == "template.mlir":
-                print("Best: {}".format(best))
 
-            flow = best[0]
-            tile_M = best[1]
-            tile_N = best[2]
-            tile_K = best[3]
-            dim_opcode = tile_K
-            dim_opcode = dim_opcode << 8
-            dim_opcode += tile_N
-            dim_opcode = dim_opcode << 8
-            dim_opcode += tile_M
+        flow = best[0]
+        tile_M = best[1]
+        tile_N = best[2]
+        tile_K = best[3]
+        dim_opcode = tile_K
+        dim_opcode = dim_opcode << 8
+        dim_opcode += tile_N
+        dim_opcode = dim_opcode << 8
+        dim_opcode += tile_M
 
-            tag = "ACC_v4_{}s_{}_{}_{}_{}".format(best[0], tile_M, tile_N, tile_K, id)
-    
-
-            perm = "0,1,2"
-            opmap = f"opcode_map<s=[op_send_literal(15),op_send_literal({dim_opcode}), op_send(0), op_send(1)], r=[op_recv(2)]>"
-            opflow = "(s r)"
-            if best[0] == "A":
-                opmap = f"opcode_map<s0=[op_send_literal(1),op_send_literal({dim_opcode}), op_send(0)], s1c=[op_send_literal(14),op_send_literal({dim_opcode}), op_send(1)], r=[op_recv(2)]>"
-                opflow = "(s0 (s1c r))"
-                perm = "0,2,1"
-            elif best[0] == "B":
-                opmap = f"opcode_map<s1=[op_send_literal(2),op_send_literal({dim_opcode}), op_send(1)], s0c=[op_send_literal(13),op_send_literal({dim_opcode}), op_send(0)], r=[op_recv(2)]>"
-                opflow = "(s1 (s0c r))"
-                perm = "1,2,0"
-            elif best[0] == "C":
-                opmap = f"opcode_map<s=[op_send_literal(7),op_send_literal({dim_opcode}), op_send(0), op_send(1)], r=[op_send_literal(8),op_send_literal({dim_opcode}), op_recv(2)]>"
-                opflow = "((s) r)"
-                perm = "0,1,2"
-
-            # print(best)
-            cmdargs = "{} {} {} {} {} {} {} {}".format(
-                    dims[0], dims[1], dims[2], tag,  perm, tile_M, tile_N, tile_K,).split()
-
-            cmdargs.append(opmap)
-            cmdargs.append(opflow)
-            cmdargs.append("--template")
-            cmdargs.append(args.template)
-            generator.main(cmdargs)
-            tag_array.append(tag)
-            flow_array.append(flow+"s")
-            tilem_array.append(tile_M)
-            tilen_array.append(tile_N)
-            tilek_array.append(tile_K)
-            m_array.append(M)
-            n_array.append(N)
-            k_array.append(K)
-            accelsize_array.append(tile_M)
+        tag = "ACC_v4_{}s_{}_{}_{}_{}".format(best[0], tile_M, tile_N, tile_K, id)
         id += 1
+
+        perm = "0,1,2"
+        opmap = f"opcode_map<s=[op_send_literal(15),op_send_literal({dim_opcode}), op_send(0), op_send(1)], r=[op_recv(2)]>"
+        opflow = "(s r)"
+        if best[0] == "A":
+            opmap = f"opcode_map<s0=[op_send_literal(1),op_send_literal({dim_opcode}), op_send(0)], s1c=[op_send_literal(14),op_send_literal({dim_opcode}), op_send(1)], r=[op_recv(2)]>"
+            opflow = "(s0 (s1c r))"
+            perm = "0,2,1"
+        elif best[0] == "B":
+            opmap = f"opcode_map<s1=[op_send_literal(2),op_send_literal({dim_opcode}), op_send(1)], s0c=[op_send_literal(13),op_send_literal({dim_opcode}), op_send(0)], r=[op_recv(2)]>"
+            opflow = "(s1 (s0c r))"
+            perm = "1,2,0"
+        elif best[0] == "C":
+            opmap = f"opcode_map<s=[op_send_literal(7),op_send_literal({dim_opcode}), op_send(0), op_send(1)], r=[op_send_literal(8),op_send_literal({dim_opcode}), op_recv(2)]>"
+            opflow = "((s) r)"
+            perm = "0,1,2"
+
+        # print(best)
+        cmdargs = "{} {} {} {} {} {} {} {}".format(
+                dims[0], dims[1], dims[2], tag,  perm, tile_M, tile_N, tile_K,).split()
+        
+        
+
+        cmdargs.append(opmap)
+        cmdargs.append(opflow)
+        cmdargs.append("--template")
+        cmdargs.append(args.template)
+        generator.main(cmdargs)
+        tag_array.append(tag)
+        flow_array.append(flow+"s")
+        tilem_array.append(tile_M)
+        tilen_array.append(tile_N)
+        tilek_array.append(tile_K)
+        m_array.append(M)
+        n_array.append(N)
+        k_array.append(K)
+        accelsize_array.append(tile_M)
 
     if(args.template == "srcs/template_cmd.h"):
         print(sh_after)

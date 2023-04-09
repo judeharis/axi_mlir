@@ -139,17 +139,14 @@ int main(int argc, char *argv[]) {
           op_code = 15;
 
         uint32_t ce_a = 0;
-        uint32_t ce_b = 0;
-
-        ce_a += block_M;
-        ce_a = ce_a << 16;
+        ce_a += block_K;
+        ce_a = ce_a << 10;
         ce_a += block_N;
-
-        ce_b += block_K;
+        ce_a = ce_a << 10;
+        ce_a += block_M;
 
         dma_inbuffer[data_len++] = op_code;
         dma_inbuffer[data_len++] = ce_a;
-        dma_inbuffer[data_len++] = ce_b;
 
         // Copies A into DMA_IN_BUFFER; Increments data_len by length of A
         for (int tm = 0; tm < block_M; tm++)

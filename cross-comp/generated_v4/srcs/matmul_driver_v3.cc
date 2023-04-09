@@ -1,78 +1,27 @@
-// Compile the MLIR file to LLVM:
-// RUN: mlir-opt %t/input.mlir \
-// RUN:  -test-linalg-to-axi4mlir="flow-cpu-accumulation
-// tile-sizes=128,128,128,32,32,32" \
-// RUN:  -convert-linalg-to-loops -lower-affine --buffer-loop-hoisting
-// --buffer-deallocation \
-// RUN:  -convert-scf-to-cf  \
-// RUN:  -arith-expand \
-// RUN:  -memref-expand \
-// RUN:  -convert-vector-to-llvm \
-// RUN:  -convert-memref-to-llvm="index-bitwidth=$BITW" \
-// RUN:  -convert-arith-to-llvm="index-bitwidth=$BITW" \
-// RUN:  -convert-std-to-llvm="index-bitwidth=$BITW" \
-// RUN:  -reconcile-unrealized-casts \
-// RUN: | mlir-translate --mlir-to-llvmir -o %t.ll
-
-// These instructions are not 100% correct. Please use compile.sh file.
-// Generate an object file for the MLIR code
-// RUN: llc %t.ll -o %t.o -filetype=obj
-
-// Compile the current C file and link it to the MLIR code:
-// RUN: %host_cc %s %t.o -o %t.exe
-
-// Exec
-// RUN: %t.exe | FileCheck %s
-
-// #include <stdint.h>
-// #include <stdio.h>
-
 #include <cstdint>
+#include <iomanip>
 #include <iostream>
 
 #include "bench_config.h"
 #include "mlir_utils.h"
-#include "mm_man_v4_Ns.h"
 
-// Define the API for the MLIR function, see
-// https://mlir.llvm.org/docs/TargetLLVMIR/#calling-conventions for details.
-//
-// The function takes 3 2D memref, the signature in MLIR LLVM dialect will be:
-// llvm.func @matmul_m8_n8_k8_L1_call(
-//   // First Memref (%arg0)
-//      %allocated_ptr0: !llvm.ptr<int>, %aligned_ptr0: !llvm.ptr<int>,
-//      %offset0: i64, %size0_d0: i64, %size0_d1: i64, %stride0_d0: i64,
-//      %stride0_d1: i64,
-//   // Second Memref (%arg1)
-//      %allocated_ptr1: !llvm.ptr<int>, %aligned_ptr1: !llvm.ptr<int>,
-//      %offset1: i64, %size1_d0: i64, %size1_d1: i64, %stride1_d0: i64,
-//      %stride1_d1: i64,
-//   // Third Memref (%arg2)
-//      %allocated_ptr2: !llvm.ptr<int>, %aligned_ptr2: !llvm.ptr<int>,
-//      %offset2: i64, %size2_d0: i64, %size2_d1: i64, %stride2_d0: i64,
-//      %stride2_d1: i64,
-//
-// void matmul_m8_n8_k8_L1_call(
-//     int *allocated_ptr0, int *aligned_ptr0,
-//     int64_t offset0, int64_t size0_d0, int64_t size0_d1,
-//     int64_t stride0_d0, int64_t stride0_d1,
-//     // Second Memref (%arg1)
-//     int *allocated_ptr1, int *aligned_ptr1,
-//     int64_t offset1, int64_t size1_d0, int64_t size1_d1,
-//     int64_t stride1_d0, int64_t stride1_d1,
-//     int *allocated_ptr2, int *aligned_ptr2,
-//     int64_t offset2, int64_t size2_d0, int64_t size2_d1,
-//     int64_t stride2_d0, int64_t stride2_d1);
+#include "tiling/mm_man_v1_Ns.h"
 
-// The llvm.emit_c_interface will also trigger emission of another wrapper:
-// llvm.func @_mlir_ciface_matmul_m8_n8_k8_L1_call(
-//   %arg0: !llvm.ptr<struct<(ptr<i32>, ptr<i32>, i64,
-//                            array<2 x i64>, array<2 x i64>)>>,
-//   %arg1: !llvm.ptr<struct<(ptr<i32>, ptr<i32>, i64,
-//                            array<2 x i64>, array<2 x i64>)>>,
-//   %arg2: !llvm.ptr<struct<(ptr<i32>, ptr<i32>, i64,
-//                            array<2 x i64>, array<2 x i64>)>>)
-// -> void
+#include "tiling/mm_man_v2_As.h"
+#include "tiling/mm_man_v2_Bs.h"
+#include "tiling/mm_man_v2_Ns.h"
+
+#include "tiling/mm_man_v3_As.h"
+#include "tiling/mm_man_v3_Bs.h"
+#include "tiling/mm_man_v3_Cs.h"
+#include "tiling/mm_man_v3_Ns.h"
+
+#include "tiling/mm_man_v4_As.h"
+#include "tiling/mm_man_v4_Bs.h"
+#include "tiling/mm_man_v4_Cs.h"
+#include "tiling/mm_man_v4_Ns.h"
+
+#include "System.hpp"
 
 void dump(int *arg0, int *arg1, int *arg2) {
   printf("--\narg0:\n");
@@ -98,6 +47,62 @@ void dump(int *arg0, int *arg1, int *arg2) {
   }
 }
 
+void dump_out(int *arg2) {
+  printf("--\narg2:\n");
+  for (int i = 0; i < M; i++) {
+    printf("[");
+    for (int j = 0; j < N; j++)
+      printf("%d,\t", (int)arg2[i * N + j]);
+    printf("]\n");
+  }
+}
+
+// void dump(int *arg0, int *arg1, int *arg2) {
+//   using namespace std;
+//   std::ofstream myfile;
+//   myfile.open("tmp1.csv");
+//   // // myfile << "--\narg0:\n";
+//   // for (int i = 0; i < M; i++) {
+//   //   // myfile << "[";
+//   //   for (int j = 0; j < K; j++)
+//   //     myfile << setfill(' ') << setw(7) << (int)arg0[i * K + j] << ",";
+//   //   myfile << "\n";
+//   // }
+//   // myfile << "\n";
+//   // // myfile << "--\narg1:\n";
+//   // for (int i = 0; i < K; i++) {
+//   //   // myfile << "[";
+//   //   for (int j = 0; j < N; j++)
+//   //     myfile << setfill(' ') << setw(7) << (int)arg1[i * N + j] << ",";
+//   //   myfile << "\n";
+//   // }
+//   // myfile << "\n";
+
+//   // myfile << "--\narg2:\n";
+//   for (int i = 0; i < M; i++) {
+//     // myfile << "[";
+//     for (int j = 0; j < N; j++)
+//       myfile << setfill(' ') << setw(4) << (int)arg2[i * N + j] << ",";
+//     myfile << "\n";
+//   }
+//   myfile << "\n";
+//   myfile.close();
+// }
+
+// void dump_out(int *arg2) {
+//   using namespace std;
+//   std::ofstream myfile;
+//   myfile.open("tmp1.csv", std::ios_base::app);
+//   // myfile << "--\narg2:\n";
+//   for (int i = 0; i < M; i++) {
+//     for (int j = 0; j < N; j++)
+//       myfile << setfill(' ') << setw(4) << (int)arg2[i * N + j] << ",";
+//     myfile << "\n";
+//   }
+//   myfile << "\n";
+//   myfile.close();
+// }
+
 void reset(int *arg0, int *arg1, int *arg2) {
   for (int i = 0; i < M; i++) {
     for (int j = 0; j < K; j++) {
@@ -107,9 +112,6 @@ void reset(int *arg0, int *arg1, int *arg2) {
   for (int i = 0; i < K; i++) {
     for (int j = 0; j < N; j++) {
       arg1[i * N + j] = j;
-
-      // Do the transpose
-      // arg1[i * N + j] = i;
     }
   }
   for (int i = 0; i < M; i++) {
@@ -171,27 +173,33 @@ int main() {
   simpleMM(arg0, arg1, arg3);
 #endif
 
-#ifdef RUNCPP
-  // ==========================================================
-  // C++ Version
-  // Reset
   reset(arg0, arg1, arg2);
-
-#ifdef ACCv4Ns
+  System::profile("perf_output_v4/perf-results-tmp", [&]() {
+    for (int i = 0; i < 20; ++i) {
+      // if (i % 20 == 0)
+      //   std::cout << "Iteration " << i << std::endl;
+#ifdef RUNCPP
+        // ==========================================================
+        // C++ Version
+#ifdef ACCv4As
+      v4_As(arg0, arg1, arg2);
+#elif ACCv4Bs
+  v4_Bs(arg0, arg1, arg2);
+#elif ACCv4Cs
+  v4_Cs(arg0, arg1, arg2);
+#elif ACCv4Ns
   v4_Ns(arg0, arg1, arg2);
 #else
   std::cout << "No accelerator version specified" << std::endl;
   exit(1);
 #endif
 #if DBG
-  printf("Executed MANUAL version on accelerator\n");
+      printf("Executed MANUAL version on accelerator\n");
 #endif
 
 #elif RUNMLIR
   // ==========================================================
   // MLIR without C interface
-  // Reset
-  reset(arg0, arg1, arg2);
   // clang-format off
   MLIRMATMULCALL((int *)arg0, (int *)arg0, 0, M, K, K, 1,
                  (int *)arg1, (int *)arg1, 0, K, N, N, 1,
@@ -200,20 +208,9 @@ int main() {
 #if DBG
   printf("Executed MLIR version on accelerator\n");
 #endif
-#else
-  // ==========================================================
-  // MLIR without C interface
-  // Reset
-  reset(arg0, arg1, arg2);
-  // clang-format off
-  MLIRMATMULCALLCPU((int *)arg0, (int *)arg0, 0, M, K, K, 1,
-                 (int *)arg1, (int *)arg1, 0, K, N, N, 1,
-                 (int *)arg2, (int *)arg2, 0, M, N, N, 1);
-// clang-format on
-#if DBG
-  printf("Executed MLIR version on CPU\n");
 #endif
-#endif
+    }
+  });
 
 #if DBG
   printf("Problem ");
@@ -228,6 +225,10 @@ int main() {
 #if TEST
   // Compare with C++ MM implementation
   ret = testCorrect(arg2, arg3);
+#if DBG
+  dump_out(arg3);
+#endif
+  free(arg3);
 #endif
 
   free(arg0);

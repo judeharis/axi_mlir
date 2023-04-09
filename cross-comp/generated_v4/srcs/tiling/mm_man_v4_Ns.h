@@ -3,7 +3,7 @@
 
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 
-#include "bench_config.h"
+#include "../bench_config.h"
 
 #define A_buffer 4096
 #define B_buffer 4096
@@ -13,7 +13,6 @@ void v4_Ns(int *A, volatile int *B, int *C) {
 #if DBG
   printf("==============================\n");
   printf("ACC on file: %s\n", __FILE__);
-
   printf("=-----------------------=\n");
 #endif
 
@@ -26,31 +25,36 @@ void v4_Ns(int *A, volatile int *B, int *C) {
       B[i++] += (-1) + 1;
   }
   struct dma dma1;
-  dma1.dma_init(0, 0, 1000, 0, 1000);
+  dma1.dma_init(0, 0, 10000, 0, 10000);
 
 #else
   struct dma dma1;
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
 #endif
 
+#ifndef block_K
   // Block K: tiling factor for dim K, after taking into account: size of A and
   // B buffers, and compute tile size for N and M
   int block_K = std::min(B_buffer / tile_M, std::min(A_buffer / tile_N, K));
+#endif
 
+#ifndef block_N
   // Block N: tiling factor for dim N, after taking into account: the size of A
   // and C buffers, Block K, and compute tile size for M
   int block_N = std::min(C_buffer / tile_M, std::min(A_buffer / block_K, N));
+#endif
 
+#ifndef block_M
   // Block M: tiling factor for dim M, after taking to account: size of B and C
   // buffers, Block K, and Block N
   int block_M = std::min(C_buffer / block_N, std::min(B_buffer / block_K, M));
+#endif
 
   // Start Tiling
   for (int k = 0; k < K; k += block_K) {
     for (int n = 0; n < N; n += block_N) {
       for (int m = 0; m < M; m += block_M) {
 
-        int C_base = m * N + n;
         // Gets pointer to DMA_IN_BUFFER
         unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
 
@@ -61,11 +65,10 @@ void v4_Ns(int *A, volatile int *B, int *C) {
         uint32_t op_code = 15;
         uint32_t ce_a = 0;
         ce_a += block_K;
-        ce_a = ce_a << 8;
+        ce_a = ce_a << 10;
         ce_a += block_N;
-        ce_a = ce_a << 8;
-        ce_a = block_M;
-        ce_a = ce_a << 8;
+        ce_a = ce_a << 10;
+        ce_a += block_M;
 
         dma_inbuffer[data_len++] = op_code;
         dma_inbuffer[data_len++] = ce_a;
@@ -80,10 +83,9 @@ void v4_Ns(int *A, volatile int *B, int *C) {
         // Copies B into DMA_IN_BUFFER; Increments data_len by length of B
         for (int tk = 0; tk < block_K; tk++)
           for (int tn = 0; tn < block_N; tn++)
-            dma_inbuffer[data_len + block_K * tn + tk] =
-                B[(K * tn) + (k * N) + n + tk];
-
-        data_len += block_N * block_K;
+            dma_inbuffer[data_len + block_N * tk + tn] =
+                B[(k + tk) * N + (n + tn)];
+        data_len += block_K * block_N;
 
         // Sends data_len of data
         dma1.dma_start_send(data_len, 0);
@@ -103,7 +105,7 @@ void v4_Ns(int *A, volatile int *B, int *C) {
         // Copies result from DMA_OUT_BUFFER to padded output buffer
         for (int tm = 0; tm < block_M; tm++) {
           for (int tn = 0; tn < block_N; tn++) {
-            C[tn + (tm + m) * N + n] += dma_outbuffer[block_N * tm + tn];
+            C[(m + tm) * N + n + tn] += dma_outbuffer[block_N * tm + tn];
           }
         }
       }
