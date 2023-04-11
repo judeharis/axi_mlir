@@ -38,7 +38,8 @@ def getDictFromFilename(filename):
   acc_size=0
   acc_version='NONE'
   acc_strategy='NONE'
-  acc_id=0
+  acc_id=""
+  acc_set=""
   if(acc_info[0]=='NONE'):
     acc_size=0
     acc_version='NONE'
@@ -48,11 +49,13 @@ def getDictFromFilename(filename):
     acc_version=acc_info[1]
     acc_strategy=acc_info[2] + "_" + acc_info[3] + "_" + acc_info[4] + "_" + acc_info[5]
     acc_id=acc_info[6]
+    acc_set=acc_info[7]
 
   d['accel_size']=acc_size
   d['accel_version']=acc_version
   d['accel_strategy']=acc_strategy
   d['prob_id']=acc_id
+  d['sol_set']=acc_set
 
   d['hostname']=os.uname()[1] + "_rel"
 
@@ -81,7 +84,7 @@ def main(raw_args=None):
           if (',' in l):
             # Format : 
             # problem_id,dims,kernel,tool,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT,filename
-            print('{},{},{},{},{},{},{},{},{},{},{}'.format(d['prob_id'],d['dims'],d['kernel'],d['tool'],d['accel_size'], d['accel_version'],d['accel_strategy'],1,d['hostname'],l.strip('\n'),filename))
+            print('{},{},{},{},{},{},{},{},{},{},{},{}'.format(d['prob_id'],d['sol_set'],d['dims'],d['kernel'],d['tool'],d['accel_size'], d['accel_version'],d['accel_strategy'],1,d['hostname'],l.strip('\n'),filename))
 
 if __name__ == "__main__":
     main()

@@ -35,13 +35,16 @@ else
     exit 1
 fi
 
+
+rm ./perf_output_v4/*
+
 source ./appslist.sh
 
 for INPUT in ${AppArray[@]}; do
     if test -f "$APPDIR/$INPUT"; then
         echo "Running $INPUT ..."
-        # perf stat -r 1 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
-        $APPDIR/$INPUT
+        perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
+        # $APPDIR/$INPUT
         #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
         # Process the CSV file

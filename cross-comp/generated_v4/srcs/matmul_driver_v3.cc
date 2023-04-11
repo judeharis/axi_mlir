@@ -174,8 +174,9 @@ int main() {
 #endif
 
   reset(arg0, arg1, arg2);
-  System::profile("perf_output_v4/perf-results-tmp", [&]() {
-    for (int i = 0; i < 20; ++i) {
+  // System::profile("perf_output_v4/perf-results-tmp", [&]() {
+  //   for (int i = 0; i < 10; ++i) {
+  //       reset(arg0, arg1, arg2);
       // if (i % 20 == 0)
       //   std::cout << "Iteration " << i << std::endl;
 #ifdef RUNCPP
@@ -209,8 +210,8 @@ int main() {
   printf("Executed MLIR version on accelerator\n");
 #endif
 #endif
-    }
-  });
+  //   }
+  // });
 
 #if DBG
   printf("Problem ");

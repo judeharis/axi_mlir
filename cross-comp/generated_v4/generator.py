@@ -24,6 +24,7 @@ def main(raw_args=None):
 
 
 
+    parser.add_argument('ACCEL_SIZES', type=str, nargs='?', default='16,16,16')
 
     parser.add_argument('ACCEL_SIZE', type=str, nargs='?', default='16')
     parser.add_argument('--template', dest='template', type=str,
@@ -45,6 +46,7 @@ def main(raw_args=None):
     conv_dict['TILE_K'] = args.TILE_K
     conv_dict['OPMAP'] = args.OPMAP
     conv_dict['OPFLOW'] = args.OPFLOW
+    conv_dict['ACCEL_SIZES'] = args.ACCEL_SIZES
     conv_dict['ACCEL_SIZE'] = "${ACCEL_SIZE}"
 
     if (args.template != 'template.mlir'):

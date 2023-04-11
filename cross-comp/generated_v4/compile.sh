@@ -56,10 +56,9 @@ fi
 
 # Static CONFIGS
 KERNEL_NAME=matmul
-ACCEL_SIZE=4
+ACCEL_SIZE=16
 ACCEL_TYPE=v4
-FLOW=Ns
-STRATEGY=MAN
+STRATEGY=ACC
 PROBLEM_DIM=64
 
 # ===========================
@@ -73,6 +72,7 @@ declare -a KernelNameArray=(
   "matmul"
 )
 
+source ./generate_all.sh
 source ./srcs/array.sh
 
 # ===========================
@@ -84,7 +84,8 @@ echo "Compiling mlir matmul library for a given accelerator size..."
 #   for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
-source scripts/compile_mlir_matmul-all.sh
+source srcs/compile_mlir_matmul-all.sh
+
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
   -o $OUTDIR/libmlirmatmuls_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll \
@@ -166,7 +167,7 @@ for ((j = 0; j < length; j++)); do
   fi
 
   # ADDITIONAL_FLAGS=-DRUNMLIR
-  set -x
+  # set -x
   if [ $TARGET == "arm" ]; then
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
       srcs/matmul_driver_v3.cc \
@@ -226,7 +227,7 @@ for ((j = 0; j < length; j++)); do
       -DTEST=$TEST \
       $ADDITIONAL_FLAGS
   fi
-  set +x
+  # set +x
 done #TagArray
 echo ")" >>$OUTDIR/appslist.sh
 
