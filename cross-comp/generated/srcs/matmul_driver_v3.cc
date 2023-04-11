@@ -130,6 +130,35 @@ void reset(int *arg0, int *arg1, int *arg2) {
   }
 }
 
+void simpleMM(int *arg0, int *arg1, int *arg2) {
+  for (int m = 0; m < M; m++) {
+    for (int n = 0; n < N; n++) {
+      int acc = 0;
+      for (int k = 0; k < K; k++) {
+        int x = arg0[m * K + k];
+        int y = arg1[k * N + n];
+        acc += x * y;
+      }
+      arg2[m * N + n] = acc;
+    }
+  }
+}
+
+int testCorrect(int *arg1, int *arg2) {
+  bool equal = true;
+  for (int i = 0; i < N * M; i++) {
+    if (arg1[i] != arg2[i]) {
+      equal = false;
+      break;
+    }
+  }
+  if (!equal)
+    std::cout << "  FAILED" << std::endl;
+  else
+    std::cout << "  PASSED" << std::endl;
+  return equal == true ? 0 : -1;
+}
+
 int main() {
 
   // This allocation is allowed if right dim is known at compile time.
@@ -142,9 +171,16 @@ int main() {
   auto arg0 = new int[M * K];
   auto arg1 = new int[K * N];
   auto arg2 = new int[M * N];
+  auto arg3 = new int[M * N];
 
   // printf("Before accelerator\n");
   // dump(arg0, arg1, arg2);
+
+  reset(arg0, arg1, arg3);
+#if TEST
+  // C++ MM implementation
+  simpleMM(arg0, arg1, arg3);
+#endif
 
 #ifdef RUNCPP
   // ==========================================================
@@ -170,6 +206,8 @@ int main() {
   v3_Cs(arg0, arg1, arg2);
 #elif ACCv3Ns
   v3_Ns(arg0, arg1, arg2);
+#elif ACCv4Ns
+  v4_Ns(arg0, arg1, arg2);
 #else
   std::cout << "No accelerator version specified" << std::endl;
   exit(1);
@@ -215,8 +253,15 @@ int main() {
   printf("Done.\n");
 #endif
 
+  int ret = 0;
+#if TEST
+  // Compare with C++ MM implementation
+  ret = testCorrect(arg2, arg3);
+  free(arg3);
+#endif
+
   free(arg0);
   free(arg1);
   free(arg2);
-  return 0;
+  return ret;
 }

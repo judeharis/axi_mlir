@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
     for (int m = 0; m < pM; m += block_M) {
       for (int k = 0; k < pK; k += block_K) {
 
-        // C stationary
+        // NS stationary
         int A_base = n * pK + k;
         int B_base = m * pK + k;
         int C_base = n * pM + m;
