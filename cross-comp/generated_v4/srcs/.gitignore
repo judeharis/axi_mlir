@@ -1,4 +1,4 @@
 array.sh
-compiler_mlir_array.sh
+compile_mlir_matmul-all.sh
 mlir_matmuls.h.inc
-mlir_matmuls.h
+mlir_matmuls.mlir
