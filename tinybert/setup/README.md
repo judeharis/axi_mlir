@@ -1,3 +1,26 @@
+
+# Using the precompiled wheels
+
+
+```
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+~/miniconda3/bin/conda init bash
+source ~/.bashrc
+
+
+conda create -y -n torch-mlir python=3.11
+conda activate torch-mlir
+pip install --pre torch-mlir -f https://llvm.github.io/torch-mlir/package-index/ --extra-index-url https://download.pytorch.org/whl/nightly/cpu
+pip install transformers
+```
+
+
+# Dockerfile
+
+```
 RUN git init /torch_mlir_src && \
     cd /torch_mlir_src && \
     git remote add origin ${TORCHMLIR_URL} && \
@@ -25,3 +48,4 @@ RUN mkdir -p /builds/torch-mlir /installs/torch-mlir && \
         -DLLVM_TARGETS_TO_BUILD=host && \
     cd /builds/torch-mlir && \
     ninja tools/torch-mlir/all install
+```
