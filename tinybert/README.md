@@ -22,10 +22,46 @@ mkdir -p ~/mlir
 cd ~/mlir
 wget https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.0/clang+llvm-16.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
 tar -xvf clang+llvm-16.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
+
+# MLIR will be available at ~/mlir/clang+llvm-16.0.0-x86_64-linux-gnu-ubuntu-18.04/bin/mlir-opt
 ```
 
+```bash
+```
 
-## Runtime Breakdown
+## x86 execution
+
+Using the following system:
+
+```
+model name:          AMD Ryzen 9 3900X 12-Core Processor
+Stepping:            0
+CPU MHz:             3792.888 (NOTE: CPUMHz/667 = 5.68 times faster)
+BogoMIPS:            7585.77
+Hypervisor vendor:   Microsoft
+Virtualization type: full
+L1d cache:           32K
+L1i cache:           32K
+L2 cache:            512K
+L3 cache:            16384K
+```
+
+Model compiled mlir>llvm>object using `mlir-opt`, `mlir-translate`, `clang -O3`
+
+```
+Time taken: 0.914677 seconds
+Time taken: 0.909171 seconds
+Time taken: 0.896614 seconds
+Time taken: 0.897428 seconds
+Time taken: 0.888495 seconds
+```
+
+I extrapolate that running this on the board would take around 5.11 seconds.
+From results below around 70-80% of the runtime belongs to matmuls.
+Which indicates that the Pynq-Z2 board would spend ~3.83seconds on matmuls.
+
+
+## Runtime Breakdown using torch.profile
 
 Using the following system:
 
