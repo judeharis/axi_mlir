@@ -118,7 +118,8 @@ def get_best_stationary_square_tile(outputs,x):
 def check_tile_constraints(tile_M, tile_K, tile_N,M,N,K):
     if tile_M * tile_K <= A_buffer_size and tile_K * tile_N <= B_buffer_size and tile_M * tile_N <= C_buffer_size:
         if tile_M <= M and tile_K <= K and tile_N <= N:
-            return True
+            if M%tile_M==0 and K%tile_K==0  and N%tile_N==0 :
+                return True
     return False
 
 def get_access_count(M,N,K,tile_sizes):
@@ -145,6 +146,7 @@ def get_access_count(M,N,K,tile_sizes):
     best_square_a = ""
     best_square_b = ""
     best_square_c = ""
+    best_square_n = ""
     if len(bests) > 0:
         best = bests[0]
     if len(bests_square_a) > 0:
@@ -153,7 +155,9 @@ def get_access_count(M,N,K,tile_sizes):
         best_square_b = bests_square_b[0]
     if len(bests_square_c) > 0:
         best_square_c = bests_square_c[0]
-    return best, best_square_a, best_square_b, best_square_c
+        best_square_n = bests_square_c[0].copy()
+        best_square_n[0] = "N"
+    return best, best_square_a, best_square_b, best_square_c, best_square_n
 
 
 

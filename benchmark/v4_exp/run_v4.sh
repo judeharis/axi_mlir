@@ -36,7 +36,7 @@ else
 fi
 
 
-rm ./perf_output_v4/*
+rm -f ./perf_output_v4/*
 
 source ./appslist.sh
 
@@ -60,9 +60,6 @@ done # End of INPUT loop
 
 # Process alls CSV files and concatenate into a final output
 mkdir -p results_v4
-# TODO: change timestamp to something that sorts automatically
-# use the date command to get a timestamp that sorts automatically
-# like this: 2019-03-20 15:00:00 UTC
 TIMESTAMP_RAW=$(date +%Y_%m_%d-%H:%M:%S-%Z)
 TIMESTAMP=${TIMESTAMP_RAW// /_}
 ./prepare_results_v4.py perf_output_v4 >results_v4/results-${HOSTNAME}-${TIMESTAMP}.csv
@@ -72,27 +69,3 @@ chown -R xilinx:xilinx *
 
 rm ./perf_output_v4/*
 
-# -----------------------------------------
-# Ignore this for now. Just an example on how to permute multiple options
-
-# declare -a StringArray=(
-#   "pynq_tiling1_4x4v1"
-# )
-
-# declare -a ArgArray=(
-#   "20_28_32"
-#   "60_72_80"
-# )
-
-# # Iterate the string array using for loop
-# for ARGCONCAT in ${ArgArray[@]}; do
-#   for INPUT in ${StringArray[@]}; do
-
-#     #ARGCONCAT="${ARG// /_}"
-#     ARG="${ARGCONCAT//_/ }"
-
-#     perf stat -r 5 -x, -o $POUTDIR/perf-results-$INPUT-$ARGCONCAT.csv -e $PEVENTS_ALL $APPDIR/$INPUT $ARG
-#     sleep 0.1
-
-#   done
-# done

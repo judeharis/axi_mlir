@@ -1,6 +1,4 @@
-    %33 = linalg.batch_matmul ins(%28, %31 : tensor<2x128x128xf32>, tensor<2x128x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
-    %37 = linalg.batch_matmul ins(%28, %36 : tensor<2x128x128xf32>, tensor<2x128x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
-    %43 = linalg.batch_matmul ins(%28, %42 : tensor<2x128x128xf32>, tensor<2x128x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
+
     %51 = linalg.batch_matmul ins(%collapsed, %collapsed_56 : tensor<4x128x64xf32>, tensor<4x64x128xf32>) outs(%50 : tensor<4x128x128xf32>) -> tensor<4x128x128xf32>
     %67 = linalg.batch_matmul ins(%collapsed_58, %collapsed_59 : tensor<4x128x128xf32>, tensor<4x128x64xf32>) outs(%66 : tensor<4x128x64xf32>) -> tensor<4x128x64xf32>
     %72 = linalg.batch_matmul ins(%collapsed_61, %71 : tensor<2x128x128xf32>, tensor<2x128x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
@@ -16,3 +14,23 @@
     %167 = linalg.batch_matmul ins(%164, %166 : tensor<2x128x512xf32>, tensor<2x512x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
     %185 = linalg.batch_matmul ins(%182, %184 : tensor<2x128x128xf32>, tensor<2x128x128xf32>) outs(%32 : tensor<2x128x128xf32>) -> tensor<2x128x128xf32>
     %206 = linalg.batch_matmul ins(%200, %204 : tensor<2x128x128xf32>, tensor<2x128x30522xf32>) outs(%205 : tensor<2x128x30522xf32>) -> tensor<2x128x30522xf32>
+
+
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x64xf32>,  tensor<64x128xf32>   outs(%50 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x64xf32>    outs(%66 : tensor<128x64xf32>) -> tensor<128x64xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x512xf32>   outs(%92 : tensor<128x512xf32>) -> tensor<128x512xf32>
+tensor<128x512xf32>, tensor<512x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x64xf32>,  tensor<64x128xf32>    outs(%50 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x64xf32>    outs(%66 : tensor<128x64xf32>) -> tensor<128x64xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x512xf32>   outs(%92 : tensor<128x512xf32>) -> tensor<128x512xf32>
+tensor<128x512xf32>, tensor<512x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x128xf32>   outs(%32 : tensor<128x128xf32>) -> tensor<128x128xf32>
+tensor<128x128xf32>, tensor<128x30522xf32> outs(%205 : tensor<128x30522xf32>) -> tensor<128x30522xf32>

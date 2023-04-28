@@ -95,7 +95,7 @@ InputIDMap, OutputIDMap, DataIDMap, IDDatamap = df.createIOIDMap(acc)
 InstructionList = df.createInstructionList(acc, DataIDMap)
 sInstructionList = df.createSInstructionList(acc, DataIDMap)
 opcode_per_data = df.dataRelatedOpcodes(InstructionList, DataIDMap)
-print(InstructionList)
+# print(InstructionList)
 
 
 icmdlist, ocmdlist = df.createAllVariations(InputIDMap, OutputIDMap)
@@ -103,6 +103,8 @@ no_sdf = df.createNoStationary(icmdlist, ocmdlist)
 in_sdf = df.createInputStationary(icmdlist, ocmdlist)
 out_sdf = df.createOutputStationary(icmdlist, ocmdlist)
 
+# print(InstructionList)
+# print(in_sdf)
 stat_data = args.stationary-1
 opcode_flows=[]
 if(args.stationary):
@@ -111,18 +113,20 @@ if(args.stationary):
     elif (stat_data in OutputIDMap):
         opcode_flows = dft.bracketedToCleanVariations(out_sdf[stat_data-len(InputIDMap)],InstructionList)
     else:
-        opcode_flows = dft.bracketedToCleanVariations(no_sdf[0],InstructionList)
-        print("Incorrect stationary choice, defaulting to No-stationary option")
+        for sdf in no_sdf:
+            opcode_flows = opcode_flows + dft.bracketedToCleanVariations(sdf,InstructionList)
+            print("Incorrect stationary choice, defaulting to No-stationary option")
 else:
-    opcode_flows = dft.bracketedToCleanVariations(no_sdf[0],InstructionList)
-    print("NoSDF")
+    for sdf in no_sdf:
+        opcode_flows = opcode_flows + dft.bracketedToCleanVariations(sdf,InstructionList)
+    print("Incorrect stationary choice, defaulting to No-stationary option")
 
 if(opcode_flows==[]):
     opcode_flows = dft.bracketedToCleanVariations(no_sdf[0],InstructionList)
     print(f"Accelerator does not support {IDDatamap[stat_data]} stationary dataflow, defaulting to No-stationary option")
 
-print(opcode_flows)
-print(u.findleastopcodesDF(opcode_flows))
+# print(opcode_flows)
+# print(u.findleastopcodesDF(opcode_flows))
 
 ##########################################
 ##########################################
@@ -130,27 +134,27 @@ print(u.findleastopcodesDF(opcode_flows))
 # Generate Outputs
 
 
-output_matmul_trait = {}
-opcode_map = {"opcode_map": str(sInstructionList)}
-indexing_maps_l = []
-for i in acc["indexing_maps"]:
-    indexing_maps_l.append(u.cmap(i["from"], i["to"], "affine"))
+# output_matmul_trait = {}
+# opcode_map = {"opcode_map": str(sInstructionList)}
+# indexing_maps_l = []
+# for i in acc["indexing_maps"]:
+#     indexing_maps_l.append(u.cmap(i["from"], i["to"], "affine"))
 
-indexing_maps = {"indexing_maps": indexing_maps_l}
-permutation_map = {"permutation_map": u.cmap(
-    acc["permutation_map"]["from"], acc["permutation_map"]["to"], "affine")}
-accel_dim = {"accel_dim": u.cmap(["m", "n", "k"], [acc['tile_size'],
-                                                   acc['tile_size'], acc['tile_size']])}
-iterator_types = {"iterator_types": ["parallel", "parallel", "reduction"]}
-flow_pattern = {"flow_pattern": u.findleastopcodesDF(opcode_flows)}
-init_opcodes = {"init_opcodes": "reset"}
-dma_init_config = {"dma_init_config": u.dma(acc["dma_config"])}
-output_matmul_trait = [iterator_types,
-                       flow_pattern, init_opcodes, indexing_maps, permutation_map, accel_dim, dma_init_config, opcode_map]
+# indexing_maps = {"indexing_maps": indexing_maps_l}
+# permutation_map = {"permutation_map": u.cmap(
+#     acc["permutation_map"]["from"], acc["permutation_map"]["to"], "affine")}
+# accel_dim = {"accel_dim": u.cmap(["m", "n", "k"], [acc['tile_size'],
+#                                                    acc['tile_size'], acc['tile_size']])}
+# iterator_types = {"iterator_types": ["parallel", "parallel", "reduction"]}
+# flow_pattern = {"flow_pattern": u.findleastopcodesDF(opcode_flows)}
+# init_opcodes = {"init_opcodes": "reset"}
+# dma_init_config = {"dma_init_config": u.dma(acc["dma_config"])}
+# output_matmul_trait = [iterator_types,
+#                        flow_pattern, init_opcodes, indexing_maps, permutation_map, accel_dim, dma_init_config, opcode_map]
 
 
-# u.trait_print(output_matmul_trait)
-ret = u.trait_cmd_print(output_matmul_trait)
-print(ret)
-ret=ret.replace("\n"," ")
-print(ret)
+# # u.trait_print(output_matmul_trait)
+# ret = u.trait_cmd_print(output_matmul_trait)
+# print(ret)
+# ret=ret.replace("\n"," ")
+# print(ret)
