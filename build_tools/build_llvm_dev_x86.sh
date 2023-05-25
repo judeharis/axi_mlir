@@ -36,10 +36,10 @@ echo "Using LLVM source dir: $LLVM_SRC_DIR"
 
 
 # Setup directories.
-echo "Building MLIR for host in $build_dir-arm"
-mkdir -p "$build_dir-arm"
-echo "Creating directory to install: $install_dir-arm"
-mkdir -p "$install_dir-arm"
+echo "Building MLIR for host in $build_dir$suffix"
+mkdir -p "$build_dir$suffix"
+echo "Creating directory to install: $install_dir$suffix"
+mkdir -p "$install_dir$suffix"
 
 echo "Beginning build (commands will echo)"
 set -x
