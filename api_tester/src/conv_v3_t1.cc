@@ -102,7 +102,8 @@ void dump_out(conv2d_params p, int *arg2) {
 //         int h = oh + fh;
 //         int w = ow + fw;
 //         dma_inbuffer[data_len] = arg0[(b * p->ic * p->ih * p->iw) +
-//                                       (ic * p->ih * p->iw) + (h * p->iw) + w];
+//                                       (ic * p->ih * p->iw) + (h * p->iw) +
+//                                       w];
 //         dma_inbuffer[offset + data_len++] =
 //             arg1[(oc * p->ic * p->fh * p->fw) + (ic * p->fh * p->fw) +
 //                  (fh * p->fw) + fw];
@@ -168,7 +169,7 @@ int main(int argc, char *argv[]) {
 
   // coreKernel(arg0, arg1, arg2, &dma1, &p, b, oh, ow, oc);
 
-  unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
+  // unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
   // Start Tiling
   for (int b = 0; b < p.b; b++) {
     for (int oc = 0; oc < p.oc; oc++) {
@@ -182,7 +183,8 @@ int main(int argc, char *argv[]) {
 
       // Send Filter data for current OC
       int data_len = 0;
-      uint32_t opcode = 1;
+      opcode = 1;
+      dma_inbuffer[data_len++] = opcode;
       for (int ic = 0; ic < p.ic; ic++) {
         for (int fh = 0; fh < p.fh; fh++) {
           for (int fw = 0; fw < p.fw; fw++) {
@@ -200,6 +202,8 @@ int main(int argc, char *argv[]) {
       for (int oh = 0; oh < p.oh; oh++) {
         for (int ow = 0; ow < p.ow; ow++) {
           uint32_t opcode = 6 + 64;
+          data_len = 0;
+          dma_inbuffer[data_len++] = opcode;
           for (int ic = 0; ic < p.ic; ic++) {
             for (int fh = 0; fh < p.fh; fh++) {
               for (int fw = 0; fw < p.fw; fw++) {
@@ -216,7 +220,7 @@ int main(int argc, char *argv[]) {
         }
       }
 
-       // Send Recieve all outputs for current OC 
+      // Send Recieve all outputs for current OC
       data_len = 0;
       opcode = 8;
       dma_inbuffer[0] = opcode;
@@ -225,11 +229,11 @@ int main(int argc, char *argv[]) {
       dma1.dma_start_recv(p.oh * p.ow, 0);
       dma1.dma_wait_recv();
       unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
-      int out_index=0;
+      int out_index = 0;
       for (int oh = 0; oh < p.oh; oh++) {
         for (int ow = 0; ow < p.ow; ow++) {
-          arg2[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) +
-               (ow * p.oc) + oc] += dma_outbuffer[out_index++];
+          arg2[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) + (ow * p.oc) +
+               oc] += dma_outbuffer[out_index++];
         }
       }
     }
@@ -237,6 +241,9 @@ int main(int argc, char *argv[]) {
   dma1.dma_free();
   dump_out(p, arg2);
 }
+
+
+// (SF (SI C AC)+ RC)+ : Send Filter, (Send Input,Compute, Accumulate on Acc), Recieve Output Kernel
 
 //  ((SF ((SI C AC)+)+ RC)+)+ -- filter S
 
