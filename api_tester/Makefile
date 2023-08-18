@@ -3,7 +3,8 @@
 
 # CC = g++
 CC = clang++-10
-ACC = arm-linux-gnueabihf-g++
+# ACC = arm-linux-gnueabihf-g++
+ACC = /home/jude/Workspace/PYNQCC/gcc-arm-8.3-2019.03-x86_64-arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++
 
 SYSC_PATH= ${SYSTEMC_HOME}
 SYSC_INCLUDE=-I$(SYSC_PATH)/include
@@ -44,7 +45,7 @@ pynq: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_unit_test pynq_benchmark
 
 pynq_exp: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_accv1 pynq_accv2 pynq_accv3 pynq_accv4 pynq_accv5 
 
-pynq_conv: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_conv_v2
+pynq_conv: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_conv_v3
 
 pynq_accv1 : pynq_tiling1_4x4v1
 
@@ -57,6 +58,8 @@ pynq_accv4 : pynq_tiling1_4x4v4 pynq_tiling2_4x4v4 pynq_tiling3_4x4v4
 pynq_accv5 : pynq_tiling1_4x4v5 
 
 pynq_conv_v2 : pynq_conv2
+
+pynq_conv_v3 : pynq_conv3
 
 pynq_test: $(PYNQ_OBJDIR) pynq_api_v1 pynq_api_v1_lib pynq_mmv1_ts1 pynq_mmv1_ts1_prof pynq_mmv1_ts1_hwc pynq_conv_v1
 
@@ -199,6 +202,13 @@ pynq_tiling1_4x4v5: $(PYNQ_OBJDIR)
 
 pynq_conv2: $(PYNQ_OBJDIR)
 	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/conv_v2_t1 $(SRC)/conv_v2_t1.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+# ----------------ConvV3----------------
+
+pynq_conv3: $(PYNQ_OBJDIR)
+	$(ACC) -L$(PYNQ_OBJDIR)/ -Wall -o $(PYNQ_OBJDIR)/conv_v3_t1 $(SRC)/conv_v3_t1.cc -lpynq_api_v1 $(CFLAGS) $(INCLUDE) $(ACCCXXFLAGS)
+
+
 
 
 #----------------------- SYSC 

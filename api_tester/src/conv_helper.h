@@ -1,6 +1,7 @@
 #ifndef CONV_HELPER
 #define CONV_HELPER
 
+#include <assert.h>
 struct conv2d_params {
   int b;  // batch
   int ih; // input height
@@ -17,6 +18,18 @@ struct conv2d_params {
   // int padding[4];
   // int strides[2];
   // int dil[2];
+
+  void validate(){
+    assert(ih > 0);
+    assert(iw > 0);
+    assert(ic > 0);
+    assert(fh > 0);
+    assert(fw > 0);
+    assert(oc > 0);
+    assert(oh > 0);
+    assert(ow > 0);
+
+  };
 };
 
 

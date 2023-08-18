@@ -123,31 +123,33 @@ void dump_out(conv2d_params p, int *arg2) {
 int main(int argc, char *argv[]) {
 
   LOG("=========================");
-  LOG("ACC: Conv_v2");
+  LOG("ACC: Conv_v3");
   LOG("Tiling Strat: 1");
   LOG("=========================");
 
   int b = 1;
-  int ih = 5;
-  int iw = 5;
-  int ic = 4;
-  int fh = 3;
-  int fw = 3;
+  int ih = 9;
+  int iw = 9;
+  int ic = 8;
+  int fh = 5;
+  int fw = 5;
   int oc = 2;
   int stride = 1;
   int oh = ih - (fh - stride);
   int ow = iw - (fw - stride);
 
   struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow};
+  p.validate();
   auto arg0 = new int[b * ih * iw * ic];
   auto arg1 = new int[fh * fw * ic * oc];
   auto arg2 = new int[b * oh * ow * oc];
+  auto arg3 = new int[b * oh * ow * oc];
 
   // C++ Conv2D implementation
-  reset(p, arg0, arg1, arg2);
+  reset(p, arg0, arg1, arg3);
   dump_in(p, arg0, arg1);
-  simpleConv2D(p, arg0, arg1, arg2);
-  dump_out(p, arg2);
+  simpleConv2D(p, arg0, arg1, arg3);
+  dump_out(p, arg3);
 
   // C++ wit ACC Conv2D implementation
   // Init DMA + ACC + reset output
@@ -171,8 +173,8 @@ int main(int argc, char *argv[]) {
 
   // unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
   // Start Tiling
-  for (int b = 0; b < p.b; b++) {
-    for (int oc = 0; oc < p.oc; oc++) {
+  for (int b = 0; b < p.b; b++) { // N 
+    for (int oc = 0; oc < p.oc; oc++) {  // F
 
       // Send IC parameter
       uint32_t opcode = 16;
@@ -185,9 +187,9 @@ int main(int argc, char *argv[]) {
       int data_len = 0;
       opcode = 1;
       dma_inbuffer[data_len++] = opcode;
-      for (int ic = 0; ic < p.ic; ic++) {
-        for (int fh = 0; fh < p.fh; fh++) {
-          for (int fw = 0; fw < p.fw; fw++) {
+      for (int ic = 0; ic < p.ic; ic++) {  // C 
+        for (int fh = 0; fh < p.fh; fh++) { // H
+          for (int fw = 0; fw < p.fw; fw++) { // W
             dma_inbuffer[data_len++] =
                 arg1[(oc * p.ic * p.fh * p.fw) + (ic * p.fh * p.fw) +
                      (fh * p.fw) + fw];
@@ -199,14 +201,14 @@ int main(int argc, char *argv[]) {
 
       // Send Input data for current OC + Compute and Save inside accelerator
       data_len = 0;
-      for (int oh = 0; oh < p.oh; oh++) {
+      for (int oh = 0; oh < p.oh; oh++) { 
         for (int ow = 0; ow < p.ow; ow++) {
           uint32_t opcode = 6 + 64;
           data_len = 0;
           dma_inbuffer[data_len++] = opcode;
-          for (int ic = 0; ic < p.ic; ic++) {
-            for (int fh = 0; fh < p.fh; fh++) {
-              for (int fw = 0; fw < p.fw; fw++) {
+          for (int ic = 0; ic < p.ic; ic++) { // C
+            for (int fh = 0; fh < p.fh; fh++) { // H
+              for (int fw = 0; fw < p.fw; fw++) { // W
                 int h = oh + fh;
                 int w = ow + fw;
                 dma_inbuffer[data_len++] =
@@ -242,8 +244,8 @@ int main(int argc, char *argv[]) {
   dump_out(p, arg2);
 }
 
-
-// (SF (SI C AC)+ RC)+ : Send Filter, (Send Input,Compute, Accumulate on Acc), Recieve Output Kernel
+// (SF (SI C AC)+ RC)+ : Send Filter, (Send Input,Compute, Accumulate on Acc),
+// Recieve Output Kernel
 
 //  ((SF ((SI C AC)+)+ RC)+)+ -- filter S
 
