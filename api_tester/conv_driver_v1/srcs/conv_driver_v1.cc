@@ -157,9 +157,13 @@ int main() {
   // ==========================================================
   // MLIR without C interface
   // clang-format off
-  // MLIRMATMULCALL((int *)arg0, (int *)arg0, 0, M, K, K, 1,
-  //                (int *)arg1, (int *)arg1, 0, K, N, N, 1,
-  //                (int *)arg2, (int *)arg2, 0, M, N, N, 1);
+  // TODO, must double check sizes and strides
+  MLIRCONV2DCALL((int *)arg0, (int *)arg0, 0, p.b, p.ih, p.iw, p.ic,
+                                              p.ih*p.iw*p.ic, p.iw*p.ic, p.ic, 1,
+                 (int *)arg1, (int *)arg1, 0, p.fh, p.fw, p.ic, p.oc,
+                                              p.fw*p.ic*p.oc, p.ic*p.oc, p.oc, 1,
+                 (int *)arg2, (int *)arg2, 0, p.b, p.oh, p.ow, p.oc,
+                                              p.oh*p.ow*p.oc, p.ow*p.oc, p.oc, 1);
 #if DBG
   printf("Executed MLIR version on accelerator\n");
 #endif

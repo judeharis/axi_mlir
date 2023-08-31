@@ -22,7 +22,7 @@
 #endif
 
 #ifndef IHW
-#define IHW 9
+#define IHW 230
 #endif
 
 #ifndef IC
@@ -30,31 +30,31 @@
 #endif
 
 #ifndef FHW
-#define FHW 5
+#define FHW 7
 #endif
 
 #ifndef OC
-#define OC 2
+#define OC 64
 #endif
 
 #ifndef ST
-#define ST 1
+#define ST 2
 #endif
 
 // Calls
-// #ifndef MLIRMATMULCALL
-// #define MLIRMATMULCALL matmul_m64_n64_k64_MEM_call
-// #endif
-// #ifndef CIMLIRMATMULCALL
-// #define CIMLIRMATMULCALL _mlir_ciface_matmul_m64_n64_k64_MEM_call
-// #endif
+#ifndef MLIRMATMULCALL
+#define MLIRMATMULCALL conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call
+#endif
+#ifndef CIMLIRMATMULCALL
+#define CIMLIRMATMULCALL _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call
+#endif
 
-// #ifndef MLIRMATMULCALLCPU
-// #define MLIRMATMULCALLCPU matmul_m64_n64_k64_CPU_call
-// #endif
+#ifndef MLIRMATMULCALLCPU
+#define MLIRMATMULCALLCPU conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call
+#endif
 
-// #ifndef CIMLIRMATMULCALLCPU
-// #define CIMLIRMATMULCALLCPU _mlir_ciface_matmul_m64_n64_k64_CPU_call
-// #endif
+#ifndef CIMLIRMATMULCALLCPU
+#define CIMLIRMATMULCALLCPU _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call
+#endif
 
 #endif /* CONV_CONFIG_H */

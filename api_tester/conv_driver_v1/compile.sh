@@ -74,49 +74,52 @@ source ./generate_all.sh
 source ./generated/array.sh
 
 # ===========================
-# Compiling mlir conv2d library for a given accelerator size
-echo "Compiling mlir conv2d library for a given accelerator size..."
+# Compiling mlir conv2d library for a given accelerator type
+echo "Compiling mlir conv2d library for a given accelerator type..."
 
+# Iterate the string array using for loop
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
-# source srcs/compile_mlir_conv2d-all.sh
+source scripts/compile_mlir_conv2d-all.sh
 
 ## This generated .ll file
-# $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
-#   -o $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll \
-#   $OUTDIR/llvm_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
+$PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
+  -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.ll \
+  $OUTDIR/llvm_acc_${ACCEL_TYPE}.mlir
 
 ## Using the .ll file generated above, we can compile it to a .so file
 # if target is do what is below, else link the systemc library
-# if [ $TARGET == "arm" ]; then
-#   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
-#     --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
-#     -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
-#     -c -o $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-#     $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
+if [ $TARGET == "arm" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
+    --target=arm-linux-gnueabihf -march=armv7-a -marm -mfloat-abi=hard \
+    -mfpu=neon -funsafe-math-optimizations -ftree-vectorize \
+    -c -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.o \
+    $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.ll
 
-#   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
-#     -o $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
-#     $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-#     --target=arm-linux-gnueabihf \
-#     -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
-#     -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
-#     -lmlir_runner_utils -lmlir_axi_runner_utils
-# elif [ $TARGET == "sysc" ]; then
-#   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
-#     -c -o $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-#     $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.ll
-#   SYSC_LIB=-lmlir_syscaxi_runner_utils
-#   if [ "$ACCEL_TYPE" == "v4" ]; then
-#     SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
-#   fi
-#   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
-#     -o $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.so \
-#     $OUTDIR/libmlirconv2ds_acc${ACCEL_SIZE}_${ACCEL_TYPE}.o \
-#     -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
-#     -lmlir_runner_utils $SYSC_LIB
-# fi
-# echo "... Done compiling mlir conv2d library for a given accelerator size."
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
+    -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.so \
+    $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.o \
+    --target=arm-linux-gnueabihf \
+    -Wl,-rpath=$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+    -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
+    -lmlir_runner_utils -lmlir_axi_runner_utils
+elif [ $TARGET == "sysc" ]; then
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ \
+    -c -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.o \
+    $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.ll
+  SYSC_LIB=-lmlir_syscaxi_runner_utils
+  if [ "$ACCEL_TYPE" == "v4" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  fi
+  $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
+    -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.so \
+    $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.o \
+    -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
+    -lmlir_runner_utils $SYSC_LIB
+fi
+done # ACCEL_TYPE
+echo "... Done compiling mlir conv2d library for a given accelerator size."
 
 
 
