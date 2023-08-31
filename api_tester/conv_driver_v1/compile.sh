@@ -56,9 +56,9 @@ fi
 
 # Static CONFIGS
 KERNEL_NAME=conv2d
-STRATEGY=MAN
+ACCEL_TYPE=v3
+# STRATEGY=MAN
 # STRATEGY=ACC
-
 
 # ===========================
 # Declaring input arrays
@@ -79,7 +79,7 @@ source ./generated/array.sh
 echo "Compiling mlir conv2d library for a given accelerator type..."
 
 # Iterate the string array using for loop
-for ACCEL_TYPE in ${AccelTypeArray[@]}; do
+# for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
 source scripts/compile_mlir_conv2d-all.sh
@@ -110,8 +110,8 @@ elif [ $TARGET == "sysc" ]; then
     -c -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.o \
     $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.ll
   SYSC_LIB=-lmlir_syscaxi_runner_utils
-  if [ "$ACCEL_TYPE" == "v4" ]; then
-    SYSC_LIB=-lmlir_syscaxi_runner_utils_accv4
+  if [ "$ACCEL_TYPE" == "v3" ]; then
+    SYSC_LIB=-lmlir_syscaxi_runner_utils_conv_accv3
   fi
   $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -shared \
     -o $OUTDIR/libmlirconv2ds_acc_${ACCEL_TYPE}.so \
@@ -119,19 +119,14 @@ elif [ $TARGET == "sysc" ]; then
     -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
     -lmlir_runner_utils $SYSC_LIB
 fi
-done # ACCEL_TYPE
+# done # ACCEL_TYPE
 echo "... Done compiling mlir conv2d library for a given accelerator size."
-
-
 
 # ===========================
 # Compiling output binary for a given problem
 echo "Compiling output binary for a given problem..."
 
 install -m 777 /dev/null $OUTDIR/appslist.sh
-
-
-for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 echo "declare -a AppArray=(" >$OUTDIR/appslist.sh
 length=${#TagArray[@]}
@@ -142,17 +137,21 @@ for ((j = 0; j < length; j++)); do
   FHW=${FHWArray[$j]}
   OC=${OCArray[$j]}
   ST=${STArray[$j]}
+  LANG=${LangArray[$j]}
+  # TARGET=${TargetArray[$j]}
+  ACCEL_NAME=${AccelNameArray[$j]}
+  DATAFLOW=${DataflowArray[$j]}
+  MLIRCONV2DCALL=${MLIRCallArray[$j]}
+
   DIMS=b${B}_ihw${IHW}_ic${IC}_fhw${FHW}_oc${OC}_st${ST}
 
-
-  # RUN_NAME=${KERNEL_NAME}-${DIMS}-${TagArray[$j]}-${STRATEGY}
   RUN_NAME=${KERNEL_NAME}-${TagArray[$j]}
 
   APPNAME=driver-${RUN_NAME}-app
   echo "    ${APPNAME}" >>$OUTDIR/appslist.sh
 
-  if [ "$STRATEGY" == "ACC" ]; then
-    ADDITIONAL_FLAGS=-DRUNMLIR
+  if [ "$LANG" == "MLIR" ]; then
+    ADDITIONAL_FLAGS="-DRUNMLIR -DMLIRCONV2DCALL=$MLIRCONV2DCALL"
   else
     ADDITIONAL_FLAGS="-DRUNCPP"
   fi
@@ -170,6 +169,7 @@ for ((j = 0; j < length; j++)); do
       -L$PROJ_ROOT/builds/llvm-project/build-runner-arm/lib \
       -lmlir_runner_utils -lmlir_c_runner_utils -lmlir_axi_runner_utils \
       -L$OUTDIR \
+      -lmlirconv2ds_acc_${ACCEL_TYPE} \
       -DB=$B \
       -DIHW=$IHW \
       -DIC=$IC \
@@ -181,7 +181,6 @@ for ((j = 0; j < length; j++)); do
       $ADDITIONAL_FLAGS
 
   elif [ $TARGET == "sysc" ]; then
-    SYSC_LIB=-lmlir_syscaxi_runner_utils_conv_accv3
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
       srcs/conv_driver_v1.cc \
       -Isrcs \
@@ -207,8 +206,6 @@ for ((j = 0; j < length; j++)); do
   set +x
 done #TagArray
 echo ")" >>$OUTDIR/appslist.sh
-
-done #AccelTypeArray
 
 echo "... Done compiling apps"
 if [ $TARGET == "sysc" ]; then

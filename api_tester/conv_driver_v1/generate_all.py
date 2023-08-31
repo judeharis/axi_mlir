@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import argparse
 import itertools
+import os
 
 
 # tinybert
@@ -10,10 +11,9 @@ import itertools
 # problems = [[1, 7, 3, 3, 2, 2]]
 
 
-
 # [b,iwh,ic,fwh,oc,st]
 # resnet18
-layer_0 = [1,230,3,7,64,2,'Valid',112]
+layer_0 = [1, 230, 3, 7, 64, 2, "Valid", 112]
 # layer_1 = [1,58,64,3,64,1,'Same',56]
 # layer_2 = [1,56,64,1,128,2,'Same',28]
 # layer_3 = [1,58,64,3,128,2,'Valid',28]
@@ -27,16 +27,16 @@ layer_0 = [1,230,3,7,64,2,'Valid',112]
 
 problems = [
     layer_0,
-#     layer_1,
-#     layer_2,
-#     layer_3,
-#     layer_4,
-#     layer_5,
-#     layer_6,
-#     layer_7,
-#     layer_8,
-#     layer_9,
-#     layer_10,
+    #     layer_1,
+    #     layer_2,
+    #     layer_3,
+    #     layer_4,
+    #     layer_5,
+    #     layer_6,
+    #     layer_7,
+    #     layer_8,
+    #     layer_9,
+    #     layer_10,
 ]
 
 tag_array = []
@@ -46,17 +46,40 @@ ic_array = []
 fhw_array = []
 oc_array = []
 st_array = []
+lang_array = []
+target_array = []
+accel_name_array = []
+dataflow_array = []
+mlir_call = []
 
 
-def process(id, dims, strategy):
-    tag = f"B{dims[0]}_IHW{dims[1]}_IC{dims[2]}_FHW{dims[3]}_OC{dims[4]}_ST{dims[5]}-{strategy}"
-    tag_array.append(tag) 
+def process(id, dims, lang, target, accel_name, dataflow):
+    tag = f"B{dims[0]}_IHW{dims[1]}_IC{dims[2]}_FHW{dims[3]}_OC{dims[4]}_ST{dims[5]}-{lang}-{target}-{accel_name}-{dataflow}"
+    tag_array.append(tag)
     b_array.append(dims[0])
     ihw_array.append(dims[1])
     ic_array.append(dims[2])
     fhw_array.append(dims[3])
     oc_array.append(dims[4])
     st_array.append(dims[5])
+    lang_array.append(lang)
+    target_array.append(target)
+    accel_name_array.append(accel_name)
+    dataflow_array.append(dataflow)
+    mlir_call.append(
+        "conv2d_B{}_IHW{}_IC{}_FHW{}_OC{}_ST{}_{}_{}_{}_call".format(
+            dims[0],
+            dims[1],
+            dims[2],
+            dims[3],
+            dims[4],
+            dims[5],
+            lang,
+            target,
+            accel_name,
+            dataflow,
+        )
+    )
 
 
 def declare_arrary(f, name, list):
@@ -81,12 +104,12 @@ def main(raw_args=None):
     args = parser.parse_args(raw_args)
     id = 0
     for dims in problems:
-        process(id, dims, "MANUAL_ACC-CONV_v3-Fs")
-        process(id, dims, "MLIR_CPU-NONE-NONE")
-        process(id, dims, "MLIR_ACC-CONV_v3-Fs")
-
+        process(id, dims, "MANUAL", "ACC", "v3", "Fs")
+        process(id, dims, "MLIR", "ACC", "v3", "Fs")
+        process(id, dims, "MLIR", "CPU", "NONE", "NONE")
         id += 1
 
+    os.system("mkdir -p generated")
     f = open("generated/array.sh", "w")
     declare_arrary(f, "Tag", tag_array)
     declare_arrary(f, "B", b_array)
@@ -95,6 +118,11 @@ def main(raw_args=None):
     declare_arrary(f, "FHW", fhw_array)
     declare_arrary(f, "OC", oc_array)
     declare_arrary(f, "ST", st_array)
+    declare_arrary(f, "Lang", lang_array)
+    declare_arrary(f, "Target", target_array)
+    declare_arrary(f, "AccelName", accel_name_array)
+    declare_arrary(f, "Dataflow", dataflow_array)
+    declare_arrary(f, "MLIRCall", mlir_call)
     f.close()
 
 

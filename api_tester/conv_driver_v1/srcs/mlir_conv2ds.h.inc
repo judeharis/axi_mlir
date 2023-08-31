@@ -1,6 +1,6 @@
 
 // CPU
-extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call(
+extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_MLIR_CPU_NONE_call(
   // First Memref (%arg0)
   int *allocated_ptr0, int *aligned_ptr0,
   int64_t offset0, 
@@ -24,13 +24,13 @@ extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call(
   int64_t stride2_d2, int64_t stride2_d3
   );
 
-extern "C" void _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call(
+extern "C" void _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_MLIR_CPU_NONE_call(
   memref_4d_descriptor *arg0,
   memref_4d_descriptor *arg1,
   memref_4d_descriptor *arg2);
 
 // TODO: ACCEL
-extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call(
+extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_MLIR_ACC_v3_call(
   // First Memref (%arg0)
   int *allocated_ptr0, int *aligned_ptr0,
   int64_t offset0, 
@@ -54,7 +54,7 @@ extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call(
   int64_t stride2_d2, int64_t stride2_d3
   );
 
-extern "C" void _mlir_ciface_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call(
+extern "C" void _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_MLIR_ACC_v3_call(
   memref_4d_descriptor *arg0,
   memref_4d_descriptor *arg1,
   memref_4d_descriptor *arg2);

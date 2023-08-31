@@ -118,8 +118,6 @@ int main() {
   int oc = OC;
   int stride = ST;
   int pad = 0;
-  // int oh = ih - (fh - stride);
-  // int ow = iw - (fw - stride);
   int oh = (((ih - fh + 2*pad)/stride) + 1);
   int ow = (((iw - fw + 2*pad)/stride) + 1);
 
@@ -177,7 +175,7 @@ int main() {
          p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow);
   printf("finished execution. Printing matrices: \n");
   // dump_in(p, arg0, arg1);
-  dump_out(p,arg2);
+  // dump_out(p,arg2);
 #endif
 
 int ret = 0;
@@ -185,7 +183,7 @@ int ret = 0;
 #if TEST
   ret = testCorrect(arg2, arg3, ow*oh*oc);
 #if DBG
-  dump_out(p,arg3);
+  // dump_out(p,arg3);
 #endif
 #endif
 
