@@ -1,6 +1,7 @@
 #include "conv_config.h"
 #include "conv_helper.h"
 #include "conv_v3_t1.h"
+#include "mlir_utils.h"
 #include "mlir/ExecutionEngine/axi/api_v1.h"
 #include <cstdlib>
 #include <iomanip>

@@ -57,6 +57,7 @@ fi
 # Static CONFIGS
 KERNEL_NAME=conv2d
 STRATEGY=MAN
+# STRATEGY=ACC
 
 
 # ===========================
@@ -129,6 +130,9 @@ echo "Compiling output binary for a given problem..."
 
 install -m 777 /dev/null $OUTDIR/appslist.sh
 
+
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
+
 echo "declare -a AppArray=(" >$OUTDIR/appslist.sh
 length=${#TagArray[@]}
 for ((j = 0; j < length; j++)); do
@@ -153,7 +157,7 @@ for ((j = 0; j < length; j++)); do
     ADDITIONAL_FLAGS="-DRUNCPP"
   fi
 
-  # set -x
+  set -x
   if [ $TARGET == "arm" ]; then
     $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang++ -o $OUTDIR/$APPNAME \
       srcs/conv_driver_v1.cc \
@@ -187,6 +191,7 @@ for ((j = 0; j < length; j++)); do
       -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
       -lmlir_runner_utils $SYSC_LIB \
       -L$OUTDIR \
+      -lmlirconv2ds_acc_${ACCEL_TYPE} \
       -DB=$B \
       -DIHW=$IHW \
       -DIC=$IC \
@@ -199,9 +204,11 @@ for ((j = 0; j < length; j++)); do
       -DCONV_V3 \
       $ADDITIONAL_FLAGS
   fi
-  # set +x
+  set +x
 done #TagArray
 echo ")" >>$OUTDIR/appslist.sh
+
+done #AccelTypeArray
 
 echo "... Done compiling apps"
 if [ $TARGET == "sysc" ]; then
@@ -211,7 +218,7 @@ if [ $TARGET == "sysc" ]; then
   echo 'done' >>$OUTDIR/appslist.sh
   echo ""
   echo "WARNING: Runing systemc simulation requires to export the LD_LIBRARY_PATH"
-  echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PROJ_ROOT/api_tester_conv_driver_v1/output:/working_dir/builds/llvm-project/build-x86/lib"
+  echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PROJ_ROOT/api_tester/conv_driver_v1/output:/working_dir/builds/llvm-project/build-x86/lib"
 
   # echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PROJ_ROOT/cross-comp/generated_v4/output:/working_dir/builds/llvm-project/build-x86/lib"
 fi
