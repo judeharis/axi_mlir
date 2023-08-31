@@ -30,7 +30,7 @@ extern "C" void _mlir_ciface_conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_CPU_call(
   memref_4d_descriptor *arg2);
 
 // TODO: ACCEL
-extern "C" void B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call(
+extern "C" void conv2d_B1_IHW230_IC3_FHW7_OC64_ST2_ACC_v3_Fs_call(
   // First Memref (%arg0)
   int *allocated_ptr0, int *aligned_ptr0,
   int64_t offset0, 

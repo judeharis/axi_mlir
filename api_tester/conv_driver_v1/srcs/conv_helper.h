@@ -15,9 +15,16 @@ struct conv2d_params {
   int oh; // output height
   int ow; // output width
 
-  // int padding[4];
-  // int strides[2];
-  // int dil[2];
+  // Same padding, stride, and dilation for all dimensions
+  int padding;
+  int stride;
+  int dil;
+
+  // Constructor with arguments
+  conv2d_params(int b, int ih, int iw, int ic, int fh, int fw, int oc, int oh,
+                int ow, int stride, int padding)
+      : b(b), ih(ih), iw(iw), ic(ic), fh(fh), fw(fw), oc(oc), oh(oh), ow(ow),
+        stride(stride), padding(padding){};
 
   void validate(){
     assert(ih > 0);
@@ -28,6 +35,8 @@ struct conv2d_params {
     assert(oc > 0);
     assert(oh > 0);
     assert(ow > 0);
+    assert(stride > 0);
+    assert(padding >= 0);
 
   };
 };

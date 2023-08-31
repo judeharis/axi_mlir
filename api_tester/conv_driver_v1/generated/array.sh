@@ -1,21 +1,35 @@
 declare -a TagArray=(
-  "0_B1_IHW7_IC8_FHW5_OC2_ST1_MANUAL" 
+  "B1_IHW230_IC3_FHW7_OC64_ST2-MANUAL_ACC-CONV_v3-Fs" 
+  "B1_IHW230_IC3_FHW7_OC64_ST2-MLIR_CPU-NONE-NONE" 
+  "B1_IHW230_IC3_FHW7_OC64_ST2-MLIR_ACC-CONV_v3-Fs" 
 )
 declare -a BArray=(
   "1" 
+  "1" 
+  "1" 
 )
 declare -a IHWArray=(
-  "7" 
+  "230" 
+  "230" 
+  "230" 
 )
 declare -a ICArray=(
-  "8" 
+  "3" 
+  "3" 
+  "3" 
 )
 declare -a FHWArray=(
-  "5" 
+  "7" 
+  "7" 
+  "7" 
 )
 declare -a OCArray=(
-  "2" 
+  "64" 
+  "64" 
+  "64" 
 )
 declare -a STArray=(
-  "1" 
+  "2" 
+  "2" 
+  "2" 
 )
