@@ -1,10 +1,33 @@
+#include "api_tester/accelerators/convV2/accelerator.sc.h"
 #include "conv_helper.h"
-#include "mlir/ExecutionEngine/axi/api_v1.h"
+#include "mlir/ExecutionEngine/axi/api_v1_2.h"
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include <vector>
 using namespace std;
+
+#ifndef REAL
+template <typename Integer>
+void connect_dma(ACCNAME *acc, DMA_DRIVER *dmad, int _dma_input_buffer_size,
+                 int _dma_output_buffer_size) {
+
+  cout << "test" << endl;
+  static sc_clock clk_fast("ClkFast", 1, SC_NS);
+  static sc_signal<bool> sig_reset;
+  static sc_fifo<DATA> din1("din1_fifo", _dma_input_buffer_size);
+  static sc_fifo<DATA> dout1("dout1_fifo", _dma_output_buffer_size);
+
+  acc->clock(clk_fast);
+  acc->reset(sig_reset);
+  acc->dout1(dout1);
+  acc->din1(din1);
+  dmad->clock(clk_fast);
+  dmad->reset(sig_reset);
+  dmad->dout1(dout1);
+  dmad->din1(din1);
+}
+#endif
 
 void reset(conv2d_params p, int *arg0, int *arg1, int *arg2) {
   for (int n = 0; n < p.b; n++) {
@@ -92,24 +115,24 @@ void coreKernel(int *arg0, int *arg1, int *arg2, dma *dma1, conv2d_params *p,
                 int b, int oh, int ow, int oc) {
   unsigned int *dma_inbuffer = dma1->dma_get_inbuffer();
   int data_len = 0;
-  int offset = p->ic*p->fh*p->fw;
+  int offset = p->ic * p->fh * p->fw;
 
   uint32_t opcode = 15;
-  dma_inbuffer[data_len++]=opcode;
+  dma_inbuffer[data_len++] = opcode;
   for (int ic = 0; ic < p->ic; ic++) {
     for (int fh = 0; fh < p->fh; fh++) {
       for (int fw = 0; fw < p->fw; fw++) {
         int h = oh + fh;
         int w = ow + fw;
         dma_inbuffer[data_len] = arg0[(b * p->ic * p->ih * p->iw) +
-                                        (ic * p->ih * p->iw) + (h * p->iw) + w];
-        dma_inbuffer[offset+data_len++] =
+                                      (ic * p->ih * p->iw) + (h * p->iw) + w];
+        dma_inbuffer[offset + data_len++] =
             arg1[(oc * p->ic * p->fh * p->fw) + (ic * p->fh * p->fw) +
                  (fh * p->fw) + fw];
       }
     }
   }
-  data_len+=offset;
+  data_len += offset;
   dma1->dma_start_send(data_len, 0);
   dma1->dma_wait_send();
   dma1->dma_start_recv(1, 0);
@@ -154,6 +177,8 @@ int main(int argc, char *argv[]) {
   struct dma dma1;
 #ifndef REAL
   dma1.dma_init(0, 0, 1000, 0, 1000);
+  ACCNAME dut("conv_v2");
+  connect_dma<int>(&dut, dma1.dmad, 1000, 1000);
 #else
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
 #endif
@@ -165,8 +190,8 @@ int main(int argc, char *argv[]) {
         for (int oc = 0; oc < p.oc; oc++) {
           unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
           uint32_t opcode = 16;
-          dma_inbuffer[0]=opcode;
-          dma_inbuffer[1]=p.ic;
+          dma_inbuffer[0] = opcode;
+          dma_inbuffer[1] = p.ic;
           dma1.dma_start_send(2, 0);
           dma1.dma_wait_send();
           coreKernel(arg0, arg1, arg2, &dma1, &p, b, oh, ow, oc);

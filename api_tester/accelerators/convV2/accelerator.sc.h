@@ -1,40 +1,30 @@
 #ifndef CONV2D_H
 #define CONV2D_H
 
+#include "../../../llvm-project/mlir/include/mlir/ExecutionEngine/axi/accelerators/dma_engine.sc.h"
 #include <systemc.h>
 
 #ifndef __SYNTHESIS__
 #define DWAIT(x) wait(x)
 #else
 #define DWAIT(x)
+#define PRAGMA(X) _Pragma(#X)
+#define HWC_AXI4LiteS(name, signame)                                           \
+  PRAGMA(HLS resource core = AXI4LiteS metadata = "-bus_bundle hwc" variable = \
+             name##_##signame)
+#define HWC_PragGroup(name)                                                    \
+  HWC_AXI4LiteS(name, sts) HWC_AXI4LiteS(name, co) HWC_AXI4LiteS(name, so)
+#define HWC_Define(name)                                                       \
+  sc_in<unsigned int> name##_sts;                                              \
+  sc_signal<unsigned int> name##_si;                                           \
+  sc_out<unsigned int> name##_co;                                              \
+  sc_out<unsigned int> name##_so;                                              \
+  unsigned int name##_cycles;
 #endif
 
-#define H 3 // Filter H
-#define W 3 // Filter W
+#define H 3   // Filter H
+#define W 3   // Filter W
 #define C 128 // Input C
-
-#define PRAGMA(X) _Pragma(#X)
-
-#define HWC_AXI4LiteS(name,signame) PRAGMA(HLS resource core=AXI4LiteS metadata="-bus_bundle hwc" variable=name##_##signame)
-
-#define HWC_PragGroup(name) HWC_AXI4LiteS(name,sts) \
-	HWC_AXI4LiteS(name,co) \
-	HWC_AXI4LiteS(name,so)
-
-#define HWC_Define(name) 	sc_in<unsigned int> name##_sts; \
-	sc_signal<unsigned int> name##_si; \
-	sc_out<unsigned int> name##_co; \
-	sc_out<unsigned int> name## _so; \
-	unsigned int name##_cycles;
-
-typedef struct _DATA {
-  sc_uint<32> data;
-  bool tlast;
-  inline friend ostream &operator<<(ostream &os, const _DATA &v) {
-    cout << "data&colon; " << v.data << " tlast: " << v.tlast;
-    return os;
-  }
-} DATA;
 
 #define ACCNAME CONV_3x3
 #ifdef VERBOSE_ACC
@@ -84,12 +74,9 @@ struct opcode {
   }
 };
 
-
-
 SC_MODULE(ACCNAME) {
   sc_in<bool> clock;
   sc_in<bool> reset;
-
 
   sc_int<32> inputs[H][W][C];
   sc_int<32> filters[H][W][C];
@@ -97,22 +84,18 @@ SC_MODULE(ACCNAME) {
   sc_fifo_in<DATA> din1;
   sc_fifo_out<DATA> dout1;
 
-
-
-
 #ifndef __SYNTHESIS__
   sc_signal<bool, SC_MANY_WRITERS> compute;
   sc_signal<bool, SC_MANY_WRITERS> send;
 #else
   sc_signal<bool> compute;
   sc_signal<bool> send;
+  HWC_Define(read);
+  HWC_Define(compute);
+  HWC_Define(send);
 #endif
 
-	HWC_Define(read);
-	HWC_Define(compute);
-	HWC_Define(send);
-
-	sc_signal<int> ic;
+  sc_signal<int> ic;
 
   void Recv();
 
@@ -120,14 +103,15 @@ SC_MODULE(ACCNAME) {
 
   void Send();
 
-  int mul_int32(int,int);
-
+  int mul_int32(int, int);
 
   void print_profile();
 
   SC_HAS_PROCESS(ACCNAME);
 
-  ACCNAME(sc_module_name name_) : sc_module(name_) // @suppress("Class members should be properly initialized")
+  ACCNAME(sc_module_name name_)
+      : sc_module(
+            name_) // @suppress("Class members should be properly initialized")
   {
     SC_CTHREAD(Recv, clock.pos());
     reset_signal_is(reset, true);
@@ -138,25 +122,23 @@ SC_MODULE(ACCNAME) {
     SC_CTHREAD(Send, clock.pos());
     reset_signal_is(reset, true);
 
-
-	#pragma HLS RESOURCE variable=din1 core=AXI4Stream metadata="-bus_bundle S_AXIS_DATA1" port_map={{din1_0 TDATA} {din1_1 TLAST}}
-	#pragma HLS RESOURCE variable=dout1 core=AXI4Stream metadata="-bus_bundle M_AXIS_DATA1" port_map={{dout1_0 TDATA} {dout1_1 TLAST}}
-	#pragma HLS RESET variable=reset
-
+// clang-format off
+#ifdef __SYNTHESIS__
+#pragma HLS RESOURCE variable=din1 core=AXI4Stream metadata="-bus_bundle S_AXIS_DATA1" port_map={{din1_0 TDATA} {din1_1 TLAST}}
+#pragma HLS RESOURCE variable=dout1 core=AXI4Stream metadata="-bus_bundle M_AXIS_DATA1" port_map={{dout1_0 TDATA} {dout1_1 TLAST}}
+#pragma HLS RESET variable=reset
 #pragma HLS array_partition variable=inputs cyclic dim=3 factor=4
 #pragma HLS array_partition variable=filters cyclic dim=3 factor=4
-
 #pragma HLS array_partition variable=inputs complete dim=1
 #pragma HLS array_partition variable=inputs complete dim=2
-
 #pragma HLS array_partition variable=filters complete dim=1
 #pragma HLS array_partition variable=filters complete dim=2
-
 		HWC_PragGroup(read)
 		HWC_PragGroup(compute)
 		HWC_PragGroup(send)
+#endif
+    // clang-format on
   }
 };
-
 
 #endif

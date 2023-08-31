@@ -122,7 +122,8 @@ cmake --build $PROJ_ROOT/builds/llvm-project/build-x86 --target \
     mlir_syscaxi_runner_utils_accv2 \
     mlir_syscaxi_runner_utils_accv3 \
     mlir_syscaxi_runner_utils_accv4 \
-    mlir_syscaxi_runner_utils_conv_accv1
+    mlir_syscaxi_runner_utils_conv_accv1 \
+    mlir_syscaxi_runner_utils_conv_accv3
 ```
 
 A 4 by 4 matmul example can be executed with mlir jitter, triggering a systemC
@@ -278,7 +279,8 @@ cmake --build $PROJ_ROOT/builds/llvm-project/build-x86 \
     mlir_syscaxi_runner_utils_accv2 \
     mlir_syscaxi_runner_utils_accv3 \
     mlir_syscaxi_runner_utils_accv4 \
-    mlir_syscaxi_runner_utils_conv_accv1
+    mlir_syscaxi_runner_utils_conv_accv1 \
+    mlir_syscaxi_runner_utils_conv_accv3
 ```
 
 To recompile inside docker, with `PROJ_ROOT=/working_dir`:
@@ -297,6 +299,7 @@ cmake --build /working_dir/builds/llvm-project/build-x86 --target clang opt mlir
  mlir_syscaxi_runner_utils_accv3 \
  mlir_syscaxi_runner_utils_accv4 \
  mlir_syscaxi_runner_utils_conv_accv1 \
+mlir_syscaxi_runner_utils_conv_accv3 \
  && \
 cmake --build /working_dir/builds/llvm-project/build-runner-arm --target mlir_c_runner_utils mlir_runner_utils mlir_axi_runner_utils mlir_mockaxi_runner_utils
 ```
