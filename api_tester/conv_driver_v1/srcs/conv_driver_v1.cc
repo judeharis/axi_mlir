@@ -116,15 +116,31 @@ int main() {
   int fw = FHW;
   int oc = OC;
   int stride = ST;
-  int oh = ih - (fh - stride);
-  int ow = iw - (fw - stride);
+  int pad = 0;
+  // int oh = ih - (fh - stride);
+  // int ow = iw - (fw - stride);
+  int oh = (((ih - fh + 2*pad)/stride) + 1);
+  int ow = (((iw - fw + 2*pad)/stride) + 1);
 
-  struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow};
+  // print problem size
+  cout << "Problem size: " << endl;
+  cout << "B: " << b << endl;
+  cout << "IH: " << ih << endl;
+  cout << "IW: " << iw << endl;
+  cout << "IC: " << ic << endl;
+  cout << "FH: " << fh << endl;
+  cout << "FW: " << fw << endl;
+  cout << "OC: " << oc << endl;
+  cout << "OH: " << oh << endl;
+  cout << "OW: " << ow << endl;
+
+
+  struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad};
   p.validate();
-  auto arg0 = new int[b * ih * iw * ic];
-  auto arg1 = new int[fh * fw * ic * oc];
-  auto arg2 = new int[b * oh * ow * oc];
-  auto arg3 = new int[b * oh * ow * oc];
+  auto arg0 = new int[b * ih * iw * ic]();
+  auto arg1 = new int[fh * fw * ic * oc]();
+  auto arg2 = new int[b * oh * ow * oc]();
+  auto arg3 = new int[b * oh * ow * oc]();
 
 #if TEST
   reset(p, arg0, arg1, arg3);
@@ -155,7 +171,7 @@ int main() {
   printf("B: %d, IH: %d, IW: %d, IC: %d, FH: %d, FW: %d, OC: %d, OH: %d, OW: %d\n",
          p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow);
   printf("finished execution. Printing matrices: \n");
-  dump_in(p, arg0, arg1);
+  // dump_in(p, arg0, arg1);
   dump_out(p,arg2);
 #endif
 

@@ -8,21 +8,8 @@
 #include <vector>
 using namespace std;
 
-void v3_Fs(int *input, volatile int *filter, int *output) {
-  int b = B;
-  int ih = IHW;
-  int iw = IHW;
-  int ic = IC;
-  int fh = FHW;
-  int fw = FHW;
-  int oc = OC;
-  int stride = ST;
-  int oh = ih - (fh - stride);
-  int ow = iw - (fw - stride);
-  struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow};
-
+void v3_Fs(int *input, int *filter, int *output) {
 #if DBG
-
   printf("==============================\n");
   printf("ACC on file: %s\n", __FILE__);
   printf("=-----------------------=\n");
@@ -34,16 +21,31 @@ void v3_Fs(int *input, volatile int *filter, int *output) {
   // This is a hack to get around segfaults
   for (int k = 0; k < (fh * fw * ic * oc); k++)
     filter[i++] += (-1) + 1;
-
   for (int k = 0; k < (b * ih * iw * ic); k++)
     input[i++] += (-1) + 1;
-
   struct dma dma1;
   dma1.dma_init(0, 0, 1000, 0, 1000);
 #else
   struct dma dma1;
   dma1.dma_init(0x40400000, 0x16000000, 65536, 0x16400000, 65536);
 #endif
+
+  int b = B;
+  int ih = IHW;
+  int iw = IHW;
+  int ic = IC;
+  int fh = FHW;
+  int fw = FHW;
+  int oc = OC;
+  int stride = ST;
+  int pad = 0;
+  int oh = (((ih - fh + 2 * pad) / stride) + 1);
+  int ow = (((iw - fw + 2 * pad) / stride) + 1);
+  struct conv2d_params p(b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad);
+  printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow: "
+         "%d, stride: %d, pad: %d\n",
+         p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow, p.stride,
+         p.padding);
 
   // Pre-config filter height and width
   unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
@@ -53,14 +55,9 @@ void v3_Fs(int *input, volatile int *filter, int *output) {
   dma1.dma_start_send(2, 0);
   dma1.dma_wait_send();
 
-  printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow: "
-         "%d\n",
-         b, ih, iw, ic, fh, fw, oc, oh, ow);
-
   // Start Tiling
   for (int b = 0; b < p.b; b++) {       // N
     for (int oc = 0; oc < p.oc; oc++) { // F
-      cout << "here1" << endl;
 
       // Send IC parameter
       uint32_t opcode = 16;
@@ -96,15 +93,18 @@ void v3_Fs(int *input, volatile int *filter, int *output) {
           for (int ic = 0; ic < p.ic; ic++) {     // C
             for (int fh = 0; fh < p.fh; fh++) {   // H
               for (int fw = 0; fw < p.fw; fw++) { // W
-                int h = oh + fh;
-                int w = ow + fw;
+                int h = (oh * stride) + fh;
+                int w = (ow * stride) + fw;
                 // dma_inbuffer[data_len++] = 1;
                 dma_inbuffer[data_len++] =
                     input[(b * p.ic * p.ih * p.iw) + (ic * p.ih * p.iw) +
                           (h * p.iw) + w];
+                // cout << dma_inbuffer[data_len - 1] << ", ";
               }
+              // cout << endl;
             }
           }
+          // cin.ignore();
           dma1.dma_start_send(data_len, 0);
           dma1.dma_wait_send();
         }
@@ -125,6 +125,10 @@ void v3_Fs(int *input, volatile int *filter, int *output) {
         for (int ow = 0; ow < p.ow; ow++) {
           output[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) + (ow * p.oc) +
                  oc] += dma_outbuffer[out_index++];
+          // cout << "dma_outbuffer[" << out_index - 1
+          //      << "] = " << dma_outbuffer[out_index - 1] << endl;
+
+          // cin.ignore();
         }
       }
     }
