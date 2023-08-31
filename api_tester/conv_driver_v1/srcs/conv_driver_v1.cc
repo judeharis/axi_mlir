@@ -155,6 +155,7 @@ int main() {
 #elif RUNMLIR
   // ==========================================================
   // MLIR without C interface
+  reset(p, arg0, arg1, arg2);
   // clang-format off
   // TODO, must double check sizes and strides
   MLIRCONV2DCALL((int *)arg0, (int *)arg0, 0, p.b, p.ih, p.iw, p.ic,

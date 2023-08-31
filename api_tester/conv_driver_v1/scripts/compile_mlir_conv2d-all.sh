@@ -19,4 +19,4 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
   srcs/mlir_conv2ds.mlir \
   -o $OUTDIR/llvm_acc_${ACCEL_TYPE}.mlir 
   # \
-  # -print-ir-after-all 2>&1 | cat > $OUTDIR/intermediate_acc${ACCEL_SIZE}_${ACCEL_TYPE}.mlir
+  # -print-ir-after-all 2>&1 | cat > $OUTDIR/intermediate_acc_${ACCEL_TYPE}.mlir

@@ -24,6 +24,8 @@ layer_0 = [1, 230, 3, 7, 64, 2, "Valid", 112]
 # layer_8 = [1,14,256,1,512,2,'Same',7]
 # layer_9 = [1,16,256,3,512,2,'Valid',7]
 # layer_10 = [1,9,512,3,512,1,'Same',7]
+layer_test_st1 = [1, 7, 8, 3, 2, 1, "Valid", 112]
+layer_test_st2 = [1, 7, 8, 3, 2, 2, "Valid", 112]
 
 problems = [
     layer_0,
@@ -37,6 +39,8 @@ problems = [
     #     layer_8,
     #     layer_9,
     #     layer_10,
+    layer_test_st1,
+    layer_test_st2,
 ]
 
 tag_array = []
