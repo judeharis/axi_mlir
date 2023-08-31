@@ -136,10 +136,10 @@ int main() {
 
   struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad};
   p.validate();
-  auto arg0 = new int[b * ih * iw * ic]();
-  auto arg1 = new int[fh * fw * ic * oc]();
-  auto arg2 = new int[b * oh * ow * oc]();
-  auto arg3 = new int[b * oh * ow * oc]();
+  auto arg0 = new int[b * ic * ih * iw]();
+  auto arg1 = new int[oc* ic * fh * fw]();
+  auto arg2 = new int[b * oc * oh * ow]();
+  auto arg3 = new int[b * oc * oh * ow]();
 
 #if TEST
   reset(p, arg0, arg1, arg3);
@@ -164,6 +164,20 @@ int main() {
                                               p.fw*p.ic*p.oc, p.ic*p.oc, p.oc, 1,
                  (int *)arg2, (int *)arg2, 0, p.b, p.oh, p.ow, p.oc,
                                               p.oh*p.ow*p.oc, p.ow*p.oc, p.oc, 1);
+  // print sizes and strides for each arg, each dimension separated by a comma
+#if DBG
+  cout << "MLIR memref sizes and strides: " << endl;
+  cout << "arg0: " << endl;
+  cout << "  sizes: " << p.b << "," << p.ih << "," << p.iw << "," << p.ic << endl;
+  cout << "  strides: " << p.ih*p.iw*p.ic << "," << p.iw*p.ic << "," << p.ic << "," << 1 << endl;
+  cout << "arg1: " << endl;
+  cout << "  sizes: " << p.fh << "," << p.fw << "," << p.ic << "," << p.oc << endl;
+  cout << "  strides: " << p.fw*p.ic*p.oc << "," << p.ic*p.oc << "," << p.oc << "," << 1 << endl;
+  cout << "arg2: " << endl;
+  cout << "  sizes: " << p.b << "," << p.oh << "," << p.ow << "," << p.oc << endl;
+  cout << "  strides: " << p.oh*p.ow*p.oc << "," << p.ow*p.oc << "," << p.oc << "," << 1 << endl;
+#endif
+
 #if DBG
   printf("Executed MLIR version on accelerator\n");
 #endif
@@ -175,8 +189,8 @@ int main() {
   printf("B: %d, IH: %d, IW: %d, IC: %d, FH: %d, FW: %d, OC: %d, OH: %d, OW: %d\n",
          p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow);
   printf("finished execution. Printing matrices: \n");
-  // dump_in(p, arg0, arg1);
-  // dump_out(p,arg2);
+  dump_in(p, arg0, arg1);
+  dump_out(p,arg2);
 #endif
 
 int ret = 0;
@@ -184,7 +198,15 @@ int ret = 0;
 #if TEST
   ret = testCorrect(arg2, arg3, ow*oh*oc);
 #if DBG
-  // dump_out(p,arg3);
+
+if (ret != 0)
+{
+  printf("======================\n");
+  printf("Expected: \n");
+  dump_out(p,arg3);
+  
+  printf("Failed: Output and golden differ. \n");
+}
 #endif
 #endif
 
