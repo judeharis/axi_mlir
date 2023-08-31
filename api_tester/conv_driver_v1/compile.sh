@@ -77,9 +77,11 @@ source ./generated/array.sh
 # Compiling mlir conv2d library for a given accelerator size
 echo "Compiling mlir conv2d library for a given accelerator size..."
 
+# Iterate the string array using for loop
+for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
-# source srcs/compile_mlir_conv2d-all.sh
+source scripts/compile_mlir_conv2d-all.sh
 
 ## This generated .ll file
 # $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
@@ -116,7 +118,8 @@ echo "Compiling mlir conv2d library for a given accelerator size..."
 #     -L$PROJ_ROOT/builds/llvm-project/build-x86/lib \
 #     -lmlir_runner_utils $SYSC_LIB
 # fi
-# echo "... Done compiling mlir conv2d library for a given accelerator size."
+done # ACCEL_TYPE
+echo "... Done compiling mlir conv2d library for a given accelerator size."
 
 
 
