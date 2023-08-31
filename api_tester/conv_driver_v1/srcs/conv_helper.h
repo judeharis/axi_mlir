@@ -50,11 +50,9 @@ void simpleConv2D(conv2d_params p, int *inputs, int *filters, int *outputs) {
     for (int oc = 0; oc < p.oc; oc++) {
       for (int oh = 0; oh < p.oh; oh++) {
         for (int ow = 0; ow < p.ow; ow++) {
-
-          for (int fh = 0; fh < p.fh; fh++) {
-            for (int fw = 0; fw < p.fw; fw++) {
-              for (int ic = 0; ic < p.ic; ic++) {
-
+          for (int ic = 0; ic < p.ic; ic++) {
+            for (int fh = 0; fh < p.fh; fh++) {
+              for (int fw = 0; fw < p.fw; fw++) {
                 int h = (oh * p.stride) + fh;
                 int w = (ow * p.stride) + fw;
                 // int inp = inputs[b][h][w][ic];
@@ -77,8 +75,10 @@ void simpleConv2D(conv2d_params p, int *inputs, int *filters, int *outputs) {
 
                 int prod = inp * wgt;
                 // outputs[b][oh][ow][oc] += prod;
-                outputs[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) +
-                        (ow * p.oc) + oc] += prod;
+                // outputs[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) +
+                //         (ow * p.oc) + oc] += prod;
+                outputs[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) +
+                        (oh * p.ow) + ow] += prod;
               }
             }
           }
