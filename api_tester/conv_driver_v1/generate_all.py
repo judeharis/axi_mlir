@@ -2,13 +2,15 @@
 import argparse
 import itertools
 import os
-
+import generator
 
 # tinybert
 
 ## the following variables define a problem put into an array
 # problems = [[1, 7, 8, 5, 2, 2]]
 # problems = [[1, 7, 3, 3, 2, 2]]
+problems = [[1, 7, 2 , 3, 2, 2]]
+
 
 
 # [b,iwh,ic,fwh,oc,st]
@@ -29,23 +31,19 @@ layer_test_st2 = [1, 7, 8, 3, 2, 2, "Valid"]
 test_st1 = [1, 7, 1, 3, 2, 1, "Valid"]
 test_st2 = [1, 7, 2, 3, 2, 1, "Valid"]
 
-problems = [
-    layer_0,
-    #     layer_1,
-    #     layer_2,
-    #     layer_3,
-    #     layer_4,
-    #     layer_5,
-    #     layer_6,
-    #     layer_7,
-    #     layer_8,
-    #     layer_9,
-    #     layer_10,
-    layer_test_st1,
-    layer_test_st2,
-    test_st1,
-    test_st2
-]
+# problems = [
+#     layer_0,
+#     #     layer_1,
+#     #     layer_2,
+#     #     layer_3,
+#     #     layer_4,
+#     #     layer_5,
+#     #     layer_6,
+#     #     layer_7,
+#     #     layer_8,
+#     #     layer_9,
+#     #     layer_10,
+# ]
 
 tag_array = []
 b_array = []
@@ -61,7 +59,7 @@ dataflow_array = []
 mlir_call = []
 
 
-def process(id, dims, lang, target, accel_name, dataflow):
+def process(id, dims, lang, target, accel_name, dataflow, args):
     tag = f"B{dims[0]}_IHW{dims[1]}_IC{dims[2]}_FHW{dims[3]}_OC{dims[4]}_ST{dims[5]}-{lang}-{target}-{accel_name}-{dataflow}"
     tag_array.append(tag)
     b_array.append(dims[0])
@@ -74,20 +72,34 @@ def process(id, dims, lang, target, accel_name, dataflow):
     target_array.append(target)
     accel_name_array.append(accel_name)
     dataflow_array.append(dataflow)
-    mlir_call.append(
-        "conv2d_B{}_IHW{}_IC{}_FHW{}_OC{}_ST{}_{}_{}_{}_call".format(
+    ohw = ((dims[1] - dims[3]) // dims[5]) + 1
+    mlir_call_str = "conv2d_B{}_IHW{}_IC{}_FHW{}_OC{}_ST{}_{}_{}_{}_call".format(
+        dims[0],
+        dims[1],
+        dims[2],
+        dims[3],
+        dims[4],
+        dims[5],
+        lang,
+        target,
+        accel_name,
+        dataflow,
+    )
+    mlir_call.append(mlir_call_str)
+    if lang == "MLIR":
+        cmdargs = "{} {} {} {} {} {} {} {}".format(
             dims[0],
             dims[1],
             dims[2],
             dims[3],
             dims[4],
             dims[5],
-            lang,
-            target,
-            accel_name,
-            dataflow,
-        )
-    )
+            ohw,
+            mlir_call_str,
+        ).split()
+        cmdargs.append("--template")
+        cmdargs.append(args.template)
+        generator.main(cmdargs)
 
 
 def declare_arrary(f, name, list):
@@ -112,9 +124,9 @@ def main(raw_args=None):
     args = parser.parse_args(raw_args)
     id = 0
     for dims in problems:
-        # process(id, dims, "MANUAL", "ACC", "v3", "Fs")
-        # process(id, dims, "MLIR", "ACC", "v3", "Fs")
-        process(id, dims, "MLIR", "CPU", "NONE", "NONE")
+        process(id, dims, "MANUAL", "ACC", "v3", "Fs",args)
+        process(id, dims, "MLIR", "ACC", "v3", "Fs",args)
+        process(id, dims, "MLIR", "CPU", "NONE", "NONE",args)
         id += 1
 
     os.system("mkdir -p generated")

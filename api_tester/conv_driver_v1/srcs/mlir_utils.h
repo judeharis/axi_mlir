@@ -41,7 +41,8 @@ extern "C" void _mlir_ciface_print_memref_i32(UnrankedMemRefType *arg0);
 // Print with raw call
 extern "C" void print_memref_i32(int64_t rank, void *ptr);
 
-// TODO: This file should be automatically generated
+
+// #include "mlir_conv2ds.h.inc"
 #include "mlir_conv2ds.h.inc"
 
 #endif /* MLIRUTILS_H */

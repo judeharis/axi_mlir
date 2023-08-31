@@ -1,8 +1,8 @@
 #include "conv_config.h"
 #include "conv_helper.h"
 #include "conv_v3_t1.h"
-#include "mlir_utils.h"
 #include "mlir/ExecutionEngine/axi/api_v1.h"
+#include "mlir_utils.h"
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
@@ -95,8 +95,8 @@ void dump_out(conv2d_params p, int *arg2) {
     for (int c = 0; c < p.oc; c++) {
       for (int h = 0; h < p.oh; h++) {
         for (int w = 0; w < p.ow; w++) {
-          cout << arg2[(n * p.oh * p.ow * p.oc) + (h * p.ow * p.oc) +
-                       (w * p.oc) + c]
+          cout << arg2[(n * p.oc * p.oh * p.ow) + (c * p.oh * p.ow) +
+                       (h * p.ow) + w]
                << ",";
         }
         cout << endl;
@@ -118,8 +118,8 @@ int main() {
   int oc = OC;
   int stride = ST;
   int pad = 0;
-  int oh = (((ih - fh + 2*pad)/stride) + 1);
-  int ow = (((iw - fw + 2*pad)/stride) + 1);
+  int oh = (((ih - fh + 2 * pad) / stride) + 1);
+  int ow = (((iw - fw + 2 * pad) / stride) + 1);
 
   // print problem size
   cout << "Problem size: " << endl;
@@ -133,11 +133,10 @@ int main() {
   cout << "OH: " << oh << endl;
   cout << "OW: " << ow << endl;
 
-
   struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad};
   p.validate();
   auto arg0 = new int[b * ic * ih * iw]();
-  auto arg1 = new int[oc* ic * fh * fw]();
+  auto arg1 = new int[oc * ic * fh * fw]();
   auto arg2 = new int[b * oc * oh * ow]();
   auto arg3 = new int[b * oc * oh * ow]();
 
@@ -157,27 +156,12 @@ int main() {
   // MLIR without C interface
   reset(p, arg0, arg1, arg2);
   // clang-format off
-  // TODO, must double check sizes and strides
-  MLIRCONV2DCALL((int *)arg0, (int *)arg0, 0, p.b, p.ih, p.iw, p.ic,
-                                              p.ih*p.iw*p.ic, p.iw*p.ic, p.ic, 1,
-                 (int *)arg1, (int *)arg1, 0, p.fh, p.fw, p.ic, p.oc,
-                                              p.fw*p.ic*p.oc, p.ic*p.oc, p.oc, 1,
-                 (int *)arg2, (int *)arg2, 0, p.b, p.oh, p.ow, p.oc,
-                                              p.oh*p.ow*p.oc, p.ow*p.oc, p.oc, 1);
-  // print sizes and strides for each arg, each dimension separated by a comma
-#if DBG
-  cout << "MLIR memref sizes and strides: " << endl;
-  cout << "arg0: " << endl;
-  cout << "  sizes: " << p.b << "," << p.ih << "," << p.iw << "," << p.ic << endl;
-  cout << "  strides: " << p.ih*p.iw*p.ic << "," << p.iw*p.ic << "," << p.ic << "," << 1 << endl;
-  cout << "arg1: " << endl;
-  cout << "  sizes: " << p.fh << "," << p.fw << "," << p.ic << "," << p.oc << endl;
-  cout << "  strides: " << p.fw*p.ic*p.oc << "," << p.ic*p.oc << "," << p.oc << "," << 1 << endl;
-  cout << "arg2: " << endl;
-  cout << "  sizes: " << p.b << "," << p.oh << "," << p.ow << "," << p.oc << endl;
-  cout << "  strides: " << p.oh*p.ow*p.oc << "," << p.ow*p.oc << "," << p.oc << "," << 1 << endl;
-#endif
-
+    MLIRCONV2DCALL((int *)arg0, (int *)arg0, 0, p.b, p.ic, p.ih, p.iw,
+                                              p.ic*p.ih*p.iw, p.ih*p.iw, p.iw, 1,
+                 (int *)arg1, (int *)arg1, 0, p.oc, p.ic, p.fh, p.fw,
+                                              p.ic*p.fh*p.fw, p.fh*p.fw, p.fw, 1,
+                 (int *)arg2, (int *)arg2, 0, p.b, p.oc, p.oh, p.ow,
+                                              p.oc*p.oh*p.ow, p.oh*p.ow, p.ow, 1);
 #if DBG
   printf("Executed MLIR version on accelerator\n");
 #endif
@@ -191,6 +175,7 @@ int main() {
   printf("finished execution. Printing matrices: \n");
   dump_in(p, arg0, arg1);
   dump_out(p,arg2);
+  dump_out(p,arg3);
 #endif
 
 int ret = 0;

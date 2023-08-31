@@ -16,3 +16,4 @@ hw_parser/old_code
 benchmark_conv/results_conv/
 api_tester/conv_driver_v1/generated/*
 api_tester/conv_driver_v1/output/*
+api_tester/conv_driver_v1/__pycache__

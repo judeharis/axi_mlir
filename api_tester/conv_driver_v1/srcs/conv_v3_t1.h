@@ -119,8 +119,11 @@ void v3_Fs(int *input, int *filter, int *output) {
 
       for (int oh = 0; oh < p.oh; oh++) {
         for (int ow = 0; ow < p.ow; ow++) {
-          output[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) + (ow * p.oc) +
-                 oc] += dma_outbuffer[out_index++];
+          // output[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) + (ow * p.oc) +
+          //        oc] += dma_outbuffer[out_index++];
+
+          output[(b * p.oc * p.oh * p.ow)  + (oc * p.oh * p.ow) + (oh * p.ow) +
+                 ow] += dma_outbuffer[out_index++];
           // cout << "dma_outbuffer[" << out_index - 1
           //      << "] = " << dma_outbuffer[out_index - 1] << endl;
 
