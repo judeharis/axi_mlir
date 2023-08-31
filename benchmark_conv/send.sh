@@ -35,4 +35,4 @@ rsync -r -av -e ssh ../benchmark_conv $board_user@$board_hostname:$arm_app_dir/
 
 # Attempt to receive results from the board
 echo "If results folder exists, try to copy it to the host system..."
-rsync -r -av -e ssh $board_user@$board_hostname:$arm_app_dir/benchmark_conv/results .
+rsync -r -av -e ssh $board_user@$board_hostname:$arm_app_dir/benchmark_conv/results_conv .

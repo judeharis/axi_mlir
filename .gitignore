@@ -13,3 +13,6 @@ scripts/retrieve_jude.sh
 scripts/send_jude.sh
 hw_parser/commands
 hw_parser/old_code
+benchmark_conv/results_conv/
+api_tester/conv_driver_v1/generated/*
+api_tester/conv_driver_v1/output/*

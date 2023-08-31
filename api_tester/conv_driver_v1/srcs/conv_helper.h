@@ -2,6 +2,7 @@
 #define CONV_HELPER
 
 #include <assert.h>
+#include <iostream>
 struct conv2d_params {
   int b;  // batch
   int ih; // input height
@@ -15,11 +16,11 @@ struct conv2d_params {
   int oh; // output height
   int ow; // output width
 
-  // int padding[4];
-  // int strides[2];
-  // int dil[2];
+  int stride;
+  int padding;
 
-  void validate(){
+  void validate() {
+    assert(b > 0);
     assert(ih > 0);
     assert(iw > 0);
     assert(ic > 0);
@@ -28,24 +29,31 @@ struct conv2d_params {
     assert(oc > 0);
     assert(oh > 0);
     assert(ow > 0);
+    assert(stride > 0);
+    assert(padding >= 0);
+  };
 
+  conv2d_params(int b, int ih, int iw, int ic, int fh, int fw, int oc, int oh,
+                int ow, int stride, int padding)
+      : b(b), ih(ih), iw(iw), ic(ic), fh(fh), fw(fw), oc(oc), oh(oh), ow(ow),
+        stride(stride), padding(padding) {
+    validate();
   };
 };
-
 
 void simpleConv2D(conv2d_params p, int *inputs, int *filters, int *outputs) {
 
   for (int b = 0; b < p.b; b++) {
-    for (int oh = 0; oh < p.oh; oh++) {
-      for (int ow = 0; ow < p.ow; ow++) {
-        for (int oc = 0; oc < p.oc; oc++) {
+    for (int oc = 0; oc < p.oc; oc++) {
+      for (int oh = 0; oh < p.oh; oh++) {
+        for (int ow = 0; ow < p.ow; ow++) {
 
           for (int fh = 0; fh < p.fh; fh++) {
             for (int fw = 0; fw < p.fw; fw++) {
               for (int ic = 0; ic < p.ic; ic++) {
 
-                int h = oh + fh;
-                int w = ow + fw;
+                int h = (oh * p.stride) + fh;
+                int w = (ow * p.stride) + fw;
                 // int inp = inputs[b][h][w][ic];
                 // int inp = inputs[(b * p.ih * p.iw * p.ic) + (h * p.iw * p.ic)
                 // +

@@ -1,3 +1,3 @@
 declare -a AppArray=(
-    driver-0_B1_IHW7_IC8_FHW5_OC2_ST1_MANUAL-app
+    driver-conv2d-B1_IHW230_IC3_FHW7_OC64_ST2-MANUAL_ACC-CONV_v3-Fs-app
 )

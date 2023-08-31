@@ -42,7 +42,7 @@ source ./appslist.sh
 for INPUT in ${AppArray[@]}; do
     if test -f "$APPDIR/$INPUT"; then
         echo "Running $INPUT ..."
-        perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
+        perf stat -r 1 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
         # $APPDIR/$INPUT
         #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
@@ -59,11 +59,11 @@ done # End of INPUT loop
 
 
 # Process alls CSV files and concatenate into a final output
-# mkdir -p results_conv
-# TIMESTAMP_RAW=$(date +%Y_%m_%d-%H:%M:%S-%Z)
-# TIMESTAMP=${TIMESTAMP_RAW// /_}
-# ./prepare_results_conv.py perf_output_conv>results_conv/results-${HOSTNAME}-${TIMESTAMP}.csv
-# cp -f results_conv/results-${HOSTNAME}-${TIMESTAMP}.csv results_conv/results-latest.csv
-# chown -R xilinx:xilinx *
+mkdir -p results_conv
+TIMESTAMP_RAW=$(date +%Y_%m_%d-%H:%M:%S-%Z)
+TIMESTAMP=${TIMESTAMP_RAW// /_}
+./prepare_results_conv.py perf_output_conv>results_conv/results-${HOSTNAME}-${TIMESTAMP}.csv
+cp -f results_conv/results-${HOSTNAME}-${TIMESTAMP}.csv results_conv/results-latest.csv
+chown -R xilinx:xilinx *
 # rm ./perf_output_conv/*
 

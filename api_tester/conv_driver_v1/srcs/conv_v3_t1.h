@@ -19,10 +19,6 @@ void v3_Fs(int *input, int *filter, int *output) {
 #ifdef SYSC_T
   int i = 0;
   // This is a hack to get around segfaults
-  for (int k = 0; k < (fh * fw * ic * oc); k++)
-    filter[i++] += (-1) + 1;
-  for (int k = 0; k < (b * ih * iw * ic); k++)
-    input[i++] += (-1) + 1;
   struct dma dma1;
   dma1.dma_init(0, 0, 1000, 0, 1000);
 #else
