@@ -9,7 +9,8 @@ import generator
 ## the following variables define a problem put into an array
 # problems = [[1, 7, 8, 5, 2, 2]]
 # problems = [[1, 7, 3, 3, 2, 2]]
-problems = [[1, 7, 2 , 3, 2, 2]]
+# problems = [[1, 7, 2 , 3, 2, 2]]
+problems = [[1, 7, 4 , 3, 8, 1]]
 
 
 

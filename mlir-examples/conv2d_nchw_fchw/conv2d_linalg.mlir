@@ -35,24 +35,12 @@ func @conv2d_B1_IHW7_IC4_FHW3_OC8_ST2_MLIR_ACC_v3_call(
   return
 }
 
-func @conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_ACC_v3_call(
-  %arg0: memref<1x4x7x7xi32>, 
-  %arg1: memref<8x4x3x3xi32>, 
-  %arg2: memref<1x8x5x5xi32>) {
-  linalg.conv_2d_nchw_fchw {dilations = dense<1> : tensor<2xi64>,
-                            strides = dense<1> : tensor<2xi64>}
-    ins (%arg0, %arg1: memref<1x4x7x7xi32>, memref<8x4x3x3xi32>)
-    outs (%arg2: memref<1x8x5x5xi32>)
-  return
-}
-
-
 #map8 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * 196 + s0 + d1 * 49 + d2 * 7 + d3)>
 #map9 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * 36 + s0 + d1 * 9 + d2 * 3 + d3)>
 #map10 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * 72 + s0 + d1 * 9 + d2 * 3 + d3)>
 #map11 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * 200 + s0 + d1 * 25 + d2 * 5 + d3)>
 
-func @conv2d_accel_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_ACC_v3_call(%arg0: memref<1x4x7x7xi32>, %arg1: memref<8x4x3x3xi32>, %arg2: memref<1x8x5x5xi32>) {
+func @conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_ACC_v3_call(%arg0: memref<1x4x7x7xi32>, %arg1: memref<8x4x3x3xi32>, %arg2: memref<1x8x5x5xi32>) {
   %c1 = arith.constant 1 : index
   %c8 = arith.constant 8 : index
   %c5 = arith.constant 5 : index
