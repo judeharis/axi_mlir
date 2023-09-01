@@ -38,10 +38,10 @@ void v3_Fs(int *input, int *filter, int *output) {
   int oh = (((ih - fh + 2 * pad) / stride) + 1);
   int ow = (((iw - fw + 2 * pad) / stride) + 1);
   struct conv2d_params p(b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad);
-  printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow: "
-         "%d, stride: %d, pad: %d\n",
-         p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow, p.stride,
-         p.padding);
+  // printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow: "
+  //        "%d, stride: %d, pad: %d\n",
+  //        p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow, p.stride,
+  //        p.padding);
 
   // Pre-config filter height and width
   unsigned int *dma_inbuffer = dma1.dma_get_inbuffer();
@@ -100,37 +100,38 @@ void v3_Fs(int *input, int *filter, int *output) {
           dma1.dma_start_send(data_len, 0);
           dma1.dma_wait_send();
 
-          data_len = 0;
-          opcode = 8;
-          dma_inbuffer[0] = opcode;
-          dma1.dma_start_send(1, 0);
-          dma1.dma_wait_send();
-          dma1.dma_start_recv(1, 0);
-          dma1.dma_wait_recv();
-          unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
-          int out_index = 0;
+          // data_len = 0;
+          // opcode = 8;
+          // dma_inbuffer[0] = opcode;
+          // dma1.dma_start_send(1, 0);
+          // dma1.dma_wait_send();
+          // dma1.dma_start_recv(1, 0);
+          // dma1.dma_wait_recv();
+          // unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+          // int out_index = 0;
+          // output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
+          //        ow] += dma_outbuffer[out_index++];
+        }
+      }
+
+      // Send Recieve all outputs for current OC
+      data_len = 0;
+      opcode = 8;
+      dma_inbuffer[0] = opcode;
+      dma1.dma_start_send(1, 0);
+      dma1.dma_wait_send();
+      dma1.dma_start_recv(p.oh * p.ow, 0);
+      dma1.dma_wait_recv();
+      unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+      int out_index = 0;
+
+      for (int oh = 0; oh < p.oh; oh++) {
+        for (int ow = 0; ow < p.ow; ow++) {
           output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
                  ow] += dma_outbuffer[out_index++];
         }
       }
-
-      // // Send Recieve all outputs for current OC
-      // data_len = 0;
-      // opcode = 8;
-      // dma_inbuffer[0] = opcode;
-      // dma1.dma_start_send(1, 0);
-      // dma1.dma_wait_send();
-      // dma1.dma_start_recv(p.oh * p.ow, 0);
-      // dma1.dma_wait_recv();
-      // unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
-      // int out_index = 0;
-
-      // for (int oh = 0; oh < p.oh; oh++) {
-      //   for (int ow = 0; ow < p.ow; ow++) {
-      //     output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
-      //            ow] += dma_outbuffer[out_index++];
-      //   }
-      // }
+      // cin.ignore();
 
     }
   }

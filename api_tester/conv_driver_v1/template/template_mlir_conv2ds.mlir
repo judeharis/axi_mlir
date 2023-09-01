@@ -19,10 +19,10 @@
 // 200=5x5x8 = ${OHWxOHWxOC}
 
 
-#map8 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${IHWxIHWxIC} + s0 + d1 * ${IHWxIHW} + d2 * ${IHW} + d3)>
-#map9 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${FHWxFHWxIC} + s0 + d1 * ${FHWxFHW} + d2 * ${FHW} + d3)>
-#map10 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${FHWxFHWxOC} + s0 + d1 * ${FHWxFHW} + d2 * ${FHW} + d3)>
-#map11 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${OHWxOHWxOC} + s0 + d1 * ${OHWxOHW} + d2 * ${OHW} + d3)>
+#${MLIR_CALL}_map8 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${IHWxIHWxIC} + s0 + d1 * ${IHWxIHW} + d2 * ${IHW} + d3)>
+#${MLIR_CALL}_map9 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${FHWxFHWxIC} + s0 + d1 * ${FHWxFHW} + d2 * ${FHW} + d3)>
+#${MLIR_CALL}_map10 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${FHWxFHWxOC} + s0 + d1 * ${FHWxFHW} + d2 * ${FHW} + d3)>
+#${MLIR_CALL}_map11 = affine_map<(d0, d1, d2, d3)[s0] -> (d0 * ${OHWxOHWxOC} + s0 + d1 * ${OHWxOHW} + d2 * ${OHW} + d3)>
 
 func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${OC}x${IC}x${FHW}x${FHW}xi32>, %arg2: memref<${B}x${OC}x${OHW}x${OHW}xi32>) {
   %c1 = arith.constant 1 : index
@@ -82,9 +82,9 @@ func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${
     // }    
     //     dma1.dma_start_send(data_len, 0);
     // dma1.dma_wait_send();
-    %1 = memref.subview %arg1[%arg3, 0, 0, 0] [1, ${IC}, ${FHW}, ${FHW}] [1, 1, 1, 1] : memref<${OC}x${IC}x${FHW}x${FHW}xi32> to memref<1x${IC}x${FHW}x${FHW}xi32, #map9>
+    %1 = memref.subview %arg1[%arg3, 0, 0, 0] [1, ${IC}, ${FHW}, ${FHW}] [1, 1, 1, 1] : memref<${OC}x${IC}x${FHW}x${FHW}xi32> to memref<1x${IC}x${FHW}x${FHW}xi32, #${MLIR_CALL}_map9>
     %c0_i32 = arith.constant 0 : i32
-    %offset6 = accel.send %1, %c0_i32 : (memref<1x${IC}x${FHW}x${FHW}xi32, #map9>, i32) -> i32
+    %offset6 = accel.send %1, %c0_i32 : (memref<1x${IC}x${FHW}x${FHW}xi32, #${MLIR_CALL}_map9>, i32) -> i32
 
 
     scf.for %arg4 = %c0 to %c5 step %c1 { // OH
@@ -95,9 +95,14 @@ func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${
         %c70_i32 = arith.constant 70 : i32
         %offset7 = accel.sendLiteral %c70_i32  : ( i32 ) -> i32
 
+        // JUDE, this subview must get adjusted arg4,arg5
+        %c${ST}_idx = arith.constant ${ST} : index
+        %arg4_new = arith.muli %arg4, %c${ST}_idx : index
+        %arg5_new = arith.muli %arg5, %c${ST}_idx : index
+
         //for C,H,W to send input slice
-        %0 = memref.subview %arg0[0, 0, %arg4, %arg5] [1, ${IC}, ${FHW}, ${FHW}] [1, 1, 1, 1] : memref<${B}x${IC}x${IHW}x${IHW}xi32> to memref<1x${IC}x${FHW}x${FHW}xi32, #map8>
-        %offset8 = accel.send %0, %c0_i32 : (memref<1x${IC}x${FHW}x${FHW}xi32, #map8>, i32) -> i32
+        %0 = memref.subview %arg0[0, 0, %arg4_new, %arg5_new] [1, ${IC}, ${FHW}, ${FHW}] [1, 1, 1, 1] : memref<${B}x${IC}x${IHW}x${IHW}xi32> to memref<1x${IC}x${FHW}x${FHW}xi32, #${MLIR_CALL}_map8>
+        %offset8 = accel.send %0, %c0_i32 : (memref<1x${IC}x${FHW}x${FHW}xi32, #${MLIR_CALL}_map8>, i32) -> i32
 
         // // data_len = 0;
         // // opcode = 8;
@@ -109,8 +114,8 @@ func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${
         
         // // dma1.dma_start_recv(p.oh * p.ow, 0);
         // // dma1.dma_wait_recv();
-        // %2 = memref.subview %arg2[0, %arg3, %arg4, %arg5] [1, 1, 1, 1] [1, 1, 1, 1] : memref<${B}x${OC}x${OHW}x${OHW}xi32> to memref<1x1x1x1xi32, #map11>
-        // %offset10 = accel.recv %2, %c0_i32 : (memref<1x1x1x1xi32, #map11>, i32) -> i32
+        // %2 = memref.subview %arg2[0, %arg3, %arg4, %arg5] [1, 1, 1, 1] [1, 1, 1, 1] : memref<${B}x${OC}x${OHW}x${OHW}xi32> to memref<1x1x1x1xi32, #${MLIR_CALL}_map11>
+        // %offset10 = accel.recv %2, %c0_i32 : (memref<1x1x1x1xi32, #${MLIR_CALL}_map11>, i32) -> i32
       }
     }
 
@@ -120,8 +125,8 @@ func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${
     
     // dma1.dma_start_recv(p.oh * p.ow, 0);
     // dma1.dma_wait_recv();
-    %2 = memref.subview %arg2[0, %arg3, 0, 0] [1, 1, ${OHW}, ${OHW}] [1, 1, 1, 1] : memref<${B}x${OC}x${OHW}x${OHW}xi32> to memref<1x1x${OHW}x${OHW}xi32, #map11>
-    %offset10 = accel.recv %2, %c0_i32 : (memref<1x1x${OHW}x${OHW}xi32, #map11>, i32) -> i32
+    %2 = memref.subview %arg2[0, %arg3, 0, 0] [1, 1, ${OHW}, ${OHW}] [1, 1, 1, 1] : memref<${B}x${OC}x${OHW}x${OHW}xi32> to memref<1x1x${OHW}x${OHW}xi32, #${MLIR_CALL}_map11>
+    %offset10 = accel.recv %2, %c0_i32 : (memref<1x1x${OHW}x${OHW}xi32, #${MLIR_CALL}_map11>, i32) -> i32
 
     }
   }
