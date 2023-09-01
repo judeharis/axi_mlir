@@ -71,7 +71,7 @@ declare -a KernelNameArray=(
   "conv2d"
 )
 
-source ./generate_all.sh
+# source ./generate_all.sh
 source ./generated/array.sh
 
 # ===========================

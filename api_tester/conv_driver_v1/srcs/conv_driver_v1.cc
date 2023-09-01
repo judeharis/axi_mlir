@@ -175,7 +175,6 @@ int main() {
   printf("finished execution. Printing matrices: \n");
   dump_in(p, arg0, arg1);
   dump_out(p,arg2);
-  dump_out(p,arg3);
 #endif
 
 int ret = 0;

@@ -1,5 +1,5 @@
 
-extern "C" void conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_ACC_v3_call(
+extern "C" void conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_ACC_v3_call(
   // First Memref (%arg0)
   int *allocated_ptr0, int *aligned_ptr0,
   int64_t offset0, 
@@ -23,14 +23,14 @@ extern "C" void conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_ACC_v3_call(
   int64_t stride2_d2, int64_t stride2_d3
   );
 
-extern "C" void _mlir_ciface_conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_ACC_v3_call(
+extern "C" void _mlir_ciface_conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_ACC_v3_call(
   memref_4d_descriptor *arg0,
   memref_4d_descriptor *arg1,
   memref_4d_descriptor *arg2);
 
 
 
-extern "C" void conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_CPU_NONE_call(
+extern "C" void conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_CPU_NONE_call(
   // First Memref (%arg0)
   int *allocated_ptr0, int *aligned_ptr0,
   int64_t offset0, 
@@ -54,7 +54,7 @@ extern "C" void conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_CPU_NONE_call(
   int64_t stride2_d2, int64_t stride2_d3
   );
 
-extern "C" void _mlir_ciface_conv2d_B1_IHW7_IC2_FHW3_OC2_ST2_MLIR_CPU_NONE_call(
+extern "C" void _mlir_ciface_conv2d_B1_IHW7_IC4_FHW3_OC8_ST1_MLIR_CPU_NONE_call(
   memref_4d_descriptor *arg0,
   memref_4d_descriptor *arg1,
   memref_4d_descriptor *arg2);

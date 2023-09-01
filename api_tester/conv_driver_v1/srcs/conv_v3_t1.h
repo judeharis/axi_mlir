@@ -91,45 +91,47 @@ void v3_Fs(int *input, int *filter, int *output) {
               for (int fw = 0; fw < p.fw; fw++) { // W
                 int h = (oh * stride) + fh;
                 int w = (ow * stride) + fw;
-                // dma_inbuffer[data_len++] = 1;
                 dma_inbuffer[data_len++] =
                     input[(b * p.ic * p.ih * p.iw) + (ic * p.ih * p.iw) +
                           (h * p.iw) + w];
-                // cout << dma_inbuffer[data_len - 1] << ", ";
               }
-              // cout << endl;
             }
           }
-          // cin.ignore();
           dma1.dma_start_send(data_len, 0);
           dma1.dma_wait_send();
-        }
-      }
 
-      // Send Recieve all outputs for current OC
-      data_len = 0;
-      opcode = 8;
-      dma_inbuffer[0] = opcode;
-      dma1.dma_start_send(1, 0);
-      dma1.dma_wait_send();
-      dma1.dma_start_recv(p.oh * p.ow, 0);
-      dma1.dma_wait_recv();
-      unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
-      int out_index = 0;
-
-      for (int oh = 0; oh < p.oh; oh++) {
-        for (int ow = 0; ow < p.ow; ow++) {
-          // output[(b * p.oh * p.ow * p.oc) + (oh * p.ow * p.oc) + (ow * p.oc) +
-          //        oc] += dma_outbuffer[out_index++];
-
-          output[(b * p.oc * p.oh * p.ow)  + (oc * p.oh * p.ow) + (oh * p.ow) +
+          data_len = 0;
+          opcode = 8;
+          dma_inbuffer[0] = opcode;
+          dma1.dma_start_send(1, 0);
+          dma1.dma_wait_send();
+          dma1.dma_start_recv(1, 0);
+          dma1.dma_wait_recv();
+          unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+          int out_index = 0;
+          output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
                  ow] += dma_outbuffer[out_index++];
-          // cout << "dma_outbuffer[" << out_index - 1
-          //      << "] = " << dma_outbuffer[out_index - 1] << endl;
-
-          // cin.ignore();
         }
       }
+
+      // // Send Recieve all outputs for current OC
+      // data_len = 0;
+      // opcode = 8;
+      // dma_inbuffer[0] = opcode;
+      // dma1.dma_start_send(1, 0);
+      // dma1.dma_wait_send();
+      // dma1.dma_start_recv(p.oh * p.ow, 0);
+      // dma1.dma_wait_recv();
+      // unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
+      // int out_index = 0;
+
+      // for (int oh = 0; oh < p.oh; oh++) {
+      //   for (int ow = 0; ow < p.ow; ow++) {
+      //     output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
+      //            ow] += dma_outbuffer[out_index++];
+      //   }
+      // }
+
     }
   }
   dma1.dma_free();
