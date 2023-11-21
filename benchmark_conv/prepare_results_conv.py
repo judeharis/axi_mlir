@@ -2,6 +2,7 @@
 import argparse
 import os
 
+# driver-conv2d-B1_IHW9_IC512_FHW3_OC512_ST1-MANUAL-ACC-v3-Fs-app
 
 def getDictFromFilename(filename):
   d = {}
@@ -10,6 +11,8 @@ def getDictFromFilename(filename):
 
   d['kernel_name']=r[0]
   d['kernel']='{}_i32'.format(r[0])
+
+  d['tag']=r[1]
 
   s=r[1].replace('B','').replace('IHW','').replace('IC','').replace('FHW','').replace('OC','').replace('ST','').split('_')
   
@@ -60,8 +63,8 @@ def main(raw_args=None):
         for l in file.readlines():
           if (',' in l):
             # Format : 
-            # problem_id,dims,kernel,tool,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT,filename
-            print('{},{},{},{},{},{},{},{},{}'.format(d['dims'],d['kernel'],d['tool'], d['accel_version'],d['accel_strategy'],1,d['hostname'],l.strip('\n'),filename))
+            # problem_id,dims,kernel,tool,accel_size,accel_version,strategy,threads,board,REST OF PERF OUT
+            print('{},{},{},{},{},{},{},{},{}'.format(d['tag'],d['dims'],d['kernel'],d['tool'], d['accel_version'],d['accel_strategy'],1,d['hostname'],l.strip('\n')))
 
 if __name__ == "__main__":
     main()

@@ -122,16 +122,16 @@ int main() {
   int ow = (((iw - fw + 2 * pad) / stride) + 1);
 
   // print problem size
-  cout << "Problem size: " << endl;
-  cout << "B: " << b << endl;
-  cout << "IH: " << ih << endl;
-  cout << "IW: " << iw << endl;
-  cout << "IC: " << ic << endl;
-  cout << "FH: " << fh << endl;
-  cout << "FW: " << fw << endl;
-  cout << "OC: " << oc << endl;
-  cout << "OH: " << oh << endl;
-  cout << "OW: " << ow << endl;
+  // cout << "Problem size: " << endl;
+  // cout << "B: " << b << endl;
+  // cout << "IH: " << ih << endl;
+  // cout << "IW: " << iw << endl;
+  // cout << "IC: " << ic << endl;
+  // cout << "FH: " << fh << endl;
+  // cout << "FW: " << fw << endl;
+  // cout << "OC: " << oc << endl;
+  // cout << "OH: " << oh << endl;
+  // cout << "OW: " << ow << endl;
 
   struct conv2d_params p = {b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad};
   p.validate();

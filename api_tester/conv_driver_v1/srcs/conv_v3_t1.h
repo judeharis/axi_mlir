@@ -38,7 +38,8 @@ void v3_Fs(int *input, int *filter, int *output) {
   int oh = (((ih - fh + 2 * pad) / stride) + 1);
   int ow = (((iw - fw + 2 * pad) / stride) + 1);
   struct conv2d_params p(b, ih, iw, ic, fh, fw, oc, oh, ow, stride, pad);
-  // printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow: "
+  // printf("b: %d, ih: %d, iw: %d, ic: %d, fh: %d, fw: %d, oc: %d, oh: %d, ow:
+  // "
   //        "%d, stride: %d, pad: %d\n",
   //        p.b, p.ih, p.iw, p.ic, p.fh, p.fw, p.oc, p.oh, p.ow, p.stride,
   //        p.padding);
@@ -50,17 +51,16 @@ void v3_Fs(int *input, int *filter, int *output) {
   dma_inbuffer[1] = fh;
   dma1.dma_start_send(2, 0);
   dma1.dma_wait_send();
+  // Send IC parameter
+  opcode = 16;
+  dma_inbuffer[0] = opcode;
+  dma_inbuffer[1] = p.ic;
+  dma1.dma_start_send(2, 0);
+  dma1.dma_wait_send();
 
   // Start Tiling
   for (int b = 0; b < p.b; b++) {       // N
     for (int oc = 0; oc < p.oc; oc++) { // F
-
-      // Send IC parameter
-      uint32_t opcode = 16;
-      dma_inbuffer[0] = opcode;
-      dma_inbuffer[1] = p.ic;
-      dma1.dma_start_send(2, 0);
-      dma1.dma_wait_send();
 
       // Send Filter data for current OC
       int data_len = 0;
@@ -109,7 +109,8 @@ void v3_Fs(int *input, int *filter, int *output) {
           // dma1.dma_wait_recv();
           // unsigned int *dma_outbuffer = dma1.dma_get_outbuffer();
           // int out_index = 0;
-          // output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow) +
+          // output[(b * p.oc * p.oh * p.ow) + (oc * p.oh * p.ow) + (oh * p.ow)
+          // +
           //        ow] += dma_outbuffer[out_index++];
         }
       }
@@ -132,7 +133,6 @@ void v3_Fs(int *input, int *filter, int *output) {
         }
       }
       // cin.ignore();
-
     }
   }
   dma1.dma_free();

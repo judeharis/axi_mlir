@@ -50,20 +50,19 @@ func @${MLIR_CALL}(%arg0: memref<${B}x${IC}x${IHW}x${IHW}xi32>, %arg1: memref<${
   %c3_i32 = arith.constant ${FHW} : i32
   %offset2 = accel.sendLiteral %c3_i32  : ( i32 ) -> i32
 
+  // // Send IC parameter
+  // uint32_t opcode = 16;
+  // dma_inbuffer[0] = opcode;
+  // dma_inbuffer[1] = p.ic;
+  // dma1.dma_start_send(2, 0);
+  // dma1.dma_wait_send();
+  %c16_i32 = arith.constant 16 : i32
+  %offset3 = accel.sendLiteral %c16_i32  : ( i32 ) -> i32
+  %c4_i32 = arith.constant ${IC} : i32
+  %offset4 = accel.sendLiteral %c4_i32  : ( i32 ) -> i32
 
   scf.for %arg6 = %c0 to %c1 step %c1 { // B
   scf.for %arg3 = %c0 to %c8 step %c1 { // OC
-    // // Send IC parameter
-    // uint32_t opcode = 16;
-    // dma_inbuffer[0] = opcode;
-    // dma_inbuffer[1] = p.ic;
-    // dma1.dma_start_send(2, 0);
-    // dma1.dma_wait_send();
-    %c16_i32 = arith.constant 16 : i32
-    %offset3 = accel.sendLiteral %c16_i32  : ( i32 ) -> i32
-    %c4_i32 = arith.constant ${IC} : i32
-    %offset4 = accel.sendLiteral %c4_i32  : ( i32 ) -> i32
-
     // // Send Filter data for current OC
     // int data_len = 0;
     // opcode = 1;

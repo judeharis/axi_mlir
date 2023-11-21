@@ -4,8 +4,8 @@
 set -e -o pipefail
 
 # Change limit
-ulimit -s 65536
-# ulimit -s 131072
+# ulimit -s 65536
+ulimit -s 131072
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/xilinx/Development/axi4mlir/benchmark_conv/libs/
 
@@ -42,7 +42,7 @@ source ./appslist.sh
 for INPUT in ${AppArray[@]}; do
     if test -f "$APPDIR/$INPUT"; then
         echo "Running $INPUT ..."
-        perf stat -r 1 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
+        perf stat -r 5 -x, -o $POUTDIR/perf-results-tmp.csv -e $PEVENTS_ALL $APPDIR/$INPUT
         # $APPDIR/$INPUT
         #perf stat -r 5 -e $PEVENTS_ALL $APPDIR/$INPUT-app
 
