@@ -19,3 +19,7 @@ api_tester/conv_driver_v1/output/
 api_tester/conv_driver_v1/pynq_out/
 api_tester/conv_driver_v1/__pycache__
 benchmark/plotting/paper copy.ipynb
+
+experiments/ex1/ex1_pynq/bins/
+experiments/ex1/ex1_pynq/libs/
+experiments/ex1/ex1_pynq/results/

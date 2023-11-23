@@ -158,7 +158,7 @@ A `C(16x32) = A(16x8) x B(8x32)` accelerator v1 example can be executed with
 the mlir jitter, triggering a systemC simulation with:
 ```
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -test-linalg-to-axi4mlir="flow-cpu-accumulation" \
+        -test-accel-to-axi4mlir \
         -convert-linalg-to-loops -convert-scf-to-cf   -convert-vector-to-llvm \
         -convert-memref-to-llvm -convert-std-to-llvm -reconcile-unrealized-casts \
         $PROJ_ROOT/llvm-project/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir | \
@@ -173,7 +173,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
 ```
 export PROJ_ROOT=/working_dir
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-opt \
-        -test-linalg-to-axi4mlir="flow-cpu-accumulation" \
+        -test-accel-to-axi4mlir \
         -convert-linalg-to-loops -convert-scf-to-cf   \
         -arith-expand \
         -memref-expand \

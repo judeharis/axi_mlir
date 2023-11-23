@@ -1,5 +1,0 @@
-*.ll
-*.o
-app
-a.out
-*-llvm.mlir
