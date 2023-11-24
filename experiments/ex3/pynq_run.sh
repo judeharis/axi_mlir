@@ -1,6 +1,6 @@
 #!/bin/bash
 
-axi4mlir_projroot=/mnt/Crucial/WorkspaceB/AXI4MLIR/axi4mlir/
+axi4mlir_projroot=/working_dir/
 arm_libs_dir=$axi4mlir_projroot/builds/llvm-project/build-runner-arm/lib
 board_user=tester1
 board_hostname=92.237.73.36
