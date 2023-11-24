@@ -9,7 +9,7 @@ bins_dir=bins
 libs_dir=./$ex/libs
 arm_app_dir=/home/axi4mlir/tester1/experiments/
 
+ssh -t -p 2202 $board_user@$board_hostname "cd $arm_app_dir/$ex && sudo ./run.sh"
 
-# Attempt to receive results from the board
 echo "If results folder exists, try to copy it to the host system..."
 rsync -r -av -e 'ssh -p 2202' $board_user@$board_hostname:$arm_app_dir/$ex/results ./$ex/

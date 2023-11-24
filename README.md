@@ -1,9 +1,66 @@
-# axi4mlir
+# AXI4MLIR
 
-* Library for AXI based data transfers to be used with AXI IR
+A custom MLIR dialect for generating host driver code for AXI-based linalg accelerators
+
+# Instruction for artifact evaluators
+
+## Step 0 - Clone repo
+
+```
+git clone -b cgo2024_artifact https://github.com/judeharis/axi_mlir.git axi4mlir
+cd axi4mlir
+git submodule init
+git submodule update
+```
+
+## Step 1 - Build docker image
 
 
-# MLIR Dependencies:
+```
+./build-docker.sh
+```
+
+## Step 2 - Compile required tools from within development container
+
+```bash
+./compile-mlir.sh
+```
+
+## Step 3 - Experiments
+
+Now you have all the required binarys built you can reproduce experiments from the paper.
+The experiments [readme](https://github.com/judeharis/axi_mlir/tree/cgo2024_artifact/experiments/README.md) and the paper's artifact appendix provides the details required to compile and run the experiments. 
+
+---
+
+
+## AXI4MLIR library
+Here are some of the key files where AXI4MLIR is defined within the llvm-project
+
+[Accel Dialect](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/include/mlir/Dialect/Accel/IR/AccelOps.td)
+
+[New Attributes](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/lib/Parser/OpcodeParser.cpp#L157)
+
+[DMA Library](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/include/mlir/ExecutionEngine/AxiUtils.h)
+
+[Linalg to Accel transformation pass](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/lib/Conversion/LinalgToAXI4MLIR/LinalgGenericToAccel.cpp)
+
+
+[Accel to AXI4MLIR DMA library transformation pass](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/lib/Conversion/LinalgToAXI4MLIR/AccelToAXI4MLIR.cpp)
+
+[Current Function Prototypes](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/ExecutionEngine/axi/api_v1.h)
+
+[Example](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir)
+
+[Available Options (end of the file)](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/Conversion/Passes.td)
+
+Tests [1](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/test/axi4mlir-runner/accelerators/matmul-v4-Cs.mlir) & [2](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/test/axi4mlir-runner/accel-to-runtime.mlir)
+
+
+# Natively building AXI4MLIR
+
+## Dependencies:
+
 
 Download the most recent version of cmake installer and ninja binary and add to
 path:
@@ -25,7 +82,7 @@ export SYSTEMC_HOME=/opt/systemc/systemc-2.3.3
 
 Execute the following commands where you want to have a copy of the LLVM project:
 
-## Instructions
+## Instructions to download and build from main repo
 
 To setup the project, use:
 
@@ -99,13 +156,6 @@ popd
 popd
 ```
 
-## AXI4MLIR library
-
-[Current Function Prototypes](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/ExecutionEngine/axi/api_v1.h)
-
-[Example](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/test/axi4mlir-runner/run-matmul-v1accel.mlir)
-
-[Available Options (end of the file)](https://github.com/agostini01/llvm-project/blob/axi4mlir/mlir/include/mlir/Conversion/Passes.td)
 
 ## Running SystemC
 
@@ -199,7 +249,7 @@ $PROJ_ROOT/builds/llvm-project/build-x86/bin/clang -g -o app app.o \
 qemu-arm -L /usr/arm-linux-gnueabihf ./app
 ```
 
-# Using docker
+# Compiling AXI4MLIR within docker manually (advanced)
 
 To create a standalone image with all build dependencies installed follow execute:
 

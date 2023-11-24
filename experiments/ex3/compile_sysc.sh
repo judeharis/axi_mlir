@@ -76,7 +76,7 @@ echo "Compiling mlir conv2d library for a given accelerator type..."
 # for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
-source scripts/compile_mlir_conv2d-all.sh
+source scripts/compile_mlir_conv2d-all-ir.sh
 
 ## This generated .ll file
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \

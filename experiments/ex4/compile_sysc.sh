@@ -86,7 +86,7 @@ echo "Compiling mlir matmul library for a given accelerator size..."
 #   for ACCEL_TYPE in ${AccelTypeArray[@]}; do
 
 # Call the script that performs the MLIR compilation
-source srcs/compile_mlir_matmul-all.sh
+source srcs/compile_mlir_matmul-all-ir.sh
 
 
 $PROJ_ROOT/builds/llvm-project/build-x86/bin/mlir-translate --mlir-to-llvmir \
