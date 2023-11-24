@@ -2,7 +2,7 @@
 FROM ubuntu:18.04 as builder
 
 # Development Tools
-RUN apt update && apt install -y curl wget tree less git vim tmux htop parallel unzip
+RUN apt update && apt install -y curl wget tree less git vim tmux htop parallel unzip rsync
 
 # Compilers
 RUN apt update && apt install -y clang-10 lld-10 clang-format-10 && \
