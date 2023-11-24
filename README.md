@@ -1,8 +1,8 @@
 # AXI4MLIR
 
-A custom MLIR dialect for generating host driver code for AXI-based linalg accelerators
+A custom MLIR dialect for generating host driver code for AXI-based linalg accelerators.
 
-# Instruction for artifact evaluators
+# Artifact Evaluation
 
 ## Step 0 - Clone repo
 
@@ -28,14 +28,14 @@ git submodule update
 
 ## Step 3 - Experiments
 
-Now you have all the required binarys built you can reproduce experiments from the paper.
-The experiments [readme](https://github.com/judeharis/axi_mlir/tree/cgo2024_artifact/experiments/README.md) and the paper's artifact appendix provides the details required to compile and run the experiments. 
+Now that you have all the required binaries built, you can reproduce experiments from the paper.
+The experiments [readme](https://github.com/judeharis/axi_mlir/tree/cgo2024_artifact/experiments/README.md) and the paper's artifact appendix provide the details required to compile and run the experiments. 
 
 ---
 
 
 ## AXI4MLIR library
-Here are some of the key files where AXI4MLIR is defined within the llvm-project
+Here are some of the key files where AXI4MLIR is defined within the llvm-project:
 
 [Accel Dialect](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/include/mlir/Dialect/Accel/IR/AccelOps.td)
 
@@ -57,7 +57,9 @@ Here are some of the key files where AXI4MLIR is defined within the llvm-project
 Tests [1](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/test/axi4mlir-runner/accelerators/matmul-v4-Cs.mlir) & [2](https://github.com/agostini01/llvm-project/blob/f2172866a5c47516dd4f4b823c7a75c96821f6f7/mlir/test/axi4mlir-runner/accel-to-runtime.mlir)
 
 
-# Natively building AXI4MLIR
+---
+
+# Building AXI4MLIR from source
 
 ## Dependencies:
 
