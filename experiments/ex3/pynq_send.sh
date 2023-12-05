@@ -3,7 +3,7 @@
 axi4mlir_projroot=/working_dir/
 arm_libs_dir=$axi4mlir_projroot/builds/llvm-project/build-runner-arm/lib
 board_user=tester1
-board_hostname=92.237.73.36
+board_hostname=jharis.ddns.net
 ex=ex3_pynq
 bins_dir=bins
 libs_dir=./$ex/libs
